@@ -1,0 +1,81 @@
+/* ==================== PORTFOLIO ARTHUR — TOKENS ====================
+   Socle du design futuriste / glassmorphism du portfolio.
+   Les variables sont scopées sous .ab-page (racine de l'app).
+   Chaque section expose sa couleur via --section-accent (style inline). */
+.ab-page {
+  /* Fond */
+  --ab-bg: #05060f;
+  --ab-bg-glow-1: rgba(56, 189, 248, 0.18);
+  --ab-bg-glow-2: rgba(167, 139, 250, 0.16);
+  --ab-bg-glow-3: rgba(244, 114, 182, 0.1);
+
+  /* Verre */
+  --ab-glass: rgba(255, 255, 255, 0.06);
+  --ab-glass-strong: rgba(255, 255, 255, 0.1);
+  --ab-glass-border: rgba(255, 255, 255, 0.14);
+  --ab-glass-highlight: rgba(255, 255, 255, 0.28);
+  --ab-blur: 18px;
+
+  /* Texte */
+  --ab-text: #e8ecf8;
+  --ab-text-muted: rgba(232, 236, 248, 0.68);
+  --ab-text-faint: rgba(232, 236, 248, 0.42);
+
+  /* Accent par défaut (surchargé par section) */
+  --section-accent: #38bdf8;
+  --ab-accent-cyan: #38bdf8;
+  --ab-accent-violet: #a78bfa;
+
+  /* Typo (polices chargées dans index.html) */
+  --ab-font-heading: "Space Grotesk", sans-serif;
+  --ab-font-body: "DM Sans", sans-serif;
+  --ab-font-mono: "JetBrains Mono", monospace;
+
+  /* Rayons / ombres */
+  --ab-radius-sm: 10px;
+  --ab-radius-md: 18px;
+  --ab-radius-lg: 28px;
+  --ab-radius-pill: 999px;
+  --ab-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  --ab-glow: 0 0 24px color-mix(in srgb, var(--section-accent) 55%, transparent);
+
+  /* Mise en page */
+  --ab-nav-height: 72px;
+  --ab-gutter: clamp(16px, 4vw, 48px);
+  --ab-max-width: 1180px;
+
+  /* Animations */
+  --ab-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: relative;
+  min-height: 100vh;
+  background: var(--ab-bg);
+  color: var(--ab-text);
+  font-family: var(--ab-font-body);
+  overflow-x: clip;
+}
+
+/* Surface de verre réutilisable */
+.ab-glass {
+  background: linear-gradient(
+    135deg,
+    var(--ab-glass-strong),
+    var(--ab-glass)
+  );
+  border: 1px solid var(--ab-glass-border);
+  border-radius: var(--ab-radius-md);
+  backdrop-filter: blur(var(--ab-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--ab-blur)) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 var(--ab-glass-highlight),
+    var(--ab-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-page *,
+  .ab-page *::before,
+  .ab-page *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
