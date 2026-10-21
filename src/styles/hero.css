@@ -42,26 +42,6 @@
   border-radius: var(--ab-radius-lg);
 }
 
-.ab-hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 12px;
-  font: 500 0.74rem/1 var(--ab-font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ab-text-faint);
-}
-
-.ab-hero__signal {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--ab-accent-cyan);
-  box-shadow: 0 0 12px var(--ab-accent-cyan);
-  animation: ab-signal 2.4s ease-in-out infinite;
-}
-
 .ab-hero__name {
   margin: 0 0 8px;
   font: 700 clamp(2rem, 3.4vw, 3.1rem) / 1.05 var(--ab-font-heading);
@@ -188,6 +168,32 @@
   border-bottom: 1px solid var(--ab-glass-border);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+.ab-nav-band__name {
+  position: absolute;
+  top: 50%;
+  left: var(--ab-gutter);
+  transform: translateY(-50%);
+  font: 700 1.1rem/1 var(--ab-font-heading);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  background: linear-gradient(
+    100deg,
+    var(--ab-text) 30%,
+    var(--ab-accent-cyan) 70%,
+    var(--ab-accent-violet)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Pas la place pour le nom à côté des bulles : on le masque. */
+@media (max-width: 1099px) {
+  .ab-nav-band__name {
+    display: none;
+  }
 }
 
 /* Nœud central : photo en cercle avec anneau de verre et halo. */
@@ -379,13 +385,6 @@
   }
 }
 
-@keyframes ab-signal {
-  50% {
-    opacity: 0.35;
-    transform: scale(0.7);
-  }
-}
-
 @keyframes ab-scroll-line {
   from {
     transform: translateY(-100%);
@@ -459,7 +458,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ab-hero__signal,
   .ab-hero__scroll-line::after,
   .ab-bubble__body {
     animation: none;

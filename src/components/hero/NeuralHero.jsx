@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types -- React 19 n'exploite plus les propTypes */
 import { Component, Suspense, lazy, useEffect, useRef, useState } from "react";
 import CanvasNetwork from "./CanvasNetwork.jsx";
-import { HIDDEN_LAYERS, createNetworkEngine } from "./networkEngine.js";
+import { createNetworkEngine } from "./networkEngine.js";
 import { useActiveSection } from "./useActiveSection.js";
 import { useMediaQuery } from "./useMediaQuery.js";
 import "../../styles/hero.css";
@@ -85,6 +85,7 @@ export default function NeuralHero({ profile, renderer = "auto" }) {
   const stageReference = useRef(null);
   const navReference = useRef(null);
   const bandReference = useRef(null);
+  const brandReference = useRef(null);
   const coreReference = useRef(null);
   const spacerReference = useRef(null);
 
@@ -94,6 +95,7 @@ export default function NeuralHero({ profile, renderer = "auto" }) {
       stage: stageReference.current,
       nav: navReference.current,
       band: bandReference.current,
+      brand: brandReference.current,
       core: coreReference.current,
       spacer: spacerReference.current,
     });
@@ -128,10 +130,6 @@ export default function NeuralHero({ profile, renderer = "auto" }) {
       <header ref={heroReference} className="ab-hero">
         <div className="ab-hero__intro ab-glass">
           <div className="ab-hero__heading">
-            <p className="ab-hero__eyebrow">
-              <span className="ab-hero__signal" aria-hidden="true" />
-              MLP · {sections.length} → {HIDDEN_LAYERS.join(" → ")} → 1
-            </p>
             <h1 className="ab-hero__name">{profile.nom}</h1>
             <p className="ab-hero__title">{profile.titrePro}</p>
           </div>
@@ -183,7 +181,12 @@ export default function NeuralHero({ profile, renderer = "auto" }) {
         canvasRenderer
       )}
 
-      <div ref={bandReference} className="ab-nav-band" aria-hidden="true" />
+      {/* Le nom est du simple texte, hors réseau : il apparaît avec le bandeau. */}
+      <div ref={bandReference} className="ab-nav-band" aria-hidden="true">
+        <span ref={brandReference} className="ab-nav-band__name">
+          {profile.nom}
+        </span>
+      </div>
 
       <div ref={coreReference} className="ab-core">
         <CoreNode photo={profile.photo} name={profile.nom} />

@@ -119,9 +119,10 @@ const arthurBresson = {
         {
           title: "Neural Networks: Zero to Hero",
           description:
-            "Implémentation pas à pas des notebooks du cours d'Andrej Karpathy : micrograd, makemore, jusqu'aux modèles de langage. Dépôt en préparation.",
+            "Implémentation pas à pas des notebooks du cours d'Andrej Karpathy : micrograd, makemore, jusqu'aux modèles de langage. Dépôt alimenté au quotidien.",
           stack: ["Python", "PyTorch"],
           status: "En cours",
+          github: `${GITHUB}/my_neural_network_learning`,
         },
         {
           title: "Classification kNN — Titanic & Iris",
@@ -135,6 +136,41 @@ const arthurBresson = {
             "Interface Python suggérant dynamiquement des films selon un algorithme de tri et d'analyse.",
           stack: ["Python"],
           github: `${GITHUB}/Recommendation_film`,
+        },
+      ],
+    },
+    {
+      id: "agents",
+      label: "AI Engineering",
+      accent: "#facc15",
+      title: "Développement augmenté & orchestration d'agents IA",
+      pitch:
+        "Je conçois mes projets en mode « développement augmenté par l'IA » : je découpe le travail, je le confie à des agents spécialisés et je garde la main sur l'architecture, le code et le débogage. Ce portfolio a d'ailleurs été construit avec cette méthode.",
+      tags: [
+        "Claude Code",
+        "Multi-agents",
+        "Prompt engineering",
+        "Context management",
+        "Skills",
+      ],
+      projects: [
+        {
+          title: "Orchestration multi-agents",
+          description:
+            "Conception et pilotage de workflows complexes en répartissant les tâches entre des sous-agents spécialisés (design, code, architecture, QA) pour accélérer le cycle de développement.",
+          stack: ["Sous-agents", "Workflows"],
+        },
+        {
+          title: "Prompt engineering & gestion du contexte",
+          description:
+            "Maîtrise avancée des LLMs, notamment Claude : optimisation du contexte, gestion des sessions et création de skills personnalisés.",
+          stack: ["Claude", "Contexte", "Skills"],
+        },
+        {
+          title: "Conception pilotée par l'IA",
+          description:
+            "L'IA comme véritable levier de productivité, sans perdre la maîtrise technique : je relis, je débogue et je décide de l'architecture. Ce portfolio en est l'exemple.",
+          stack: ["Architecture", "Débogage", "Revue de code"],
         },
       ],
     },

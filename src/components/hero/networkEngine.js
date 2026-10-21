@@ -151,13 +151,16 @@ export function computeLayout({
   bubbles,
   navTop,
   navHeight,
+  navInset = 0,
   heroHeight,
 }) {
   const count = bubbles.length;
   const compact = viewport.w <= 768;
+  // La photo est l'élément principal de la hero : rayon doublé, borné par la
+  // hauteur de la zone pour laisser la place aux couches cachées.
   const outputRadius = compact
-    ? clamp(stage.w * 0.15, 40, 64)
-    : clamp(stage.h * 0.16, 52, 96);
+    ? Math.min(clamp(stage.w * 0.3, 80, 128), stage.h * 0.22)
+    : Math.min(clamp(stage.h * 0.32, 104, 192), stage.h * 0.46);
   const geometry = compact
     ? verticalLayout(stage, bubbles, outputRadius)
     : horizontalLayout(stage, bubbles, outputRadius);
@@ -177,15 +180,22 @@ export function computeLayout({
   );
 
   // Slots de la navbar : une rangée centrée (ou alignée à gauche et
-  // scrollable horizontalement si elle déborde).
+  // scrollable horizontalement si elle déborde). `navInset` réserve la place
+  // du nom affiché à gauche du bandeau.
   const navScale = compact ? 0.86 : 0.82;
   const gap = compact ? 18 : 30;
   const padding = compact ? 14 : 24;
   const widths = bubbles.map((bubble) => bubble.w * navScale);
   const total =
     widths.reduce((sum, width) => sum + width, 0) + gap * (count - 1);
-  const overflow = total > viewport.w - padding * 2;
-  let cursor = overflow ? padding : (viewport.w - total) / 2;
+  const start = navInset > 0 ? navInset + gap : padding;
+  const overflow = total > viewport.w - start - padding;
+  let cursor = overflow
+    ? start
+    : Math.max(
+        (viewport.w - total) / 2,
+        (start + viewport.w - padding - total) / 2,
+      );
   const slotY = navTop + navHeight / 2;
   const slots = widths.map((width) => {
     const slot = { x: cursor + width / 2, y: slotY };
@@ -205,7 +215,7 @@ export function computeLayout({
     navTop,
     navHeight,
     overflow,
-    navContentWidth: total + padding * 2,
+    navContentWidth: start + total + padding,
     morphDistance: Math.max(200, Math.min(heroHeight, viewport.h) * 0.6),
   };
 }
@@ -343,6 +353,7 @@ export function createNetworkEngine(sections) {
     stage: undefined,
     nav: undefined,
     band: undefined,
+    brand: undefined,
     core: undefined,
     spacer: undefined,
     bubbles: [],
@@ -387,6 +398,8 @@ export function createNetworkEngine(sections) {
       })),
       navTop: readPixels(navStyle, "--ab-nav-top", 0),
       navHeight: readPixels(navStyle, "--ab-nav-height", 72),
+      // 0 quand le nom est masqué (display: none sur petits écrans)
+      navInset: dom.brand?.getBoundingClientRect().right ?? 0,
       heroHeight: heroRect.height,
     });
     const diameter = model.layout.output.r * 2;
