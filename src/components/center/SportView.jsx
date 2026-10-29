@@ -9,6 +9,7 @@ function SportView({ lifestyle, onBack }) {
 
   return (
     <div className="center-view detail-view">
+      <h1 className="visually-hidden">Sport d&apos;Arthur Bresson</h1>
       <BackButton onBack={onBack} />
       <div className="detail-grid">
         {triathlon && (
@@ -24,7 +25,9 @@ function SportView({ lifestyle, onBack }) {
               ))}
             </ul>
             <p className="detail-note">
+              {/* Les formats se lisent déjà dans la liste des courses. */}
               {triathlon.stats
+                .filter((stat) => stat.label !== "Formats")
                 .map((stat) => `${stat.label} : ${stat.value}`)
                 .join(" · ")}
             </p>

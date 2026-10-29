@@ -4,9 +4,11 @@ import Button from "../ui/Button.jsx";
 import ClayCard from "../ui/ClayCard.jsx";
 import { ExternalIcon, UsersIcon } from "../ui/Icons.jsx";
 import { formatPeriod } from "../../lib/dates.js";
+import ProjectCompetences from "../ui/ProjectCompetences.jsx";
 
-// Carte d'un projet. `cadreLabel` est résolu par la grille (id -> libellé).
-function ProjectCard({ projet, cadreLabel }) {
+// Carte d'un projet. `cadreLabel` est résolu par la grille (id -> libellé),
+// `competences` est la liste des compétences du BUT (id -> libellé).
+function ProjectCard({ projet, cadreLabel, competences }) {
   const { title, pitch, stack = [], team, links = [], start, end } = projet;
   const period = formatPeriod(start, end);
 
@@ -21,6 +23,7 @@ function ProjectCard({ projet, cadreLabel }) {
       </header>
 
       {pitch && <p className="project-pitch">{pitch}</p>}
+      <ProjectCompetences ids={projet.competences} options={competences} />
 
       <footer className="project-foot">
         {(stack.length > 0 || team > 1) && (

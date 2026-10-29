@@ -11,4 +11,5 @@ dist-ssr
 .idea
 
 # Claude Code
-.claude
+.claude/*
+!.claude/agents/

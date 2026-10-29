@@ -5,7 +5,7 @@ import { springHover } from "../ui/motionPresets.js";
 
 // Grille de projets. Reçoit une liste déjà filtrée : les cartes qui entrent
 // ou sortent sont animées (layout + présence), prêtes pour le filtre croisé.
-function ProjectGrid({ projets, cadres = [] }) {
+function ProjectGrid({ projets, cadres = [], competences = [] }) {
   const labelOf = (id) => cadres.find((cadre) => cadre.id === id)?.label;
 
   if (projets.length === 0) {
@@ -28,7 +28,11 @@ function ProjectGrid({ projets, cadres = [] }) {
             {projet.placeholder ? (
               <ProjectPlaceholder cadreLabel={labelOf(projet.cadre)} />
             ) : (
-              <ProjectCard projet={projet} cadreLabel={labelOf(projet.cadre)} />
+              <ProjectCard
+                projet={projet}
+                cadreLabel={labelOf(projet.cadre)}
+                competences={competences}
+              />
             )}
           </motion.li>
         ))}

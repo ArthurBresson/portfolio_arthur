@@ -187,7 +187,7 @@ function IntroLoader({ projets, themes, onDone }) {
           );
         })}
       </div>
-      <p className="intro-skip">Cliquez pour passer</p>
+      <p className="intro-skip">Clique pour passer</p>
     </motion.div>
   );
 }

@@ -25,6 +25,7 @@ import {
   profil,
   cadres,
   themes,
+  competences,
   parcours,
   projets,
   lifestyle,
@@ -80,6 +81,7 @@ function ClassicApp() {
         projets={projetsReels}
         cadres={cadres}
         themes={themes}
+        competences={competences}
         filtre={filtre}
         onReset={reset}
       />
@@ -91,6 +93,7 @@ function ClassicApp() {
       projets={projetsReels}
       cadres={cadres}
       themes={themes}
+      competences={competences}
       filtre={filtre}
       onChange={changeFromChips}
     />
@@ -107,6 +110,7 @@ function ClassicApp() {
         <Projects
           projets={visibleProjets(projets, filtre)}
           cadres={cadres}
+          competences={competences}
           filters={filters}
         />
         <Parcours parcours={parcours} />

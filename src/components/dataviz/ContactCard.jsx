@@ -3,34 +3,25 @@ import Button from "../ui/Button.jsx";
 import ChartCard from "./ChartCard.jsx";
 import { MailIcon, SocialIcon } from "../ui/Icons.jsx";
 
-// Case échecs, langues et contact. « Me contacter » ouvre la vue contact
-// au centre ; GitHub et LinkedIn sont des liens directs.
+// Case langues et contact. « Me contacter » ouvre la vue contact au
+// centre (avec les échecs et les loisirs) ; GitHub et LinkedIn sont des
+// liens directs.
 function ContactCard({
   profil,
-  lifestyle,
   langues,
   pressed,
   onOpen,
   className = "",
   ...rest
 }) {
-  const echecs = lifestyle.find((item) => item.id === "echecs");
-  const elo = echecs?.stats?.[0];
-
   return (
     <ChartCard
-      title="Échecs, langues, contact"
+      title="Langues et contact"
       className={`contact-cell ${className}`.trim()}
       {...rest}
     >
       <div className="contact-cell-body">
         <dl className="contact-facts">
-          {elo && (
-            <div className="contact-fact contact-fact--elo">
-              <dt>{elo.label}</dt>
-              <dd className="tabular">{elo.value}</dd>
-            </div>
-          )}
           {langues.map((langue) => (
             <div key={langue.name} className="contact-fact">
               <dt>{langue.name}</dt>

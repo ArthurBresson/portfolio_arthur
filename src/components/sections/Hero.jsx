@@ -31,6 +31,8 @@ const intro = {
 function Hero({ profil, charts }) {
   const {
     nom,
+    role,
+    recherche,
     localisation,
     photo,
     socials = [],
@@ -54,6 +56,8 @@ function Hero({ profil, charts }) {
             <h1 id="hero-title" className="hero-title">
               {accroche ? renderHighlight(accroche) : nom}
             </h1>
+            {role && <p className="hero-role">{role}</p>}
+            {recherche && <p className="hero-search">{recherche}</p>}
 
             {citation && (
               <figure className="hero-quote">
@@ -122,35 +126,15 @@ function Hero({ profil, charts }) {
                   value={preuve.value}
                   label={preuve.label}
                   size="lg"
+                  gold
                 />
               ))}
             </dl>
           )}
         </ClayCard>
 
-        {/* Emplacement réservé à l'agent data-viz : 2 graphiques côte à côte
-            sur desktop, empilés sur mobile. Passer `charts` (ReactNode) pour
-            remplacer les cadres d'attente. */}
-        <div data-slot="charts" className="hero-charts">
-          {charts ?? (
-            <>
-              <ClayCard
-                variant="hollow"
-                className="chart-slot"
-                aria-hidden="true"
-              >
-                <span className="chart-slot-label">Graphique</span>
-              </ClayCard>
-              <ClayCard
-                variant="hollow"
-                className="chart-slot"
-                aria-hidden="true"
-              >
-                <span className="chart-slot-label">Graphique</span>
-              </ClayCard>
-            </>
-          )}
-        </div>
+        {/* Frise et thèmes : côte à côte sur desktop, empilés sur mobile. */}
+        <div className="hero-charts">{charts}</div>
       </div>
     </section>
   );

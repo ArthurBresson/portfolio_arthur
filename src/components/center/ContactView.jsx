@@ -22,6 +22,7 @@ function ContactView({ profil, lifestyle, langues, hobbies, onBack }) {
 
   return (
     <div className="center-view detail-view">
+      <h1 className="visually-hidden">Contacter Arthur Bresson</h1>
       <BackButton onBack={onBack} />
       <section className="contact-main">
         <h2 className="detail-title detail-title--big">Écris-moi</h2>
