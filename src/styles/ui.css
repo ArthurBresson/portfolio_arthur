@@ -1,0 +1,228 @@
+/* ==================== COMPOSANTS UI ====================
+   ClayCard, Button, Chip, Badge, Stat, icônes.
+   Les transformations au survol/appui sont pilotées par motion (ressorts) ;
+   le CSS ne gère que les ombres et couleurs. */
+
+.icon {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+}
+
+/* Texte en dégradé or : mots clés du hero, valeurs de perf. */
+.text-gold {
+  font-style: normal;
+  background: var(--gradient-gold-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ==================== CLAY CARD ==================== */
+.clay-card {
+  position: relative;
+  min-width: 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.clay-card--raised {
+  box-shadow: var(--shadow-clay);
+  transition: box-shadow var(--duration-slow) var(--ease-out);
+}
+
+.clay-card--interactive {
+  will-change: transform;
+}
+
+.clay-card--interactive:hover {
+  box-shadow: var(--shadow-clay-hover);
+}
+
+/* Creux en pointillé : emplacement vide (projet à venir, graphique). */
+.clay-card--hollow {
+  background: transparent;
+  box-shadow: var(--shadow-clay-inset);
+  outline: 1.5px dashed rgba(124, 108, 102, 0.35);
+  outline-offset: -10px;
+}
+
+.clay-card--gold {
+  box-shadow: var(--shadow-clay), var(--shadow-gold-rim);
+}
+
+/* ==================== BUTTON ==================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 46px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    box-shadow var(--duration-fast) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.btn--sm {
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+}
+
+/* Bouton icône seule : carré. */
+.btn:not(:has(.btn-label)) {
+  aspect-ratio: 1;
+  padding: 0;
+}
+
+.btn-icon {
+  display: inline-flex;
+}
+
+.btn--primary {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: var(--shadow-button);
+}
+
+.btn--primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.btn--primary:active {
+  box-shadow: var(--shadow-button-press);
+}
+
+.btn--soft {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  box-shadow:
+    var(--shadow-clay-sm),
+    inset 0 1px 0 var(--color-light);
+}
+
+.btn--soft:hover {
+  color: var(--color-accent);
+}
+
+.btn--soft:active {
+  box-shadow: var(--shadow-clay-inset);
+}
+
+/* ==================== CHIP ==================== */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  box-shadow: var(--shadow-clay-sm);
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    box-shadow var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.chip:hover {
+  color: var(--color-accent);
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: var(--shadow-chip-active);
+}
+
+.chip-count {
+  font-size: var(--text-xs);
+  opacity: 0.7;
+}
+
+/* ==================== BADGE ==================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.badge--gold {
+  background: var(--gradient-gold-badge);
+  color: var(--color-gold-ink);
+  box-shadow: var(--shadow-badge-gold);
+}
+
+.badge--neutral {
+  background: var(--color-page);
+  color: var(--color-ink-soft);
+  box-shadow:
+    inset 1px 1px 2px var(--color-shadow),
+    inset -1px -1px 2px var(--color-light);
+}
+
+/* ==================== STAT ==================== */
+.stat-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-5) var(--space-6);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* DOM : dt puis dd ; visuel : valeur au-dessus. */
+.stat-value {
+  order: -1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xl);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.stat--lg .stat-value {
+  font-size: var(--text-2xl);
+}
+
+.stat-label {
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+}
+
+.stat-badge {
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  font-size: 0.625rem;
+}

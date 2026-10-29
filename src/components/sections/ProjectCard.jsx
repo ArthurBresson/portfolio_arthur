@@ -1,79 +1,83 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
-import { ExternalIcon, GitHubIcon } from "./Icons.jsx";
-import { trackSpotlight } from "./spotlight.js";
+import Badge from "../ui/Badge.jsx";
+import Button from "../ui/Button.jsx";
+import ClayCard from "../ui/ClayCard.jsx";
+import { ExternalIcon, UsersIcon } from "../ui/Icons.jsx";
+import { formatPeriod } from "../../lib/dates.js";
 
-// Carte de verre d'un projet. Tous les champs hors title/description sont
-// optionnels : period, status, stack, github, link {label, url}.
-const ProjectCard = ({ project, className = "" }) => {
-  const {
-    title,
-    description,
-    period,
-    status,
-    stack = [],
-    github,
-    link,
-  } = project;
-  const hasActions = Boolean(github || link);
+// Carte d'un projet. `cadreLabel` est résolu par la grille (id -> libellé).
+function ProjectCard({ projet, cadreLabel }) {
+  const { title, pitch, stack = [], team, links = [], start, end } = projet;
+  const period = formatPeriod(start, end);
 
   return (
-    <article
-      className={`ab-card ab-glass ${className}`.trim()}
-      onPointerMove={trackSpotlight}
-    >
-      {(period || status) && (
-        <div className="ab-card__meta">
-          {period && <span className="ab-card__period">{period}</span>}
-          {status && (
-            <span className="ab-status">
-              <span className="ab-status__dot" aria-hidden="true" />
-              {status}
-            </span>
-          )}
+    <ClayCard as="article" interactive className="project-card">
+      <header className="project-head">
+        <div className="project-meta">
+          {cadreLabel && <Badge tone="neutral">{cadreLabel}</Badge>}
+          {period && <span className="project-period tabular">{period}</span>}
         </div>
-      )}
+        <h3 className="project-title">{title}</h3>
+      </header>
 
-      <h3 className="ab-card__title">{title}</h3>
-      <p className="ab-card__description">{description}</p>
+      {pitch && <p className="project-pitch">{pitch}</p>}
 
-      {stack.length > 0 && (
-        <ul className="ab-card__stack" aria-label="Technologies">
-          {stack.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      )}
+      <footer className="project-foot">
+        {(stack.length > 0 || team > 1) && (
+          <div className="project-facts">
+            {stack.length > 0 && (
+              <ul className="project-stack" aria-label="Technologies">
+                {stack.map((tech) => (
+                  <li key={tech}>{tech}</li>
+                ))}
+              </ul>
+            )}
+            {team > 1 && (
+              <span className="project-team">
+                <UsersIcon />
+                <span className="tabular">{team}</span>
+                <span className="visually-hidden">
+                  personnes dans l&apos;équipe
+                </span>
+              </span>
+            )}
+          </div>
+        )}
 
-      {hasActions && (
-        <div className="ab-card__actions">
-          {github && (
-            <a
-              className="ab-btn"
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Code de « ${title} » sur GitHub (nouvel onglet)`}
-            >
-              <GitHubIcon />
-              Code
-            </a>
-          )}
-          {link && (
-            <a
-              className="ab-btn ab-btn--accent"
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${link.label} (nouvel onglet)`}
-            >
-              {link.label}
-              <ExternalIcon />
-            </a>
-          )}
-        </div>
-      )}
-    </article>
+        {links.length > 0 && (
+          <div className="project-links">
+            {links.map((link) => (
+              <Button
+                key={link.url}
+                href={link.url}
+                external
+                variant="soft"
+                size="sm"
+                icon={<ExternalIcon />}
+              >
+                {link.label}
+              </Button>
+            ))}
+          </div>
+        )}
+      </footer>
+    </ClayCard>
   );
-};
+}
+
+// Emplacement d'un projet pas encore publié : carte creuse en pointillé.
+export function ProjectPlaceholder({ cadreLabel }) {
+  return (
+    <ClayCard
+      as="article"
+      variant="hollow"
+      className="project-card project-card--empty"
+    >
+      <span className="project-empty-mark" aria-hidden="true" />
+      <p className="project-empty-title">Bientôt en ligne</p>
+      {cadreLabel && <p className="project-empty-sub">Projet {cadreLabel}</p>}
+    </ClayCard>
+  );
+}
 
 export default ProjectCard;

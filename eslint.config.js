@@ -46,4 +46,9 @@ export default defineConfig([
       ],
     },
   },
+  // Données : `end: null` signifie « en cours », convention assumée.
+  {
+    files: ["src/data/**/*.js"],
+    rules: { "unicorn/no-null": "off" },
+  },
 ]);

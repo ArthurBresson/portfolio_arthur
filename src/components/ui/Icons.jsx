@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
-// Icônes SVG inline de la page Arthur (aucune dépendance d'icônes).
+// Icônes SVG inline du portfolio (aucune dépendance d'icônes).
 // Toutes décoratives : le texte ou l'aria-label du lien porte le sens.
 const Svg = ({ children, viewBox = "0 0 24 24", className = "", filled }) => (
   <svg
-    className={`ab-icon ${className}`.trim()}
+    className={`icon ${className}`.trim()}
     viewBox={viewBox}
     aria-hidden="true"
     focusable="false"
@@ -58,3 +58,32 @@ export const SocialIcon = ({ label = "", className }) => {
   if (name.includes("linkedin")) return <LinkedInIcon className={className} />;
   return <ExternalIcon className={className} />;
 };
+
+export const CopyIcon = ({ className }) => (
+  <Svg className={className}>
+    <rect x="8" y="8" width="12" height="12" rx="2.5" />
+    <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+  </Svg>
+);
+
+export const CheckIcon = ({ className }) => (
+  <Svg className={className}>
+    <path d="m5 12.5 4.5 4.5L19 7.5" />
+  </Svg>
+);
+
+export const ArrowUpIcon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M12 19V5" />
+    <path d="m6 11 6-6 6 6" />
+  </Svg>
+);
+
+export const UsersIcon = ({ className }) => (
+  <Svg className={className}>
+    <circle cx="9" cy="8" r="3.2" />
+    <path d="M3.5 19a5.5 5.5 0 0 1 11 0" />
+    <path d="M16 5.2a3.2 3.2 0 0 1 0 5.6" />
+    <path d="M17.5 14a5.5 5.5 0 0 1 3 5" />
+  </Svg>
+);
