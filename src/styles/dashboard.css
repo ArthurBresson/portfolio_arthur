@@ -646,31 +646,11 @@
   color: var(--color-gold-deep);
 }
 
-.home-id {
-  display: grid;
-  gap: 2px;
-}
-
 .home-name {
   font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--color-gold-deep);
-}
-
-.home-role,
-.home-search {
-  font-size: clamp(0.74rem, 3.3cqh, 0.875rem);
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.home-role {
-  color: var(--color-ink);
-}
-
-.home-search {
   color: var(--color-gold-deep);
 }
 

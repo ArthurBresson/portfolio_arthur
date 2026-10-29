@@ -12,10 +12,6 @@ const GITHUB = "https://github.com/ArthurBresson";
 
 export const profil = {
   nom: "Arthur Bresson",
-  role: "BUT Informatique, 3e année — data analyst en alternance chez Hager",
-  // Ce que je cherche après le BUT (affiché sous le rôle).
-  recherche:
-    "Je cherche une alternance en Master ou en école d'ingénieur, en IA / ML engineering.",
   localisation: "Saint-Léonard (51)",
   email: "arthur.bresson17@gmail.com",
   photo: "/arthur-photo.webp",

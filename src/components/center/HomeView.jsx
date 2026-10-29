@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
 import Tutorial from "../dataviz/Tutorial.jsx";
 
-// Vue d'accueil de la case centrale : la citation en grand, puis qui je
-// suis et ce que je cherche, en deux lignes. Le reste est dans la frise.
+// Vue d'accueil de la case centrale : la citation en grand et mon nom.
+// Le rôle et la recherche sont dans la frise et sur le CV.
 // À la première visite, l'astuce s'affiche en dessous.
 function HomeView({ profil, tuto, onDismissTuto }) {
-  const { nom, role, recherche, citation, photo } = profil;
+  const { nom, citation, photo } = profil;
   return (
     <div className="center-view home-view">
       <div className="home-text">
@@ -17,11 +17,7 @@ function HomeView({ profil, tuto, onDismissTuto }) {
             <figcaption>{citation.auteur}</figcaption>
           </figure>
         )}
-        <div className="home-id">
-          <h1 className="home-name">{nom}</h1>
-          {role && <p className="home-role">{role}</p>}
-          {recherche && <p className="home-search">{recherche}</p>}
-        </div>
+        <h1 className="home-name">{nom}</h1>
         {tuto && <Tutorial onDismiss={onDismissTuto} />}
       </div>
       {photo && (

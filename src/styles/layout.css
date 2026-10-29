@@ -140,19 +140,6 @@
   max-width: 18ch;
 }
 
-.hero-role {
-  margin-top: calc(var(--space-2) * -1);
-  font-size: var(--text-md);
-  font-weight: 600;
-  color: var(--color-ink);
-}
-
-.hero-search {
-  margin-top: calc(var(--space-2) * -1);
-  font-weight: 600;
-  color: var(--color-gold-deep);
-}
-
 .hero-quote {
   display: grid;
   gap: var(--space-1);

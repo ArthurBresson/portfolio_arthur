@@ -31,8 +31,6 @@ const intro = {
 function Hero({ profil, charts }) {
   const {
     nom,
-    role,
-    recherche,
     localisation,
     photo,
     socials = [],
@@ -56,8 +54,6 @@ function Hero({ profil, charts }) {
             <h1 id="hero-title" className="hero-title">
               {accroche ? renderHighlight(accroche) : nom}
             </h1>
-            {role && <p className="hero-role">{role}</p>}
-            {recherche && <p className="hero-search">{recherche}</p>}
 
             {citation && (
               <figure className="hero-quote">
