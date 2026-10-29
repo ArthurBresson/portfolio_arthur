@@ -725,15 +725,23 @@
   border-radius: var(--radius-xl);
 }
 
+/* Case étroite ou basse : la photo rétrécit et se cale en haut, elle ne
+   disparaît jamais. */
 @container center (max-width: 440px) {
+  .home-view {
+    align-items: flex-start;
+  }
+
   .home-photo {
-    display: none;
+    width: min(26cqw, 110px);
+    padding: 5px;
   }
 }
 
 @container center (max-height: 200px) {
   .home-photo {
-    display: none;
+    width: min(26cqw, 70cqh);
+    padding: 4px;
   }
 }
 
