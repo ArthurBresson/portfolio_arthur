@@ -2,7 +2,14 @@
 // Filtre croisé partagé par les 8 cases du dashboard. Chaque axe vaut un
 // identifiant ou null ; les axes actifs se combinent en ET.
 
-export const AXES = ["cadre", "theme", "techno", "annee", "equipe", "statut"];
+export const AXES = [
+  "cadre",
+  "theme",
+  "competence",
+  "techno",
+  "equipe",
+  "statut",
+];
 
 export const NO_FILTER = Object.fromEntries(AXES.map((axis) => [axis, null]));
 
@@ -15,14 +22,12 @@ export function teamKind(projet) {
 export const statutOf = (projet) =>
   projet.end === null ? "en-cours" : "livre";
 
-export const anneeOf = (projet) => projet.start.slice(0, 4);
-
 // Une fonction de test par axe : (projet, valeur) -> booléen.
 const TESTS = {
   cadre: (projet, value) => projet.cadre === value,
   theme: (projet, value) => projet.themes?.includes(value),
   techno: (projet, value) => projet.stack?.includes(value),
-  annee: (projet, value) => anneeOf(projet) === value,
+  competence: (projet, value) => projet.competences?.includes(value),
   equipe: (projet, value) => teamKind(projet) === value,
   statut: (projet, value) => statutOf(projet) === value,
 };

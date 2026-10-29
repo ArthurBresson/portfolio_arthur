@@ -57,7 +57,7 @@ function Contact({ profil }) {
           <ClayCard className="contact-card">
             <p className="section-kicker">Contact</p>
             <h2 id="contact-title" className="section-title">
-              Écrivez-moi
+              Écris-moi
             </h2>
 
             {email && (

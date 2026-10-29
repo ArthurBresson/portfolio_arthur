@@ -29,6 +29,8 @@ function CenterPanel({
   onRemoveAxis,
   onClear,
   onBack,
+  tuto,
+  onDismissTuto,
   className = "",
   ...rest
 }) {
@@ -66,7 +68,14 @@ function CenterPanel({
       break;
     }
     default: {
-      content = <HomeView profil={profil} total={total} />;
+      content = (
+        <HomeView
+          profil={profil}
+          total={total}
+          tuto={tuto}
+          onDismissTuto={onDismissTuto}
+        />
+      );
     }
   }
 

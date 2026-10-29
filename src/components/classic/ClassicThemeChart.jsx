@@ -32,7 +32,7 @@ function ThemeChart({ projets, themes, cadres, filtre, onToggleTheme }) {
         <p className="chart-hint">
           {cadreLabel
             ? `Projets ${cadreLabel}, le total reste en pointillé.`
-            : "Cliquez sur un thème pour filtrer."}
+            : "Clique un thème pour filtrer."}
         </p>
       </header>
 

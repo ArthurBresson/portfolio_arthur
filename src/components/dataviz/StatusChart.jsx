@@ -24,7 +24,7 @@ function StatusChart({ projets, options, filtre, onToggle, ready, ...rest }) {
   return (
     <ChartCard
       title="Livrés ou en cours"
-      hint="Ce qui tourne encore aujourd'hui."
+      hint="Projets terminés ou encore en cours."
       {...rest}
     >
       <div className="status-chart">

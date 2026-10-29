@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
+import Tutorial from "../dataviz/Tutorial.jsx";
 
 // Mots entre astérisques dans `profil.accroche` => dégradé or.
 function renderHighlight(text) {
@@ -13,9 +14,10 @@ function renderHighlight(text) {
   );
 }
 
-// Vue d'accueil de la case centrale : nom, titre, citation, photo.
-function HomeView({ profil, total }) {
-  const { nom, accroche, citation, photo } = profil;
+// Vue d'accueil de la case centrale : nom, titre, rôle, recherche,
+// citation, photo. À la première visite, l'astuce remplace la ligne d'aide.
+function HomeView({ profil, total, tuto, onDismissTuto }) {
+  const { nom, role, recherche, accroche, citation, photo } = profil;
   return (
     <div className="center-view home-view">
       <div className="home-text">
@@ -23,6 +25,12 @@ function HomeView({ profil, total }) {
         <h1 className="home-title">
           {accroche ? renderHighlight(accroche) : nom}
         </h1>
+        {(role || recherche) && (
+          <div className="home-about">
+            {role && <p className="home-role">{role}</p>}
+            {recherche && <p className="home-search">{recherche}</p>}
+          </div>
+        )}
         {citation && (
           <figure className="home-quote">
             <blockquote>
@@ -31,9 +39,13 @@ function HomeView({ profil, total }) {
             <figcaption>{citation.auteur}</figcaption>
           </figure>
         )}
-        <p className="home-hint">
-          {total} projets autour de moi. Clique un graphique pour les voir.
-        </p>
+        {tuto ? (
+          <Tutorial onDismiss={onDismissTuto} />
+        ) : (
+          <p className="home-hint">
+            {total} projets autour de moi. Clique un graphique pour les voir.
+          </p>
+        )}
       </div>
       {photo && (
         <figure className="home-photo">

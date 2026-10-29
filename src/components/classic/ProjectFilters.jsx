@@ -5,10 +5,18 @@ import { countMatching, isActive } from "../../lib/filters.js";
 // Chips du filtre croisé, au-dessus de la grille. Chaque compteur tient
 // compte de l'autre axe (ex. : « Web 2 » quand IUT est actif). Une chip
 // qui donnerait 0 résultat est désactivée.
-function ProjectFilters({ projets, cadres, themes, filtre, onChange }) {
+function ProjectFilters({
+  projets,
+  cadres,
+  themes,
+  competences,
+  filtre,
+  onChange,
+}) {
   const groups = [
     { axis: "cadre", title: "Cadre", items: cadres },
     { axis: "theme", title: "Thème", items: themes },
+    { axis: "competence", title: "Compétence", items: competences },
   ];
 
   return (

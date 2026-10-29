@@ -3,12 +3,10 @@ import { AnimatePresence, MotionConfig } from "motion/react";
 import TimelineChart from "../dataviz/TimelineChart.jsx";
 import ThemeChart from "../dataviz/ThemeChart.jsx";
 import TechChart from "../dataviz/TechChart.jsx";
-import YearChart from "../dataviz/YearChart.jsx";
 import TeamChart from "../dataviz/TeamChart.jsx";
 import StatusChart from "../dataviz/StatusChart.jsx";
 import SportCard from "../dataviz/SportCard.jsx";
 import ContactCard from "../dataviz/ContactCard.jsx";
-import Tutorial from "../dataviz/Tutorial.jsx";
 import IntroLoader, { IntroBoundary } from "../dataviz/IntroLoader.jsx";
 import CenterPanel from "../center/CenterPanel.jsx";
 import {
@@ -17,6 +15,7 @@ import {
   clearAxis,
   isActive,
   matches,
+  pluralProjets,
   realProjets,
   toggleFrom,
 } from "../../lib/filters.js";
@@ -30,6 +29,7 @@ import {
   profil,
   cadres,
   themes,
+  competences,
   parcours,
   projets,
   lifestyle,
@@ -38,11 +38,16 @@ import {
 } from "../../data/portfolio.js";
 
 const projetsReels = realProjets(projets);
-const dimensions = buildDimensions(projetsReels, { cadres, themes });
+const dimensions = buildDimensions(projetsReels, {
+  cadres,
+  themes,
+  competences,
+});
 
-// Version « Dashboard » : une grille 3×3 sans scroll (desktop). Les 8 cases
-// autour sont des graphiques qui filtrent ; la case centrale montre
-// l'accueil, les projets filtrés, le sport ou le contact.
+// Version « Dashboard » : une grille 3×3 sans scroll (desktop). Autour du
+// centre, 6 graphiques qui filtrent et 2 cases (sport, contact) qui ouvrent
+// leur détail ; la case centrale montre l'accueil, les projets filtrés, le
+// sport ou le contact.
 function DashboardApp() {
   const [filtre, setFiltre] = useState(NO_FILTER);
   // Vue forcée au centre ("sport" | "contact") ; sinon elle suit le filtre.
@@ -92,18 +97,18 @@ function DashboardApp() {
           className={`dash-cell dash-cell--themes${tuto && ready ? " is-tuto-target" : ""}`}
         >
           <ThemeChart options={dimensions.theme} {...chartProperties} />
-          <AnimatePresence>
-            {tuto && ready && <Tutorial key="tuto" onDismiss={closeTuto} />}
-          </AnimatePresence>
         </div>
         <TechChart
           className="dash-cell dash-cell--tech"
           options={dimensions.techno}
           {...chartProperties}
         />
-        <YearChart
-          className="dash-cell dash-cell--annee"
-          options={dimensions.annee}
+        <ThemeChart
+          className="dash-cell dash-cell--competences"
+          axis="competence"
+          title="Compétences du BUT"
+          hint="Point doré : cœur de mon parcours data."
+          options={dimensions.competence}
           {...chartProperties}
         />
         <CenterPanel
@@ -121,6 +126,8 @@ function DashboardApp() {
           onRemoveAxis={removeAxis}
           onClear={clear}
           onBack={() => setDetail()}
+          tuto={tuto && ready}
+          onDismissTuto={closeTuto}
         />
         <TeamChart
           className="dash-cell dash-cell--equipe"
@@ -142,11 +149,16 @@ function DashboardApp() {
         <ContactCard
           className="dash-cell dash-cell--contact"
           profil={profil}
-          lifestyle={lifestyle}
           langues={langues}
           pressed={view === "contact"}
           onOpen={() => openDetail("contact")}
         />
+        {/* Annonce le résultat d'un filtre aux lecteurs d'écran. */}
+        <p className="visually-hidden" role="status">
+          {active
+            ? `${pluralProjets(matching.length)} trouvé${matching.length > 1 ? "s" : ""}`
+            : ""}
+        </p>
       </main>
       <AnimatePresence>
         {introVisible && (
