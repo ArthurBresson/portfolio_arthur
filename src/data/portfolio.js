@@ -21,12 +21,11 @@ export const profil = {
   photo: "/arthur-photo.webp",
   // Choisie par Arthur. Les mots entre astérisques s'affichent en dégradé or.
   accroche: "Alternant la journée, *triathlète et auto-entrepreneur* le soir.",
-  // Arthur hésitait avec Bill Gates : « C'est bien de célébrer le succès,
-  // mais il est plus important de tenir compte des leçons de l'échec. »
+  // Citations écartées : Thomas Edison (« Notre plus grande faiblesse, c'est
+  // d'abandonner… ») et Bill Gates (« C'est bien de célébrer le succès… »).
   citation: {
-    texte:
-      "Notre plus grande faiblesse, c'est d'abandonner. Le plus sûr moyen de réussir, c'est toujours d'essayer juste encore une fois.",
-    auteur: "Thomas Edison",
+    texte: "Aux âmes bien nées, la valeur n'attend point le nombre des années.",
+    auteur: "Corneille, Le Cid",
   },
   preuves: [
     { value: "13", label: "projets menés en trois ans, de l'école au client" },
