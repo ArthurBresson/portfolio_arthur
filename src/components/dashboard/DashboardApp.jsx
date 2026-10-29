@@ -111,7 +111,6 @@ function DashboardApp() {
           view={view}
           profil={profil}
           matching={matching}
-          total={projetsReels.length}
           filtre={filtre}
           filterKey={filterKey}
           dimensions={dimensions}

@@ -19,7 +19,6 @@ function CenterPanel({
   view,
   profil,
   matching,
-  total,
   filtre,
   filterKey,
   dimensions,
@@ -66,7 +65,7 @@ function CenterPanel({
       break;
     }
     default: {
-      content = <HomeView profil={profil} total={total} />;
+      content = <HomeView profil={profil} />;
     }
   }
 

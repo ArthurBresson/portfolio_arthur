@@ -11,7 +11,9 @@ const GITHUB = "https://github.com/ArthurBresson";
 
 export const profil = {
   nom: "Arthur Bresson",
-  role: "BUT Informatique, 3e année — alternant chez Hager",
+  role: "BUT Informatique, 3e année — data analyst en alternance chez Hager",
+  recherche:
+    "Je cherche une alternance en Master ou en école d'ingénieur, en IA / ML engineering.",
   localisation: "Saint-Léonard (51)",
   email: "arthur.bresson17@gmail.com",
   photo: "/arthur-photo.webp",
@@ -87,7 +89,7 @@ export const parcours = [
     id: "iut",
     type: "formation",
     cadre: "iut",
-    title: "BUT Informatique — parcours bases de données",
+    title: "BUT Informatique",
     place: "IUT Reims-Châlons-Charleville",
     start: "2025-09",
     end: "2027-08",
@@ -138,7 +140,7 @@ export const parcours = [
     id: "hager",
     type: "experience",
     cadre: "pro",
-    title: "Alternance",
+    title: "Data analyst en alternance",
     place: "Hager, Obernai",
     start: "2026-09",
     end: "2027-08",
@@ -177,7 +179,7 @@ export const projets = [
   },
   {
     id: "knn",
-    title: "kNN — Titanic & Iris",
+    title: "kNN sur Titanic et Iris",
     pitch:
       "Les k plus proches voisins codés à la main et testés sur Titanic et Iris. Je prépare les données, je choisis k et j'évalue le résultat.",
     start: "2025-06",
@@ -334,14 +336,14 @@ export const lifestyle = [
       { label: "800 m", value: "1'57" },
     ],
     apport:
-      "Le chrono ne ment pas. Quand une séance rate, je cherche pourquoi et j'ajuste la suivante.",
+      "Quand une séance rate, je cherche pourquoi et j'ajuste la suivante.",
   },
   {
     id: "echecs",
     title: "Échecs",
     stats: [{ label: "Elo rapide (10 min)", value: "1012" }],
     apport:
-      "À 1012 Elo, j'ai encore du chemin. On perd une bataille, pas la guerre : chaque défaite me sert à mieux jouer la suivante.",
+      "À 1012 Elo, j'ai encore du chemin. Chaque défaite m'apprend quelque chose pour la partie suivante.",
   },
 ];
 

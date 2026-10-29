@@ -669,6 +669,47 @@
   min-width: 0;
 }
 
+.home-quote {
+  position: relative;
+  display: grid;
+  gap: clamp(6px, 2cqh, 12px);
+  margin: 0;
+  padding-left: clamp(14px, 3cqw, 22px);
+  border-left: 3px solid var(--color-gold);
+}
+
+.home-quote blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, min(5cqw, 8.5cqh), 2.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+
+.home-quote blockquote p::before {
+  content: "« ";
+  color: var(--color-gold);
+}
+
+.home-quote blockquote p::after {
+  content: " »";
+  color: var(--color-gold);
+}
+
+.home-quote figcaption {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-gold-deep);
+}
+
+.home-id {
+  display: grid;
+  gap: 2px;
+}
+
 .home-name {
   font-size: var(--text-xs);
   font-weight: 600;
@@ -677,35 +718,16 @@
   color: var(--color-accent);
 }
 
-.home-title {
-  font-size: clamp(1.35rem, min(7cqw, 12cqh), 3.2rem);
-  line-height: 1.05;
-}
-
-.home-quote {
-  display: grid;
-  gap: 4px;
-  margin: 0;
-}
-
-.home-quote blockquote {
-  font-size: clamp(0.8rem, 3.6cqh, 1rem);
-  font-style: italic;
+.home-role,
+.home-search {
+  font-size: clamp(0.75rem, 3.2cqh, 0.9rem);
+  line-height: 1.35;
   color: var(--color-ink-soft);
 }
 
-.home-quote figcaption {
-  font-size: 11px;
+.home-search {
   font-weight: 600;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-gold-deep);
-}
-
-.home-hint {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: var(--color-ink-soft);
+  color: var(--color-ink);
 }
 
 .home-photo {
@@ -1093,8 +1115,8 @@
     align-items: flex-start;
   }
 
-  .home-title {
-    font-size: clamp(1.8rem, 8vw, 2.6rem);
+  .home-quote blockquote {
+    font-size: clamp(1.3rem, 6vw, 1.9rem);
   }
 
   .home-photo {
