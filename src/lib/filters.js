@@ -1,34 +1,65 @@
 /* eslint-disable unicorn/no-null -- convention du projet : null = aucun filtre */
-// Filtre croisé cadre × thème, partagé par les graphiques et les chips.
-// État : { cadre: string|null, theme: string|null }.
+// Filtre croisé partagé par les 8 cases du dashboard. Chaque axe vaut un
+// identifiant ou null ; les axes actifs se combinent en ET.
 
-export const NO_FILTER = { cadre: null, theme: null };
+export const AXES = ["cadre", "theme", "techno", "annee", "equipe", "statut"];
 
-// Les cartes vides (placeholder) ne comptent jamais dans les graphiques.
+export const NO_FILTER = Object.fromEntries(AXES.map((axis) => [axis, null]));
+
+// Taille d'équipe : pas de `team` = seul.
+export function teamKind(projet) {
+  if (!projet.team || projet.team < 2) return "solo";
+  return projet.team === 2 ? "binome" : "equipe";
+}
+
+export const statutOf = (projet) =>
+  projet.end === null ? "en-cours" : "livre";
+
+export const anneeOf = (projet) => projet.start.slice(0, 4);
+
+// Une fonction de test par axe : (projet, valeur) -> booléen.
+const TESTS = {
+  cadre: (projet, value) => projet.cadre === value,
+  theme: (projet, value) => projet.themes?.includes(value),
+  techno: (projet, value) => projet.stack?.includes(value),
+  annee: (projet, value) => anneeOf(projet) === value,
+  equipe: (projet, value) => teamKind(projet) === value,
+  statut: (projet, value) => statutOf(projet) === value,
+};
+
+// Les cartes vides (placeholder) ne comptent jamais.
 export const realProjets = (projets) =>
   projets.filter((projet) => !projet.placeholder);
 
-export const isActive = (filtre) => Boolean(filtre.cadre || filtre.theme);
+export const isActive = (filtre) => AXES.some((axis) => Boolean(filtre[axis]));
 
-export function matches(projet, { cadre, theme }) {
+export const activeAxes = (filtre) => AXES.filter((axis) => filtre[axis]);
+
+export function matches(projet, filtre) {
   if (projet.placeholder) return false;
-  if (cadre && projet.cadre !== cadre) return false;
-  if (theme && !projet.themes?.includes(theme)) return false;
-  return true;
+  return AXES.every(
+    (axis) => !filtre[axis] || TESTS[axis](projet, filtre[axis]),
+  );
 }
-
-// Liste affichée dans la grille : tout (cartes vides comprises) sans
-// filtre, sinon uniquement les vrais projets qui correspondent.
-export const visibleProjets = (projets, filtre) =>
-  isActive(filtre)
-    ? projets.filter((projet) => matches(projet, filtre))
-    : projets;
 
 export const countMatching = (projets, filtre) =>
   projets.filter((projet) => matches(projet, filtre)).length;
 
+// Pour une option d'un axe : `value` = projets qui restent avec les autres
+// filtres actifs, `total` = projets de cette option seule (le fantôme).
+export function optionCounts(projets, filtre, axis, id) {
+  return {
+    value: countMatching(projets, { ...filtre, [axis]: id }),
+    total: countMatching(projets, { ...NO_FILTER, [axis]: id }),
+  };
+}
+
+// Vrai si un autre axe que `axis` filtre : le fantôme devient utile.
+export const othersActive = (filtre, axis) =>
+  AXES.some((other) => other !== axis && filtre[other]);
+
 // Bascule depuis un graphique : si la combinaison ne donne aucun projet,
-// on lâche l'autre axe plutôt que d'afficher une grille vide.
+// on garde seulement ce nouveau choix plutôt qu'un résultat vide.
 export function toggleFrom(projets, filtre, axis, id) {
   const next = { ...filtre, [axis]: filtre[axis] === id ? null : id };
   if (next[axis] && countMatching(projets, next) === 0) {
@@ -37,9 +68,16 @@ export function toggleFrom(projets, filtre, axis, id) {
   return next;
 }
 
+export const clearAxis = (filtre, axis) => ({ ...filtre, [axis]: null });
+
 export const setAxis = (filtre, axis, id) => ({ ...filtre, [axis]: id });
 
-export const clearAxis = (filtre, axis) => ({ ...filtre, [axis]: null });
+// Version classique : la grille montre tout (cartes vides comprises) sans
+// filtre, sinon uniquement les vrais projets qui correspondent.
+export const visibleProjets = (projets, filtre) =>
+  isActive(filtre)
+    ? projets.filter((projet) => matches(projet, filtre))
+    : projets;
 
 // "AAAA-MM" -> index de mois absolu (pour les échelles de temps).
 export function monthIndex(value) {

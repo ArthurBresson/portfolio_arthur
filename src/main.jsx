@@ -6,6 +6,7 @@ import "./styles/global.css";
 import "./styles/ui.css";
 import "./styles/layout.css";
 import "./styles/dataviz.css";
+import "./styles/dashboard.css";
 
 createRoot(document.querySelector("#root")).render(
   <StrictMode>

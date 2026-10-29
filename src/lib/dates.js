@@ -39,3 +39,9 @@ export function formatPeriod(start, end) {
 // Tri du plus récent au plus ancien (comparaison lexicale sûre sur AAAA-MM).
 export const byStartDesc = (a, b) =>
   (b.start ?? "").localeCompare(a.start ?? "");
+
+// Temps de course "2h43" -> 163 minutes
+export function toMinutes(temps) {
+  const [hours, minutes] = temps.split("h").map(Number);
+  return hours * 60 + (minutes || 0);
+}

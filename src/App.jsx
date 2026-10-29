@@ -1,133 +1,78 @@
-import { useCallback, useState } from "react";
-import { AnimatePresence, MotionConfig } from "motion/react";
-import SiteHeader from "./components/SiteHeader.jsx";
-import ScrollToTop from "./components/ScrollToTop.jsx";
-import Hero from "./components/sections/Hero.jsx";
-import Projects from "./components/sections/Projects.jsx";
-import Parcours from "./components/sections/Parcours.jsx";
-import Lifestyle from "./components/sections/Lifestyle.jsx";
-import Contact from "./components/sections/Contact.jsx";
-import TimelineChart from "./components/dataviz/TimelineChart.jsx";
-import ThemeChart from "./components/dataviz/ThemeChart.jsx";
-import FilterSummary from "./components/dataviz/FilterSummary.jsx";
-import ProjectFilters from "./components/dataviz/ProjectFilters.jsx";
-import IntroLoader, {
-  IntroBoundary,
-} from "./components/dataviz/IntroLoader.jsx";
-import {
-  NO_FILTER,
-  clearAxis,
-  realProjets,
-  setAxis,
-  toggleFrom,
-  visibleProjets,
-} from "./lib/filters.js";
-import { shouldPlayIntro } from "./lib/intro.js";
-import {
-  profil,
-  cadres,
-  themes,
-  parcours,
-  projets,
-  lifestyle,
-  hobbies,
-  langues,
-} from "./data/portfolio.js";
+import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import ClassicApp from "./components/classic/ClassicApp.jsx";
+import DashboardApp from "./components/dashboard/DashboardApp.jsx";
+import { springHover, springPress } from "./components/ui/motionPresets.js";
 
-// Projets comptés par les graphiques et les filtres (sans cartes vides).
-const projetsReels = realProjets(projets);
+// Deux versions du portfolio, à comparer en direct :
+// - « Dashboard » (défaut) : grille 3×3 sans scroll ;
+// - « Classique » : la page qui défile (commit 7f1ef96).
+// Le choix vit dans l'URL (?v=classique) pour recharger ou partager. Pas
+// de hash : la version classique s'en sert déjà pour ses ancres.
+const PARAM = "v";
 
-// Page unique. Tout le contenu vient de src/data/portfolio.js.
-// Le filtre croisé { cadre, theme } vit ici : les deux graphiques du hero,
-// le résumé et les chips de la grille le lisent et le modifient.
-// reducedMotion="user" : les translations et zooms sont coupés si
-// l'utilisateur a activé prefers-reduced-motion.
+function readVersion() {
+  try {
+    return new URLSearchParams(globalThis.location.search).get(PARAM) ===
+      "classique"
+      ? "classique"
+      : "dashboard";
+  } catch {
+    return "dashboard";
+  }
+}
+
+function writeVersion(version) {
+  try {
+    const url = new URL(globalThis.location.href);
+    if (version === "classique") url.searchParams.set(PARAM, "classique");
+    else url.searchParams.delete(PARAM);
+    url.hash = "";
+    globalThis.history.pushState({}, "", url);
+  } catch {
+    // URL non modifiable : la bascule marche quand même, sans mémoire.
+  }
+}
+
 function App() {
-  const [filtre, setFiltre] = useState(NO_FILTER);
-  const [introVisible, setIntroVisible] = useState(shouldPlayIntro);
-  const endIntro = useCallback(() => setIntroVisible(false), []);
+  const [version, setVersion] = useState(readVersion);
 
-  // Graphiques : bascule, en lâchant l'autre axe si le résultat est vide.
-  const toggleCadre = (id) =>
-    setFiltre((current) => toggleFrom(projetsReels, current, "cadre", id));
-  const toggleTheme = (id) =>
-    setFiltre((current) => toggleFrom(projetsReels, current, "theme", id));
-  const reset = () => setFiltre(NO_FILTER);
+  // Boutons précédent / suivant du navigateur.
+  useEffect(() => {
+    const onPop = () => setVersion(readVersion());
+    globalThis.addEventListener("popstate", onPop);
+    return () => globalThis.removeEventListener("popstate", onPop);
+  }, []);
 
-  // Chips : (axe, id) active, (axe) sans id désactive, () réinitialise.
-  const changeFromChips = (axis, id) => {
-    if (!axis) return reset();
-    setFiltre((current) =>
-      id ? setAxis(current, axis, id) : clearAxis(current, axis),
-    );
+  const other = version === "dashboard" ? "classique" : "dashboard";
+  const switchVersion = () => {
+    writeVersion(other);
+    setVersion(other);
+    globalThis.scrollTo(0, 0);
   };
 
-  const charts = (
-    <>
-      <TimelineChart
-        parcours={parcours}
-        projets={projetsReels}
-        cadres={cadres}
-        filtre={filtre}
-        onToggleCadre={toggleCadre}
-      />
-      <ThemeChart
-        projets={projetsReels}
-        themes={themes}
-        cadres={cadres}
-        filtre={filtre}
-        onToggleTheme={toggleTheme}
-      />
-      <FilterSummary
-        projets={projetsReels}
-        cadres={cadres}
-        themes={themes}
-        filtre={filtre}
-        onReset={reset}
-      />
-    </>
-  );
-
-  const filters = (
-    <ProjectFilters
-      projets={projetsReels}
-      cadres={cadres}
-      themes={themes}
-      filtre={filtre}
-      onChange={changeFromChips}
-    />
-  );
-
   return (
-    <MotionConfig reducedMotion="user">
-      <a href="#contenu" className="skip-link">
-        Aller au contenu
-      </a>
-      <SiteHeader nom={profil.nom} />
-      <main id="contenu">
-        <Hero profil={profil} charts={charts} />
-        <Projects
-          projets={visibleProjets(projets, filtre)}
-          cadres={cadres}
-          filters={filters}
-        />
-        <Parcours parcours={parcours} />
-        <Lifestyle lifestyle={lifestyle} hobbies={hobbies} langues={langues} />
-      </main>
-      <Contact profil={profil} />
-      <ScrollToTop />
-      <AnimatePresence>
-        {introVisible && (
-          <IntroBoundary key="intro" onError={endIntro}>
-            <IntroLoader
-              projets={projetsReels}
-              themes={themes}
-              onDone={endIntro}
-            />
-          </IntroBoundary>
-        )}
-      </AnimatePresence>
-    </MotionConfig>
+    <div className={`app app--${version}`}>
+      {version === "dashboard" ? <DashboardApp /> : <ClassicApp />}
+      <motion.button
+        type="button"
+        className="version-switch"
+        onClick={switchVersion}
+        whileHover={{ y: -2, transition: springHover }}
+        whileTap={{ scale: 0.96, transition: springPress }}
+        aria-label={`Passer à la version ${other}`}
+      >
+        <span className={version === "dashboard" ? "is-current" : ""}>
+          Dashboard
+        </span>
+        <span className="version-switch-arrow" aria-hidden="true">
+          ⇄
+        </span>
+        <span className={version === "classique" ? "is-current" : ""}>
+          Classique
+        </span>
+      </motion.button>
+    </div>
   );
 }
 

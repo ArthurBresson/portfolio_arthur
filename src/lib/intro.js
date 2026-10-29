@@ -22,3 +22,24 @@ export function markIntroSeen() {
     // Stockage indisponible : l'intro rejouera, ce n'est pas grave.
   }
 }
+
+// Tuto du dashboard : affiché tant qu'il n'a pas été fermé ou qu'aucun
+// filtre n'a été essayé. localStorage pour ne pas le remontrer à chaque
+// visite ; en cas d'erreur de stockage, on le montre (sans gêner).
+const TUTO_KEY = "portfolio-tuto-vu";
+
+export function shouldShowTuto() {
+  try {
+    return globalThis.localStorage.getItem(TUTO_KEY) !== "1";
+  } catch {
+    return true;
+  }
+}
+
+export function markTutoSeen() {
+  try {
+    globalThis.localStorage.setItem(TUTO_KEY, "1");
+  } catch {
+    // Stockage indisponible : le tuto reviendra, ce n'est pas grave.
+  }
+}

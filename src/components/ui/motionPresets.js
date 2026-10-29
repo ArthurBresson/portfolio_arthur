@@ -37,3 +37,11 @@ export const revealViewport = {
   amount: 0.15,
   margin: "0px 0px -8% 0px",
 };
+
+// Barres et colonnes des graphiques : croissance souple.
+export const barSpring = {
+  type: "spring",
+  stiffness: 190,
+  damping: 26,
+  mass: 0.8,
+};
