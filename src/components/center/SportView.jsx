@@ -24,7 +24,9 @@ function SportView({ lifestyle, onBack }) {
               ))}
             </ul>
             <p className="detail-note">
+              {/* Les formats se lisent déjà dans la liste des courses. */}
               {triathlon.stats
+                .filter((stat) => stat.label !== "Formats")
                 .map((stat) => `${stat.label} : ${stat.value}`)
                 .join(" · ")}
             </p>

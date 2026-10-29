@@ -140,6 +140,13 @@
   max-width: 18ch;
 }
 
+.hero-role {
+  margin-top: calc(var(--space-2) * -1);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
 .hero-quote {
   display: grid;
   gap: var(--space-1);
@@ -213,7 +220,7 @@
   border-top: 1px solid var(--color-line);
 }
 
-/* Slot data-viz : 2 graphiques côte à côte (desktop), empilés (mobile). */
+/* Frise et thèmes : côte à côte (desktop), empilés (mobile). */
 .hero-charts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -223,19 +230,6 @@
 .hero-charts > * {
   min-width: 0;
   min-height: 300px;
-}
-
-.chart-slot {
-  display: grid;
-  place-items: center;
-}
-
-.chart-slot-label {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: rgba(124, 108, 102, 0.6);
 }
 
 @media (max-width: 820px) {

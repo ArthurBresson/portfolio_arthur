@@ -14,11 +14,18 @@
   --color-accent: #d9482b;
   --color-accent-hover: #c73f24;
   --color-accent-soft: #f2b8a6;
+  /* Texte rouge en petite taille : #d9482b ne passe pas 4.5:1 sur la surface. */
+  --color-accent-ink: #b5381d;
+  /* Marques des graphiques : au moins 3:1 sur la surface (WCAG 1.4.11),
+     version foncée pour le survol et la sélection. */
+  --color-data: #db5f43;
+  --color-data-strong: #a8341b;
   --color-on-accent: #ffffff;
   --color-shadow: #d3c6c0;
   --color-light: #ffffff;
   --color-line: rgba(43, 34, 32, 0.1);
   --color-gold: #b8913f;
+  --color-gold-text: #9a7530;
   --color-gold-light: #e9d29a;
   --color-gold-deep: #8f6a24;
   --color-gold-ink: #4a3712;
@@ -26,7 +33,7 @@
   /* --- Dégradés or --- */
   --gradient-gold-text: linear-gradient(
     90deg,
-    var(--color-gold),
+    var(--color-gold-text),
     var(--color-gold-deep)
   );
   --gradient-gold-badge: linear-gradient(

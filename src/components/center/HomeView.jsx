@@ -13,9 +13,9 @@ function renderHighlight(text) {
   );
 }
 
-// Vue d'accueil de la case centrale : nom, titre, citation, photo.
+// Vue d'accueil de la case centrale : nom, rôle, titre, citation, photo.
 function HomeView({ profil, total }) {
-  const { nom, accroche, citation, photo } = profil;
+  const { nom, role, accroche, citation, photo } = profil;
   return (
     <div className="center-view home-view">
       <div className="home-text">
@@ -23,6 +23,7 @@ function HomeView({ profil, total }) {
         <h1 className="home-title">
           {accroche ? renderHighlight(accroche) : nom}
         </h1>
+        {role && <p className="home-role">{role}</p>}
         {citation && (
           <figure className="home-quote">
             <blockquote>

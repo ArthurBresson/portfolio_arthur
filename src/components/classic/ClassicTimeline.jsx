@@ -109,7 +109,7 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
       <header className="chart-head">
         <h2 className="chart-title">Mon parcours dans le temps</h2>
         <p className="chart-hint">
-          Cliquez sur une période rouge pour voir ses projets.
+          Clique une barre colorée pour voir ses projets.
         </p>
       </header>
 
@@ -192,7 +192,10 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
                   className={classes}
                   tabIndex={0}
                   onPointerEnter={() => setFocused(period.id)}
-                  onPointerLeave={() => setFocused()}
+                  onPointerLeave={(event) => {
+                    // Au toucher, pointerleave suit le tap : on garde le relevé.
+                    if (event.pointerType !== "touch") setFocused();
+                  }}
                   onFocus={() => setFocused(period.id)}
                   onBlur={() => setFocused()}
                   {...interactiveProperties}
@@ -285,7 +288,7 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
           </>
         ) : (
           <span className="chart-readout-idle">
-            Survolez une période pour voir sa durée.
+            Touche ou survole une période pour voir sa durée.
           </span>
         )}
       </p>

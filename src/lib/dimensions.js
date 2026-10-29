@@ -26,17 +26,24 @@ export const STATUTS = [
   { id: "en-cours", label: "En cours" },
 ];
 
-// Technos les plus utilisées, à égalité dans l'ordre d'apparition.
+// Technos les plus utilisées. À égalité, la plus récemment utilisée
+// passe devant : le graphique montre ce que je pratique aujourd'hui.
 export function technosOf(projets) {
   const counts = new Map();
+  const lastUse = new Map();
   for (const projet of projets) {
     for (const tech of projet.stack ?? []) {
-      if (!GENERIC_STACK.has(tech))
-        counts.set(tech, (counts.get(tech) ?? 0) + 1);
+      if (GENERIC_STACK.has(tech)) continue;
+      counts.set(tech, (counts.get(tech) ?? 0) + 1);
+      if ((lastUse.get(tech) ?? "") < projet.start)
+        lastUse.set(tech, projet.start);
     }
   }
   return [...counts.entries()]
-    .toSorted((a, b) => b[1] - a[1])
+    .toSorted(
+      (a, b) =>
+        b[1] - a[1] || lastUse.get(b[0]).localeCompare(lastUse.get(a[0])),
+    )
     .slice(0, TECHNO_LIMIT)
     .map(([id]) => ({ id, label: id }));
 }

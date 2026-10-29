@@ -2,7 +2,10 @@
 import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import ChartCard from "./ChartCard.jsx";
-import { useElementWidth } from "../../hooks/useElementWidth.js";
+import {
+  useElementHeight,
+  useElementWidth,
+} from "../../hooks/useElementWidth.js";
 import { formatPeriod } from "../../lib/dates.js";
 import {
   currentMonthIndex,
@@ -41,9 +44,14 @@ const LANES = {
   formation: { barY: 18, outside: ["below"] },
   experience: { barY: 60, outside: ["above", "below"] },
 };
-const DOTS_Y = 110;
+// Les points projets se posent en bas de la frise, sous les libellés
+// « dessous » des expériences (y ≈ 91) quand la case est assez haute.
+// La hauteur suit la case : rien n'est coupé sur un petit écran.
 const DOT_STEP = 8;
-const HEIGHT = 116;
+const MAX_HEIGHT = 130;
+const MIN_HEIGHT = 100;
+// Largeur moyenne d'un caractère des libellés (12 px, graisse 600).
+const CHAR_W = 7;
 
 const barSpring = { type: "spring", stiffness: 170, damping: 26, mass: 0.9 };
 
@@ -59,6 +67,9 @@ function TimelineChart({
   const scrollReference = useRef(null);
   const measured = useElementWidth(scrollReference, 320);
   const width = Math.max(measured, MIN_WIDTH);
+  const available = useElementHeight(scrollReference, MAX_HEIGHT);
+  const height = Math.min(Math.max(available, MIN_HEIGHT), MAX_HEIGHT);
+  const dotsY = height - 6;
   const [focused, setFocused] = useState();
 
   const today = currentMonthIndex();
@@ -75,7 +86,7 @@ function TimelineChart({
     const x = xOf(start);
     const w = Math.max(xOf(end + 1) - x, 5);
     const short = SHORT[item.id] ?? item.place;
-    const inside = w > short.length * 6.2 + 12;
+    const inside = w > short.length * CHAR_W + 12;
     let side;
     if (!inside) {
       const choices = LANES[item.type].outside;
@@ -95,7 +106,7 @@ function TimelineChart({
     return {
       ...projet,
       cx: xOf(index) + monthW / 2,
-      cy: DOTS_Y - level * DOT_STEP,
+      cy: dotsY - level * DOT_STEP,
     };
   });
 
@@ -107,7 +118,7 @@ function TimelineChart({
   const focusedItem = periods.find((period) => period.id === focused);
   const hint = focusedItem
     ? `${focusedItem.short} · ${formatPeriod(focusedItem.start, focusedItem.end)} · ${formatDuration(focusedItem.months)}${focusedItem.end === null ? " (en cours)" : ""}`
-    : "Clique une période rouge. Pointillé : aujourd'hui.";
+    : "Clique une barre colorée pour filtrer. Pointillé : aujourd'hui.";
 
   return (
     <ChartCard title="Mon parcours" hint={hint} {...rest}>
@@ -115,8 +126,8 @@ function TimelineChart({
         <svg
           className="timeline-svg"
           width={width}
-          height={HEIGHT}
-          viewBox={`0 0 ${width} ${HEIGHT}`}
+          height={height}
+          viewBox={`0 0 ${width} ${height}`}
           role="group"
           aria-label="Frise du parcours, de 2020 à 2027"
         >
@@ -125,7 +136,7 @@ function TimelineChart({
               const x = xOf(year * 12);
               return (
                 <g key={year}>
-                  <line className="tl-grid" x1={x} x2={x} y1={13} y2={HEIGHT} />
+                  <line className="tl-grid" x1={x} x2={x} y1={13} y2={height} />
                   <text className="tl-year" x={x + 3} y={9}>
                     {year}
                   </text>
@@ -174,7 +185,10 @@ function TimelineChart({
                 className={classes}
                 tabIndex={0}
                 onPointerEnter={() => setFocused(period.id)}
-                onPointerLeave={() => setFocused()}
+                onPointerLeave={(event) => {
+                  // Au toucher, pointerleave suit le tap : on garde le relevé.
+                  if (event.pointerType !== "touch") setFocused();
+                }}
                 onFocus={() => setFocused(period.id)}
                 onBlur={() => setFocused()}
                 {...interactiveProperties}
@@ -233,7 +247,7 @@ function TimelineChart({
             x1={todayX}
             x2={todayX}
             y1={13}
-            y2={HEIGHT}
+            y2={height}
             aria-hidden="true"
           />
         </svg>

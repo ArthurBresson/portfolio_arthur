@@ -95,16 +95,13 @@
 }
 
 .tl-item--cadre .tl-bar {
-  fill: var(--color-accent-soft);
+  fill: var(--color-data);
   stroke: transparent;
 }
 
-.tl-item--cadre:hover .tl-bar {
-  fill: var(--color-accent);
-}
-
+.tl-item--cadre:hover .tl-bar,
 .tl-item--cadre.is-active .tl-bar {
-  fill: var(--color-accent);
+  fill: var(--color-data-strong);
 }
 
 .tl-item.is-dimmed {
@@ -261,12 +258,12 @@
 
 /* Total en fantôme : pointillé, visible seulement quand un cadre filtre. */
 .theme-ghost {
-  outline: 1.5px dashed var(--color-accent-soft);
+  outline: 1.5px dashed var(--color-data);
   outline-offset: -1.5px;
 }
 
 .theme-fill {
-  background: var(--color-accent-soft);
+  background: var(--color-data);
   box-shadow:
     inset 0 2px 0 rgba(255, 255, 255, 0.45),
     inset 0 -2px 0 rgba(0, 0, 0, 0.08);
@@ -275,7 +272,7 @@
 
 .theme-row:hover .theme-fill,
 .theme-row[aria-pressed="true"] .theme-fill {
-  background: var(--color-accent);
+  background: var(--color-data-strong);
 }
 
 .theme-row-value {
