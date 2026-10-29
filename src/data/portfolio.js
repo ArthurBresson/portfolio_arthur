@@ -19,11 +19,7 @@ export const profil = {
   localisation: "Saint-Léonard (51)",
   email: "arthur.bresson17@gmail.com",
   photo: "/arthur-photo.webp",
-  // Variantes d'accroche (12 mots max) :
-  //   1. "Développeur data et web. Je livre vite et je mesure tout."
-  //   2. "Contrôle aérien, agence web, réseaux de neurones. En trois ans d'études."
-  //   3. "Je code comme je m'entraîne, avec un chrono et un plan."
-  // Retenue par Arthur. Les mots entre astérisques s'affichent en dégradé or.
+  // Choisie par Arthur. Les mots entre astérisques s'affichent en dégradé or.
   accroche: "Alternant la journée, *triathlète et auto-entrepreneur* le soir.",
   // Arthur hésitait avec Bill Gates : « C'est bien de célébrer le succès,
   // mais il est plus important de tenir compte des leçons de l'échec. »

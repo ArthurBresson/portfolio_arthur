@@ -174,7 +174,10 @@
 
 .dash .theme-bars {
   display: grid;
-  grid-auto-rows: minmax(0, 1fr);
+  /* Lignes jusqu'à 44 px, puis centrées : pas de barres perdues dans le
+     vide quand la case est haute (compétences). */
+  grid-auto-rows: minmax(0, 44px);
+  align-content: center;
   gap: 0;
   height: 100%;
 }
@@ -551,7 +554,7 @@
 }
 
 .contact-fact dt {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-ink-soft);
 }
 
@@ -649,7 +652,7 @@
 }
 
 .home-quote figcaption {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
@@ -944,7 +947,7 @@
 }
 
 .chrono-list dt {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-ink-soft);
 }
 

@@ -83,9 +83,10 @@ function ProjectsView({ projets, filtre, dimensions, onRemoveAxis, onClear }) {
         <h1 className="visually-hidden">Projets d&apos;Arthur Bresson</h1>
         {pills}
         <p className="center-empty-text">
-          Aucun projet pour ce mélange de filtres.
+          {activeAxes(filtre).length > 1
+            ? "Aucun projet pour ce mélange de filtres."
+            : "Pas encore de projet pour ce filtre."}
         </p>
-        <Button onClick={onClear}>Tout effacer</Button>
       </div>
     );
   }

@@ -250,6 +250,20 @@
   font-weight: 600;
 }
 
+.theme-row:disabled {
+  cursor: default;
+}
+
+.theme-row:disabled:hover {
+  background: none;
+}
+
+.theme-row-none {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  font-style: italic;
+}
+
 .theme-row.is-empty .theme-row-label,
 .theme-row.is-empty .theme-row-value {
   color: var(--color-ink-soft);
@@ -445,7 +459,7 @@
   box-shadow:
     var(--shadow-clay-sm),
     inset 3px 0 0 var(--color-accent-soft);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 1.2;
   white-space: nowrap;

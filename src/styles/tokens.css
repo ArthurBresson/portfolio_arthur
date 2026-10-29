@@ -28,7 +28,7 @@
   --color-gold: #b8913f;
   --color-gold-text: #9a7530;
   --color-gold-light: #e9d29a;
-  --color-gold-deep: #8f6a24;
+  --color-gold-deep: #86631f; /* 5:1 sur la surface, 4,6:1 sur la page */
   --color-gold-ink: #4a3712;
 
   /* --- Dégradés or --- */

@@ -38,20 +38,28 @@ function ThemeChart({
   return (
     <ChartCard
       title={title}
-      hint={ghost ? "Le total reste en pointillé." : hint}
+      hint={ghost ? "Pointillé : total sans les autres filtres." : hint}
       className={`bar-chart--${axis} ${className}`.trim()}
       {...rest}
     >
       <ul className="theme-bars">
         {rows.map((row, index) => {
           const pressed = filtre[axis] === row.id;
+          // Aucun projet pour cette option, même sans autre filtre : rien à
+          // filtrer, la barre l'indique au lieu de mener à un écran vide.
+          const none = row.total === 0;
           return (
             <li key={row.id}>
               <button
                 type="button"
                 className={`theme-row${row.value === 0 ? " is-empty" : ""}`}
                 aria-pressed={pressed}
-                aria-label={`${row.label}${row.parcours ? " (cœur du parcours)" : ""} : ${pluralProjets(row.value)}${ghost ? ` sur ${row.total}` : ""}. Filtrer par ${row.label}.`}
+                disabled={none}
+                aria-label={
+                  none
+                    ? `${row.label} : pas encore de projet.`
+                    : `${row.label}${row.parcours ? " (cœur du parcours)" : ""} : ${pluralProjets(row.value)}${ghost ? ` sur ${row.total}` : ""}. Filtrer par ${row.label}.`
+                }
                 title={row.detail}
                 onClick={() => onToggle(axis, row.id)}
               >
@@ -83,8 +91,16 @@ function ThemeChart({
                   />
                 </span>
                 <span className="theme-row-value tabular" aria-hidden="true">
-                  {row.value}
-                  {ghost && <span className="ghost-total">/{row.total}</span>}
+                  {none ? (
+                    <span className="theme-row-none">à venir</span>
+                  ) : (
+                    <>
+                      {row.value}
+                      {ghost && (
+                        <span className="ghost-total">/{row.total}</span>
+                      )}
+                    </>
+                  )}
                 </span>
               </button>
             </li>

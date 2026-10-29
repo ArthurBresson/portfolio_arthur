@@ -4,7 +4,7 @@ import Badge from "../ui/Badge.jsx";
 
 // Astuce de première visite, posée dans l'accueil à la place de la ligne
 // d'aide : elle explique que chaque graphique est un filtre sans rien
-// recouvrir. Se ferme sur « Compris » ou au premier filtre. La mémoire est
+// recouvrir. Se ferme sur « OK » ou au premier filtre. La mémoire est
 // gérée par lib/intro.js.
 function Tutorial({ onDismiss }) {
   return (

@@ -44,9 +44,10 @@ const dimensions = buildDimensions(projetsReels, {
   competences,
 });
 
-// Version « Dashboard » : une grille 3×3 sans scroll (desktop). Les 8 cases
-// autour sont des graphiques qui filtrent ; la case centrale montre
-// l'accueil, les projets filtrés, le sport ou le contact.
+// Version « Dashboard » : une grille 3×3 sans scroll (desktop). Autour du
+// centre, 6 graphiques qui filtrent et 2 cases (sport, contact) qui ouvrent
+// leur détail ; la case centrale montre l'accueil, les projets filtrés, le
+// sport ou le contact.
 function DashboardApp() {
   const [filtre, setFiltre] = useState(NO_FILTER);
   // Vue forcée au centre ("sport" | "contact") ; sinon elle suit le filtre.
