@@ -7,6 +7,7 @@ import { ExternalIcon, UsersIcon } from "../ui/Icons.jsx";
 import { formatPeriod } from "../../lib/dates.js";
 import { activeAxes, pluralProjets } from "../../lib/filters.js";
 import { labelOf } from "../../lib/dimensions.js";
+import ProjectCompetences from "../ui/ProjectCompetences.jsx";
 
 // Vue « projets » de la case centrale : les filtres actifs (retirables un
 // par un), des onglets 1 · 2 · 3… et un seul projet à la fois.
@@ -79,6 +80,7 @@ function ProjectsView({ projets, filtre, dimensions, onRemoveAxis, onClear }) {
   if (count === 0) {
     return (
       <div className="center-view center-empty">
+        <h1 className="visually-hidden">Projets d&apos;Arthur Bresson</h1>
         {pills}
         <p className="center-empty-text">
           Aucun projet pour ce mélange de filtres.
@@ -93,6 +95,7 @@ function ProjectsView({ projets, filtre, dimensions, onRemoveAxis, onClear }) {
 
   return (
     <div className="center-view projects-view">
+      <h1 className="visually-hidden">Projets d&apos;Arthur Bresson</h1>
       <div className="project-tabs-row">
         {pills}
         {count > 1 ? (
@@ -165,6 +168,10 @@ function ProjectsView({ projets, filtre, dimensions, onRemoveAxis, onClear }) {
             </div>
             <h2 className="project-title">{current.title}</h2>
             {current.pitch && <p className="project-pitch">{current.pitch}</p>}
+            <ProjectCompetences
+              ids={current.competences}
+              options={dimensions.competence}
+            />
             <div className="project-foot-row">
               {current.stack?.length > 0 && (
                 <ul className="project-stack" aria-label="Technologies">

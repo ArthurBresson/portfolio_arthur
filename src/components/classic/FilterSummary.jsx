@@ -16,12 +16,20 @@ function goToProjects() {
 // Résumé sous les graphiques du hero : un clic dans un graphique ne fait
 // pas défiler la page, il affiche « 2 projets IUT · Web » + un lien vers
 // la grille.
-function FilterSummary({ projets, cadres, themes, filtre, onReset }) {
+function FilterSummary({
+  projets,
+  cadres,
+  themes,
+  competences,
+  filtre,
+  onReset,
+}) {
   const active = isActive(filtre);
   const count = countMatching(projets, filtre);
   const parts = [
     cadres.find((cadre) => cadre.id === filtre.cadre)?.label,
     themes.find((theme) => theme.id === filtre.theme)?.label,
+    competences.find((item) => item.id === filtre.competence)?.label,
   ].filter(Boolean);
 
   return (

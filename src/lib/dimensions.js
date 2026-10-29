@@ -1,6 +1,5 @@
 // Options de chaque axe du filtre, calculées depuis les données.
 // Sert aux graphiques (libellés, ordre) et au résumé de la case centrale.
-import { anneeOf } from "./filters.js";
 
 // Technos trop vagues pour un filtre utile.
 const GENERIC_STACK = new Set(["Data", "Interface", "Web"]);
@@ -9,8 +8,8 @@ const TECHNO_LIMIT = 8;
 export const AXIS_LABELS = {
   cadre: "Cadre",
   theme: "Thème",
+  competence: "Compétence",
   techno: "Techno",
-  annee: "Année",
   equipe: "Équipe",
   statut: "Statut",
 };
@@ -48,18 +47,12 @@ export function technosOf(projets) {
     .map(([id]) => ({ id, label: id }));
 }
 
-export function anneesOf(projets) {
-  return [...new Set(projets.map((projet) => anneeOf(projet)))]
-    .toSorted()
-    .map((id) => ({ id, label: id }));
-}
-
-export function buildDimensions(projets, { cadres, themes }) {
+export function buildDimensions(projets, { cadres, themes, competences }) {
   return {
     cadre: cadres,
     theme: themes,
+    competence: competences,
     techno: technosOf(projets),
-    annee: anneesOf(projets),
     equipe: EQUIPES,
     statut: STATUTS,
   };

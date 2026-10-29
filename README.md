@@ -1,10 +1,10 @@
 # Portfolio — Arthur Bresson
 
-Portfolio personnel d'Arthur Bresson, étudiant en 3e année de BUT Informatique (parcours bases de données) et alternant chez Hager : projets, parcours, sport et contact.
+Portfolio personnel d'Arthur Bresson, étudiant en 3e année de BUT Informatique (parcours bases de données) et data analyst en alternance chez Hager : projets, compétences du BUT, parcours, sport et contact.
 
 Le site existe en deux versions, à comparer en direct avec le bouton « Dashboard ⇄ Classique » :
 
-- **Dashboard** (par défaut) : une grille 3×3 sans scroll sur desktop. Les 8 cases autour sont des graphiques (frise du parcours, thèmes, technos, années, taille d'équipe, statut, sport, contact) qui servent tous de filtre. Les filtres se combinent, et la case centrale affiche l'accueil, les projets filtrés, le détail sport ou le contact.
+- **Dashboard** (par défaut) : une grille 3×3 sans scroll sur desktop. Six cases sont des graphiques qui filtrent les projets (frise du parcours, thèmes, compétences du BUT, technos, taille d'équipe, statut) ; les filtres se combinent. Les cases Sport et Contact ouvrent leur détail. La case centrale affiche l'accueil, les projets filtrés, le sport ou le contact.
 - **Classique** (`?v=classique`) : une page qui défile, avec hero, frise, graphique des thèmes, grille de projets filtrable, parcours, sport et contact.
 
 ## Stack
@@ -54,7 +54,8 @@ src/
 Tout le contenu se trouve dans `src/data/portfolio.js`. Il n'y a aucun composant à modifier : les graphiques, les filtres et les cartes sont calculés à partir de ces tableaux.
 
 - Les dates sont au format `"AAAA-MM"`. `end: null` signifie « en cours ».
-- Un projet a un `cadre` (UTT, IUT, Pro, Perso), un ou plusieurs `themes`, une `stack`, et `team` s'il a été fait à plusieurs.
+- Un projet a un `cadre` (UTT, IUT, Stage & alternance, Entreprise, Perso), un ou plusieurs `themes`, les `competences` du BUT qu'il prouve, une `stack`, et `team` s'il a été fait à plusieurs.
+- `competences` liste les 6 compétences du BUT Informatique ; `parcours: true` marque celles du cœur du parcours data en 3e année (point doré).
 - Une période du `parcours` qui porte un `cadre` devient cliquable dans la frise et filtre les projets de ce cadre.
 - `placeholder: true` crée une carte « Bientôt en ligne » dans la version Classique, ignorée par les graphiques.
 

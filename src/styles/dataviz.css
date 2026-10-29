@@ -22,6 +22,19 @@
   letter-spacing: -0.01em;
 }
 
+/* Repère doré devant chaque titre de carte. */
+.chart-title::before {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin-right: 0.45em;
+  border-radius: 50%;
+  background: var(--gradient-gold-badge);
+  box-shadow: var(--shadow-badge-gold);
+  vertical-align: 0.08em;
+}
+
 .chart-hint {
   font-size: var(--text-sm);
   color: var(--color-ink-soft);

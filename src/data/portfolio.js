@@ -2,7 +2,8 @@
 // sont tous calculés à partir de ces tableaux : ajouter un projet ici suffit
 // pour qu'il apparaisse partout.
 //
-// Dates au format "AAAA-MM". `end: null` = en cours.
+// Dates au format "AAAA-MM". `end: null` = en cours. Un projet dure au
+// moins 3 mois : un mois avant et un mois après le mois de référence.
 // Les textes sont rédigés et validés pour la mise en ligne. Règle pour toute
 // modification : première personne, phrases courtes, une preuve (chiffre,
 // résultat, chose livrée) plutôt qu'un adjectif. Ne rien affirmer qui ne soit
@@ -11,7 +12,10 @@ const GITHUB = "https://github.com/ArthurBresson";
 
 export const profil = {
   nom: "Arthur Bresson",
-  role: "BUT Informatique, 3e année — alternant chez Hager",
+  role: "BUT Informatique, 3e année — data analyst en alternance chez Hager",
+  // Ce que je cherche après le BUT (affiché sous le rôle).
+  recherche:
+    "Je cherche une alternance en Master ou en école d'ingénieur, en IA / ML engineering.",
   localisation: "Saint-Léonard (51)",
   email: "arthur.bresson17@gmail.com",
   photo: "/arthur-photo.webp",
@@ -29,7 +33,7 @@ export const profil = {
     auteur: "Thomas Edison",
   },
   preuves: [
-    { value: "12", label: "projets menés en trois ans, de l'école au client" },
+    { value: "13", label: "projets menés en trois ans, de l'école au client" },
     { value: "18 j", label: "pour livrer un site vitrine BressoDup" },
     { value: "33'37", label: "au 10 km, le chrono dont je suis le plus fier" },
   ],
@@ -43,11 +47,49 @@ export const profil = {
 };
 
 // Cadre dans lequel un projet a été réalisé. Sert d'axe 1 du filtre croisé.
+// « Pro » = stage et alternance (un employeur) ; « Entreprise » = mon
+// agence BressoDup, où je suis cofondateur.
 export const cadres = [
   { id: "utt", label: "UTT" },
   { id: "iut", label: "IUT" },
-  { id: "pro", label: "Pro" },
+  { id: "pro", label: "Stage & alternance" },
+  { id: "entreprise", label: "Entreprise" },
   { id: "perso", label: "Perso" },
+];
+
+// Les 6 compétences du référentiel national du BUT Informatique. En 3e
+// année du parcours « Administration, gestion et exploitation des
+// données », trois sont au cœur du parcours (`parcours: true`).
+export const competences = [
+  { id: "realiser", label: "Réaliser", detail: "Développer une application" },
+  {
+    id: "optimiser",
+    label: "Optimiser",
+    detail: "Rendre une application ou un algorithme plus efficace",
+  },
+  {
+    id: "administrer",
+    label: "Administrer",
+    detail: "Installer et configurer des systèmes et des réseaux",
+  },
+  {
+    id: "gerer",
+    label: "Gérer les données",
+    detail: "Concevoir, administrer et exploiter des bases de données",
+    parcours: true,
+  },
+  {
+    id: "conduire",
+    label: "Conduire un projet",
+    detail: "Organiser, planifier et livrer",
+    parcours: true,
+  },
+  {
+    id: "collaborer",
+    label: "Collaborer",
+    detail: "Travailler dans une équipe informatique",
+    parcours: true,
+  },
 ];
 
 // Axe 2 du filtre croisé. Un projet peut avoir plusieurs thèmes.
@@ -138,10 +180,12 @@ export const parcours = [
     id: "hager",
     type: "experience",
     cadre: "pro",
-    title: "Alternance",
+    title: "Alternance data analyst",
     place: "Hager, Obernai",
     start: "2026-09",
     end: "2027-08",
+    detail:
+      "Data analyst en alternance : tableaux de bord Power BI et qualité des données.",
   },
 ];
 
@@ -153,9 +197,10 @@ export const projets = [
     title: "Recommandation de films",
     pitch:
       "Un moteur de recommandation de films écrit en C, piloté par une interface Python.",
-    start: "2024-12",
-    end: "2024-12",
+    start: "2024-11",
+    end: "2025-01",
     cadre: "utt",
+    competences: ["realiser", "optimiser"],
     themes: ["ia", "data"],
     stack: ["Python", "C"],
     links: [{ label: "GitHub", url: `${GITHUB}/Recommendation_film` }],
@@ -165,9 +210,10 @@ export const projets = [
     title: "Gestion des soutenances",
     pitch:
       "Le planning des soutenances de fin d'année, pour étudiants et enseignants. Un créneau n'est validé que si le binôme d'enseignants est complet, et c'est l'application qui le vérifie.",
-    start: "2025-06",
-    end: "2025-06",
+    start: "2025-05",
+    end: "2025-07",
     cadre: "utt",
+    competences: ["realiser", "gerer", "collaborer"],
     themes: ["web", "bdd"],
     stack: ["PHP", "SQL"],
     team: 2,
@@ -180,9 +226,10 @@ export const projets = [
     title: "kNN — Titanic & Iris",
     pitch:
       "Les k plus proches voisins codés à la main et testés sur Titanic et Iris. Je prépare les données, je choisis k et j'évalue le résultat.",
-    start: "2025-06",
-    end: "2025-06",
+    start: "2025-05",
+    end: "2025-07",
     cadre: "perso",
+    competences: ["optimiser"],
     themes: ["ia", "data"],
     stack: ["Python"],
   },
@@ -194,6 +241,7 @@ export const projets = [
     start: "2025-10",
     end: null,
     cadre: "perso",
+    competences: ["realiser"],
     themes: ["web"],
     stack: ["Web"],
     links: [
@@ -205,9 +253,10 @@ export const projets = [
     title: "CoLive",
     pitch:
       "Une plateforme de logements pour alternants, construite à cinq en Symfony. Recherche de biens, back-office d'administration, données générées par fixtures et un chatbot.",
-    start: "2025-12",
-    end: "2025-12",
+    start: "2025-11",
+    end: "2026-01",
     cadre: "iut",
+    competences: ["realiser", "gerer", "collaborer"],
     themes: ["web", "bdd"],
     stack: ["Symfony", "PHP", "Twig", "SQL"],
     team: 5,
@@ -218,9 +267,10 @@ export const projets = [
     title: "Tableau d'emprunt",
     pitch:
       "Un simulateur de prêt en JavaScript, sans framework. Annuités ou amortissements constants, toutes les périodicités, et le coût total du crédit.",
-    start: "2026-01",
-    end: "2026-01",
+    start: "2025-12",
+    end: "2026-02",
     cadre: "iut",
+    competences: ["realiser"],
     themes: ["web"],
     stack: ["JavaScript", "HTML", "CSS"],
     links: [{ label: "GitHub", url: `${GITHUB}/prog_tableau_emprunt` }],
@@ -229,9 +279,10 @@ export const projets = [
     id: "gamejam",
     title: "GameJam",
     pitch: "Un jeu Python codé à deux, dans le temps imposé d'une game jam.",
-    start: "2026-01",
-    end: "2026-01",
+    start: "2025-12",
+    end: "2026-02",
     cadre: "iut",
+    competences: ["realiser", "collaborer"],
     themes: ["jeu"],
     stack: ["Python"],
     team: 2,
@@ -242,9 +293,10 @@ export const projets = [
     title: "Running Data",
     pitch:
       "La météo change-t-elle nos chronos ? À quatre, on a croisé des fichiers Garmin seconde par seconde avec Open-Meteo, stocké le tout en PostgreSQL et analysé les résultats dans Streamlit.",
-    start: "2026-03",
-    end: "2026-03",
+    start: "2026-02",
+    end: "2026-04",
     cadre: "iut",
+    competences: ["gerer", "collaborer"],
     themes: ["data", "bdd"],
     stack: ["Python", "PostgreSQL", "Streamlit"],
     team: 4,
@@ -261,8 +313,21 @@ export const projets = [
     start: "2026-04",
     end: "2026-07",
     cadre: "pro",
+    competences: ["realiser", "gerer"],
     themes: ["data", "web"],
     stack: ["Data", "Interface"],
+  },
+  {
+    id: "hager-data",
+    title: "Data analyst chez Hager",
+    pitch:
+      "Mon alternance de 3e année. Je construis des tableaux de bord Power BI et je surveille la qualité des données.",
+    start: "2026-09",
+    end: null,
+    cadre: "pro",
+    competences: ["gerer"],
+    themes: ["data"],
+    stack: ["Power BI"],
   },
   {
     id: "bressodup",
@@ -271,7 +336,8 @@ export const projets = [
       "L'agence web que j'ai cofondée avec Nathan. Des sites vitrines pour PME et artisans de la Marne et des Ardennes, livrés en 18 jours, avec un score Lighthouse de 90+ écrit dans le contrat.",
     start: "2026-09",
     end: null,
-    cadre: "pro",
+    cadre: "entreprise",
+    competences: ["conduire", "realiser", "collaborer"],
     themes: ["web"],
     stack: ["React", "TypeScript"],
     team: 2,
@@ -285,6 +351,7 @@ export const projets = [
     start: "2026-09",
     end: null,
     cadre: "perso",
+    competences: ["optimiser"],
     themes: ["ia"],
     stack: ["Python", "PyTorch"],
     links: [{ label: "GitHub", url: `${GITHUB}/my_neural_network_learning` }],
@@ -297,6 +364,7 @@ export const projets = [
     start: "2026-10",
     end: null,
     cadre: "perso",
+    competences: ["realiser", "conduire"],
     themes: ["agents", "web"],
     stack: ["React", "Claude Code"],
     links: [{ label: "GitHub", url: `${GITHUB}/portfolio_arthur` }],
@@ -339,7 +407,6 @@ export const lifestyle = [
   {
     id: "echecs",
     title: "Échecs",
-    stats: [{ label: "Elo rapide (10 min)", value: "1012" }],
     apport:
       "À 1012 Elo, j'ai encore du chemin. On perd une bataille, pas la guerre : chaque défaite me sert à mieux jouer la suivante.",
   },

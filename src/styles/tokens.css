@@ -1,8 +1,9 @@
 /* ==================== TOKENS : « Tartan + or » ====================
    Identité claymorphism, mode clair uniquement.
    - Rouge piste (accent) : la seule couleur d'action (boutons, chips actives, liens).
-   - Or : UNIQUEMENT ce qui signifie excellence (records, mots clés du hero,
-     liseré de la carte hero). Jamais en aplat large, jamais en action. */
+   - Or : la signature. Records, mots clés du hero, liseré de la carte hero,
+     repère des titres de cartes, surtitres, compétences du parcours.
+     Jamais en aplat large, jamais en action. */
 :root {
   color-scheme: light;
 

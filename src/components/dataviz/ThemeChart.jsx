@@ -8,42 +8,59 @@ import {
   pluralProjets,
 } from "../../lib/filters.js";
 
-// Projets par thème, en barres horizontales (lisibles avec des libellés
-// comme « AI Engineering »). Chaque barre est un bouton : clic = filtre.
-// Quand un autre axe filtre, la barre ne compte que ce qui reste et le
-// total reste en pointillé derrière.
+// Projets par option d'un axe (thème, compétence…), en barres
+// horizontales lisibles avec des libellés longs. Chaque barre est un
+// bouton : clic = filtre. Quand un autre axe filtre, la barre ne compte
+// que ce qui reste et le total reste en pointillé derrière. Une option
+// `parcours: true` reçoit un point doré.
 
-function ThemeChart({ projets, options, filtre, onToggle, ready, ...rest }) {
+function ThemeChart({
+  projets,
+  options,
+  filtre,
+  onToggle,
+  ready,
+  axis = "theme",
+  title = "Projets par thème",
+  hint = "Clique un thème pour filtrer.",
+  className = "",
+  ...rest
+}) {
   const reduce = useReducedMotion();
-  const ghost = othersActive(filtre, "theme");
+  const ghost = othersActive(filtre, axis);
   const rows = options.map((option) => ({
     ...option,
-    ...optionCounts(projets, filtre, "theme", option.id),
+    ...optionCounts(projets, filtre, axis, option.id),
   }));
   const max = Math.max(1, ...rows.map((row) => row.total));
   const percent = (value) => `${(value / max) * 100}%`;
 
   return (
     <ChartCard
-      title="Projets par thème"
-      hint={
-        ghost ? "Le total reste en pointillé." : "Clique un thème pour filtrer."
-      }
+      title={title}
+      hint={ghost ? "Le total reste en pointillé." : hint}
+      className={`bar-chart--${axis} ${className}`.trim()}
       {...rest}
     >
       <ul className="theme-bars">
         {rows.map((row, index) => {
-          const pressed = filtre.theme === row.id;
+          const pressed = filtre[axis] === row.id;
           return (
             <li key={row.id}>
               <button
                 type="button"
                 className={`theme-row${row.value === 0 ? " is-empty" : ""}`}
                 aria-pressed={pressed}
-                aria-label={`${row.label} : ${pluralProjets(row.value)}${ghost ? ` sur ${row.total}` : ""}. Filtrer par ${row.label}.`}
-                onClick={() => onToggle("theme", row.id)}
+                aria-label={`${row.label}${row.parcours ? " (cœur du parcours)" : ""} : ${pluralProjets(row.value)}${ghost ? ` sur ${row.total}` : ""}. Filtrer par ${row.label}.`}
+                title={row.detail}
+                onClick={() => onToggle(axis, row.id)}
               >
-                <span className="theme-row-label">{row.label}</span>
+                <span className="theme-row-label">
+                  {row.label}
+                  {row.parcours && (
+                    <span className="parcours-dot" aria-hidden="true" />
+                  )}
+                </span>
                 <span className="theme-track" aria-hidden="true">
                   <motion.span
                     className="theme-ghost"

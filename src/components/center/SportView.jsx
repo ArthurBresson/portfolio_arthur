@@ -9,6 +9,7 @@ function SportView({ lifestyle, onBack }) {
 
   return (
     <div className="center-view detail-view">
+      <h1 className="visually-hidden">Sport d&apos;Arthur Bresson</h1>
       <BackButton onBack={onBack} />
       <div className="detail-grid">
         {triathlon && (
