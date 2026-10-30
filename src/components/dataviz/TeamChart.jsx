@@ -41,11 +41,7 @@ function TeamChart({ projets, options, filtre, onToggle, ready, ...rest }) {
   }));
 
   return (
-    <ChartCard
-      title="Seul ou en équipe"
-      hint="Taille de l'équipe par projet."
-      {...rest}
-    >
+    <ChartCard title="Seul ou en équipe" {...rest}>
       <div className="team-chart">
         <svg
           className="team-donut"

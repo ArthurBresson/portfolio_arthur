@@ -52,9 +52,6 @@ function SportCard({
           <AnimatedIcon name="cup" size={20} target=".sport-card" />
           Sport
         </h2>
-        <p className="chart-hint">
-          Triathlon M, deux courses. Clique pour le détail.
-        </p>
       </header>
       <div className="chart-body sport-body" aria-hidden="true">
         {first && last && (

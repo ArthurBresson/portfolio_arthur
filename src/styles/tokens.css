@@ -121,79 +121,112 @@
   --duration-reveal: 500ms;
 }
 
-/* ==================== THÈME : « Crépuscule quantique » ====================
-   Versions 3 et 4 : mêmes composants, couleurs cyberpunk.
-   - Bleu marine (#0B132B) : la base.
-   - Turquoise (#5BC0BE) : marques des graphiques, liens, progression.
-   - Jaune (#FDE74C) : l'action principale, à la place du rouge.
-   - Violet (#9B5DE5) et rose (#F15BB5) : la signature, à la place de
-     l'or. Dégradés limités à ces deux couleurs.
-   Mêmes filets que le thème clair, en turquoise. */
-:root[data-theme="cyber"] {
-  color-scheme: dark;
+/* ==================== THÈME : « Dessiné » ====================
+   Versions 3 et 4 : mêmes composants, comme dessinés à la main.
+   - Papier crème, mine graphite pour le texte.
+   - Deux stylos : l'encre bleue pour les graphiques et la signature (elle
+     remplace l'or), le feutre rouge pour l'action.
+   - Polices manuscrites (Kalam pour les titres, Patrick Hand pour le
+     texte), chargées seulement pour ce thème.
+   - Contours tremblés : chaque arrondi est un peu irrégulier, comme un
+     trait de crayon. */
+:root[data-theme="sketch"] {
+  --color-page: #faf7f0;
+  --color-surface: #faf7f0;
+  --color-ink: #2d2a32;
+  --color-ink-soft: #5c5866; /* 6,5:1 */
+  --color-accent: #c8402a; /* 4,8:1 */
+  --color-accent-hover: #a9331f;
+  --color-accent-soft: rgba(200, 64, 42, 0.3);
+  --color-accent-ink: #c8402a;
+  --color-data: #2c5aa0; /* 6,4:1 */
+  --color-data-strong: #1d3f75;
+  --color-bar: #2c5aa0;
+  --color-bar-hover: #1d3f75;
+  --color-on-bar: #ffffff;
+  --color-on-accent: #ffffff;
+  --color-shadow: transparent;
+  --color-light: #faf7f0;
+  --color-line: rgba(45, 42, 50, 0.22);
+  --color-line-strong: #2d2a32;
+  --color-gold: #2c5aa0;
+  --color-gold-text: #2c5aa0;
+  --color-gold-light: #9db6dc;
+  --color-gold-deep: #2c5aa0;
+  --color-gold-ink: #ffffff;
 
-  --color-page: #0b132b;
-  --color-surface: #111c3a;
-  --color-ink: #e6ebf7;
-  --color-ink-soft: #9ba7c6;
-  --color-accent: #fde74c;
-  --color-accent-hover: #fff07f;
-  --color-accent-soft: rgba(253, 231, 76, 0.28);
-  --color-accent-ink: #fde74c;
-  --color-data: #5bc0be;
-  --color-data-strong: #8fe0de;
-  --color-bar: var(--color-data);
-  --color-bar-hover: var(--color-data-strong);
-  --color-on-bar: #0b132b; /* 8,5:1 sur le turquoise */
-  --color-on-accent: #0b132b;
-  --color-shadow: #050a19;
-  --color-light: #1d2b54;
-  --color-line: rgba(91, 192, 190, 0.2);
-  --color-line-strong: rgba(91, 192, 190, 0.5);
-  --color-gold: #9b5de5;
-  --color-gold-text: #b98cf0;
-  --color-gold-light: rgba(155, 93, 229, 0.55);
-  --color-gold-deep: #f15bb5; /* 6:1 sur la page */
-  --color-gold-ink: #0b132b;
+  --gradient-gold-text: linear-gradient(#2c5aa0, #2c5aa0);
+  --gradient-gold-badge: linear-gradient(#2c5aa0, #2c5aa0);
 
-  --gradient-gold-text: linear-gradient(90deg, #9b5de5, #f15bb5);
-  --gradient-gold-badge: linear-gradient(160deg, #9b5de5, #f15bb5);
+  --rule: 1.5px solid var(--color-line);
+  --rule-strong: 2px solid var(--color-line-strong);
+  --shadow-inset: inset 0 0 0 1.5px var(--color-line);
 
-  --shadow-inset: inset 0 0 0 1px var(--color-line);
+  /* Arrondis irréguliers : le contour a l'air tracé à la main. */
+  --radius-xs: 6px 10px 5px 9px / 9px 5px 10px 6px;
+  --radius-sm: 12px 18px 10px 16px / 16px 10px 18px 12px;
+  --radius-md: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  --radius-lg: 255px 25px 225px 25px / 25px 225px 25px 255px;
+  --radius-xl: 255px 25px 225px 25px / 25px 225px 25px 255px;
+  --radius-pill: 255px 15px 225px 15px / 15px 225px 15px 255px;
+
+  --font-display: "Kalam", "Comic Sans MS", cursive;
+  --font-body: "Patrick Hand", "Comic Sans MS", cursive;
+  --tracking-display: 0;
+  --tracking-label: 0.04em;
 }
 
-/* Fond : un ciel de crépuscule, violet en haut, rose en bas, très atténués
-   pour garder le texte lisible. */
-:root[data-theme="cyber"] body {
-  background:
-    radial-gradient(
-      ellipse 80% 50% at 15% -10%,
-      rgba(155, 93, 229, 0.18),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 70% 45% at 95% 110%,
-      rgba(241, 91, 181, 0.12),
-      transparent 70%
-    ),
-    var(--color-page);
-  background-attachment: fixed;
+/* Les polices manuscrites ont un petit œil : tout le texte (tailles en
+   rem) monte d'un cran. Les espacements, en px, ne bougent pas. */
+html[data-theme="sketch"] {
+  font-size: 112.5%;
 }
 
-/* Couleurs écrites en dur pour le thème clair. */
-:root[data-theme="cyber"] .site-header.is-scrolled .site-nav {
-  background: rgba(11, 19, 43, 0.88);
+/* Kalam a de grandes hampes : la citation du dashboard reste un peu plus
+   petite et plus serrée pour tenir dans sa case sans défiler. */
+:root[data-theme="sketch"] .home-quote blockquote {
+  font-size: clamp(1rem, min(4.2cqw, 7cqh), 1.9rem);
+  line-height: 1.12;
 }
 
-:root[data-theme="cyber"] .site-link:hover {
-  background: rgba(91, 192, 190, 0.08);
+/* Les glyphes de Kalam dépassent leur ligne d'un pixel : sans cette marge,
+   la case se croit à défiler et estompe le nom (fondu de bas de case). */
+:root[data-theme="sketch"] .home-text {
+  padding-bottom: 4px;
 }
 
-:root[data-theme="cyber"] .project-empty-sub {
-  color: rgba(155, 167, 198, 0.75);
+/* Boutons, puces et contours : un vrai trait d'encre plutôt qu'un filet. */
+:root[data-theme="sketch"] .btn--soft,
+:root[data-theme="sketch"] .chip,
+:root[data-theme="sketch"] .tech-bubble,
+:root[data-theme="sketch"] .badge--neutral,
+:root[data-theme="sketch"] .project-competences li {
+  box-shadow: none;
+  border: 1.5px solid var(--color-ink);
 }
 
-:root[data-theme="cyber"] .block--hollow {
-  outline-color: rgba(91, 192, 190, 0.3);
+:root[data-theme="sketch"] .project-competences li.is-parcours {
+  border-color: var(--color-data);
 }
 
+/* Photos posées de travers, cerclées d'un trait. */
+:root[data-theme="sketch"] .hero-photo img,
+:root[data-theme="sketch"] .home-photo img {
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-md);
+  transform: rotate(-1.5deg);
+}
+
+/* Couleurs écrites en dur pour le thème « Tartan ». */
+:root[data-theme="sketch"] .site-header.is-scrolled .site-nav {
+  background: rgba(250, 247, 240, 0.92);
+}
+
+:root[data-theme="sketch"] .site-link:hover {
+  background: none;
+  color: var(--color-accent);
+}
+
+:root[data-theme="sketch"] .project-empty-sub {
+  color: var(--color-ink-soft);
+}

@@ -6,7 +6,7 @@ import { springHover, springPress } from "./components/ui/motionPresets.js";
 
 // Quatre versions du portfolio, à comparer en direct : deux mises en page
 // (dashboard 3×3 sans scroll, page classique qui défile) et deux thèmes
-// (« Tartan + or » en clair, « Crépuscule quantique » en cyberpunk).
+// (« Tartan + or », « Dessiné » : papier, encre et feutre, à main levée).
 // Le choix vit dans l'URL (?v=2) pour recharger ou partager. Pas de hash :
 // la version classique s'en sert déjà pour ses ancres.
 const PARAM = "v";
@@ -16,14 +16,14 @@ const VERSIONS = [
   {
     id: "3",
     layout: "dashboard",
-    theme: "cyber",
-    label: "Dashboard cyberpunk",
+    theme: "sketch",
+    label: "Dashboard dessiné",
   },
   {
     id: "4",
     layout: "classique",
-    theme: "cyber",
-    label: "Classique cyberpunk",
+    theme: "sketch",
+    label: "Classique dessiné",
   },
 ];
 const DEFAULT = VERSIONS[0];
@@ -39,17 +39,32 @@ function readVersion() {
   }
 }
 
+// Les polices manuscrites du thème « Dessiné » ne sont chargées que si on
+// l'affiche.
+const SKETCH_FONTS =
+  "https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap";
+
+function loadSketchFonts() {
+  if (document.querySelector(`link[href="${SKETCH_FONTS}"]`)) return;
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = SKETCH_FONTS;
+  document.head.append(link);
+}
+
 // Pose le thème sur <html> (le fond de page suit) et met à jour les
 // métadonnées que le navigateur lit pour ses propres couleurs.
 const THEME_META = {
   tartan: { scheme: "light", color: "#efe9e6" },
-  cyber: { scheme: "dark", color: "#0b132b" },
+  sketch: { scheme: "light", color: "#faf7f0" },
 };
 
 function applyTheme(theme) {
   const root = document.documentElement;
-  if (theme === "cyber") root.dataset.theme = "cyber";
-  else delete root.dataset.theme;
+  if (theme === "sketch") {
+    root.dataset.theme = "sketch";
+    loadSketchFonts();
+  } else delete root.dataset.theme;
   const meta = THEME_META[theme];
   document
     .querySelector('meta[name="color-scheme"]')

@@ -21,11 +21,7 @@ function TechChart({ projets, options, filtre, onToggle, ready, ...rest }) {
   const max = Math.max(1, ...bubbles.map((bubble) => bubble.total));
 
   return (
-    <ChartCard
-      title="Langages et outils"
-      hint="Plus la bulle est grosse, plus je l'utilise."
-      {...rest}
-    >
+    <ChartCard title="Langages et outils" {...rest}>
       <ul className="tech-cloud">
         {bubbles.map((bubble, index) => {
           const pressed = filtre.techno === bubble.id;

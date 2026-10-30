@@ -21,7 +21,6 @@ function CompetenceChart({
   return (
     <ChartCard
       title="Compétences du BUT"
-      hint="Toutes acquises. Clique pour voir les projets."
       className={`competence-chart ${className}`.trim()}
       {...rest}
     >

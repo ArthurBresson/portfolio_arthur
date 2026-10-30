@@ -22,11 +22,7 @@ function StatusChart({ projets, options, filtre, onToggle, ready, ...rest }) {
   );
 
   return (
-    <ChartCard
-      title="Livrés ou en cours"
-      hint="Projets terminés ou encore en cours."
-      {...rest}
-    >
+    <ChartCard title="Livrés ou en cours" {...rest}>
       <div className="status-chart">
         <div className="status-tiles">
           {tiles.map((tile) => (

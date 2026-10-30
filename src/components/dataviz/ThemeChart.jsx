@@ -22,7 +22,6 @@ function ThemeChart({
   ready,
   axis = "theme",
   title = "Projets par thème",
-  hint = "Clique un thème pour filtrer.",
   className = "",
   ...rest
 }) {
@@ -38,7 +37,6 @@ function ThemeChart({
   return (
     <ChartCard
       title={title}
-      hint={ghost ? "Pointillé : total sans les autres filtres." : hint}
       className={`bar-chart--${axis} ${className}`.trim()}
       {...rest}
     >

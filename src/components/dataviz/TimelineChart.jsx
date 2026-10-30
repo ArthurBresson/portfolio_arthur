@@ -19,7 +19,7 @@ import {
 // Ligne du haut : formations. Ligne du milieu : expériences. En bas, un
 // point par projet. Pointillé rouge : aujourd'hui. Les périodes qui ont
 // un `cadre` sont des boutons : clic = filtre cadre. Le détail de la
-// période survolée s'affiche dans la ligne d'aide.
+// période survolée s'affiche sous le titre.
 
 // Libellés courts dessinés dans ou près des barres.
 const SHORT = {
@@ -115,9 +115,12 @@ function TimelineChart({
   for (let year = 2024; year <= 2027; year += 1) years.push(year);
 
   const focusedItem = periods.find((period) => period.id === focused);
+  // Pas de phrase d'aide sous le titre : la ligne ne se remplit qu'au
+  // survol ou au focus d'une période (dates, durée). Vide, elle garde sa
+  // place (espace insécable) pour que la frise ne saute pas.
   const hint = focusedItem
     ? `${focusedItem.short} · ${formatPeriod(focusedItem.start, focusedItem.end)} · ${formatDuration(focusedItem.months)}${focusedItem.end === null ? " (en cours)" : ""}`
-    : "Clique une barre colorée pour filtrer. Pointillé : aujourd'hui.";
+    : "\u00A0";
 
   return (
     <ChartCard title="Mon parcours" hint={hint} icon="book" {...rest}>

@@ -8,13 +8,13 @@ Le site existe en quatre versions, à comparer en direct avec les boutons 1 à 4
 | --- | --- | --- |
 | 1 (par défaut) | Dashboard | « Tartan + or », clair |
 | 2 (`?v=2`) | Classique | « Tartan + or », clair |
-| 3 (`?v=3`) | Dashboard | « Crépuscule quantique », cyberpunk |
-| 4 (`?v=4`) | Classique | « Crépuscule quantique », cyberpunk |
+| 3 (`?v=3`) | Dashboard | « Dessiné », papier et encre, à main levée |
+| 4 (`?v=4`) | Classique | « Dessiné », papier et encre, à main levée |
 
 - **Dashboard** : une grille 3×3 sans scroll sur desktop, séparée par des filets fins. Six cases sont des graphiques qui filtrent les projets (frise du parcours, thèmes, compétences du BUT, technos, taille d'équipe, statut) ; les filtres se combinent. Les cases Sport et Contact ouvrent leur détail. La case centrale affiche l'accueil (la citation en grand), les projets filtrés, le sport ou le contact.
 - **Classique** : une page qui défile, avec hero, frise, graphique des thèmes, index des projets filtrable, parcours, sport et contact.
 
-Les deux thèmes partagent les mêmes composants : le thème cyberpunk ne redéfinit que les couleurs (`:root[data-theme="cyber"]` dans `src/styles/tokens.css`). Les anciens liens `?v=classique` mènent à la version 2.
+Les deux thèmes partagent les mêmes composants : le thème dessiné ne redéfinit que les tokens (couleurs, arrondis tremblés, polices : `:root[data-theme="sketch"]` dans `src/styles/tokens.css`). Ses polices manuscrites (Kalam, Patrick Hand) ne sont chargées que lorsqu'on l'affiche. Les anciens liens `?v=classique` mènent à la version 2.
 
 ## Stack
 
