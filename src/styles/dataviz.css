@@ -163,23 +163,6 @@
   fill: var(--color-ink);
 }
 
-.tl-dot {
-  fill: var(--color-ink-soft);
-  opacity: 0.55;
-  transition:
-    fill var(--duration-base) var(--ease-out),
-    opacity var(--duration-base) var(--ease-out);
-}
-
-.tl-dot.is-match {
-  fill: var(--color-accent);
-  opacity: 1;
-}
-
-.tl-dot.is-dimmed {
-  opacity: 0.18;
-}
-
 .tl-today line {
   stroke: var(--color-accent);
   stroke-width: 1.5;

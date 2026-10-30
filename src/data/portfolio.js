@@ -34,7 +34,7 @@ export const profil = {
   // bouton « Télécharger mon CV » n'apparaît que si ce chemin est rempli.
   cv: undefined,
   preuves: [
-    { value: "18 j", label: "pour livrer un site vitrine BressoDup" },
+    { value: "15 j", label: "pour livrer un site vitrine BressoDup" },
     { value: "33'37", label: "au 10 km, le chrono dont je suis le plus fier" },
   ],
   socials: [
@@ -202,7 +202,7 @@ export const projets = [
     start: "2025-05",
     end: "2025-06",
     cadre: "utt",
-    competences: ["realiser", "gerer", "collaborer"],
+    competences: ["realiser", "administrer", "gerer", "collaborer"],
     themes: ["web", "bdd"],
     stack: ["PHP", "SQL"],
     team: 2,
@@ -245,7 +245,7 @@ export const projets = [
     start: "2025-11",
     end: "2026-01",
     cadre: "iut",
-    competences: ["realiser", "gerer", "collaborer"],
+    competences: ["realiser", "administrer", "gerer", "collaborer"],
     themes: ["web", "bdd"],
     stack: ["Symfony", "PHP", "Twig", "SQL"],
     team: 5,
@@ -285,7 +285,7 @@ export const projets = [
     start: "2026-02",
     end: "2026-04",
     cadre: "iut",
-    competences: ["gerer", "collaborer"],
+    competences: ["administrer", "gerer", "collaborer"],
     themes: ["data", "bdd"],
     stack: ["Python", "PostgreSQL", "Streamlit"],
     team: 4,
@@ -322,7 +322,7 @@ export const projets = [
     id: "bressodup",
     title: "BressoDup",
     pitch:
-      "L'agence web que j'ai cofondée avec Nathan. Des sites vitrines pour PME et artisans de la Marne et des Ardennes, livrés en 18 jours, avec un score Lighthouse de 90+ écrit dans le contrat.",
+      "L'agence web que j'ai cofondée avec Nathan. Des sites vitrines pour PME et artisans de la Marne et des Ardennes, livrés en 15 jours, avec un score Lighthouse de 90+ écrit dans le contrat.",
     start: "2026-09",
     end: null,
     cadre: "entreprise",

@@ -69,7 +69,6 @@ function ClassicApp() {
     <>
       <TimelineChart
         parcours={parcours}
-        projets={projetsReels}
         cadres={cadres}
         filtre={filtre}
         onToggleCadre={toggleCadre}

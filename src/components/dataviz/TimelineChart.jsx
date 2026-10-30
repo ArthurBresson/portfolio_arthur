@@ -2,22 +2,17 @@
 import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import ChartCard from "./ChartCard.jsx";
-import {
-  useElementHeight,
-  useElementWidth,
-} from "../../hooks/useElementWidth.js";
+import { useElementWidth } from "../../hooks/useElementWidth.js";
 import { formatPeriod } from "../../lib/dates.js";
 import {
   currentMonthIndex,
   formatDuration,
-  isActive,
-  matches,
   monthIndex,
 } from "../../lib/filters.js";
 
 // Frise du parcours, version compacte pour une case du dashboard.
-// Ligne du haut : formations. Ligne du milieu : expériences. En bas, un
-// point par projet. Pointillé rouge : aujourd'hui. Les périodes qui ont
+// Ligne du haut : formations. Ligne du bas : expériences. Pointillé
+// rouge : aujourd'hui. Les périodes qui ont
 // un `cadre` sont des boutons : clic = filtre cadre. Le détail de la
 // période survolée s'affiche sous le titre.
 
@@ -43,32 +38,18 @@ const LANES = {
   formation: { barY: 18, outside: ["below"] },
   experience: { barY: 60, outside: ["above", "below"] },
 };
-// Les points projets se posent en bas de la frise, sous les libellés
-// « dessous » des expériences (y ≈ 91) quand la case est assez haute.
-// La hauteur suit la case : rien n'est coupé sur un petit écran.
-const DOT_STEP = 8;
-const MAX_HEIGHT = 130;
-const MIN_HEIGHT = 100;
+// Pas de points pour les projets (illisibles à cette taille) : la frise
+// s'arrête sous les libellés « dessous » des expériences (y ≈ 91).
+const HEIGHT = 100;
 // Largeur moyenne d'un caractère des libellés (12 px, graisse 600).
 const CHAR_W = 7;
 
 const barSpring = { type: "spring", stiffness: 170, damping: 26, mass: 0.9 };
 
-function TimelineChart({
-  parcours,
-  projets,
-  cadres,
-  filtre,
-  onToggle,
-  ready,
-  ...rest
-}) {
+function TimelineChart({ parcours, cadres, filtre, onToggle, ready, ...rest }) {
   const scrollReference = useRef(null);
   const measured = useElementWidth(scrollReference, 320);
   const width = Math.max(measured, MIN_WIDTH);
-  const available = useElementHeight(scrollReference, MAX_HEIGHT);
-  const height = Math.min(Math.max(available, MIN_HEIGHT), MAX_HEIGHT);
-  const dotsY = height - 6;
   const [focused, setFocused] = useState();
 
   const today = currentMonthIndex();
@@ -96,20 +77,6 @@ function TimelineChart({
     return { ...item, x, w, months, short, inside, side };
   });
 
-  // Points projets : empilés quand plusieurs commencent le même mois.
-  const stacks = new Map();
-  const dots = projets.map((projet) => {
-    const index = monthIndex(projet.start);
-    const level = stacks.get(index) ?? 0;
-    stacks.set(index, level + 1);
-    return {
-      ...projet,
-      cx: xOf(index) + monthW / 2,
-      cy: dotsY - level * DOT_STEP,
-    };
-  });
-
-  const active = isActive(filtre);
   const todayX = xOf(today) + monthW / 2;
   const years = [];
   for (let year = 2024; year <= 2027; year += 1) years.push(year);
@@ -128,8 +95,8 @@ function TimelineChart({
         <svg
           className="timeline-svg"
           width={width}
-          height={height}
-          viewBox={`0 0 ${width} ${height}`}
+          height={HEIGHT}
+          viewBox={`0 0 ${width} ${HEIGHT}`}
           role="group"
           aria-label="Frise du parcours, de 2023 à 2027"
         >
@@ -138,7 +105,7 @@ function TimelineChart({
               const x = xOf(year * 12);
               return (
                 <g key={year}>
-                  <line className="tl-grid" x1={x} x2={x} y1={13} y2={height} />
+                  <line className="tl-grid" x1={x} x2={x} y1={13} y2={HEIGHT} />
                   <text className="tl-year" x={x + 3} y={9}>
                     {year}
                   </text>
@@ -154,7 +121,7 @@ function TimelineChart({
             x1={todayX}
             x2={todayX}
             y1={13}
-            y2={height}
+            y2={HEIGHT}
             aria-hidden="true"
           />
 
@@ -230,30 +197,6 @@ function TimelineChart({
               </g>
             );
           })}
-
-          <g aria-hidden="true">
-            {dots.map((dot, index) => {
-              const state = active
-                ? matches(dot, filtre)
-                  ? "is-match"
-                  : "is-dimmed"
-                : "";
-              return (
-                <motion.circle
-                  key={dot.id}
-                  className={`tl-dot ${state}`.trim()}
-                  cx={dot.cx}
-                  cy={dot.cy}
-                  r={4.5}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: ready ? 1 : 0 }}
-                  transition={{ ...barSpring, delay: 0.4 + 0.03 * index }}
-                >
-                  <title>{dot.title}</title>
-                </motion.circle>
-              );
-            })}
-          </g>
         </svg>
       </div>
     </ChartCard>

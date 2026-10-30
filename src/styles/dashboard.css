@@ -182,8 +182,6 @@
 
 /* ---------- 1. Frise ---------- */
 .dash .timeline-scroll {
-  flex: 1;
-  min-height: 0;
   margin: 0;
   padding: 0;
   overflow-x: auto;

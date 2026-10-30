@@ -98,7 +98,9 @@ function DashboardApp() {
           className="dash-cell dash-cell--frise"
           parcours={parcours}
           cadres={cadres}
-          {...chartProperties}
+          filtre={filtre}
+          onToggle={toggle}
+          ready={ready}
         />
         <div
           className={`dash-cell dash-cell--themes${tuto && ready ? " is-tuto-target" : ""}`}

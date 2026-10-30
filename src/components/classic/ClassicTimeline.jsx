@@ -7,13 +7,11 @@ import { formatPeriod } from "../../lib/dates.js";
 import {
   currentMonthIndex,
   formatDuration,
-  isActive,
-  matches,
   monthIndex,
 } from "../../lib/filters.js";
 
-// Graphique 1 : frise du parcours. Deux lignes (formations, expériences),
-// une rangée de points pour les projets, un repère « aujourd'hui ».
+// Graphique 1 : frise du parcours. Deux lignes (formations, expériences)
+// et un repère « aujourd'hui ».
 // Les périodes qui ont un `cadre` sont des boutons : clic = filtre cadre.
 
 // Libellés courts dessinés dans les barres (le détail est dans le relevé).
@@ -36,13 +34,12 @@ const LANES = [
   { type: "formation", label: "Formation", labelY: 40, barY: 48 },
   { type: "experience", label: "Expériences", labelY: 100, barY: 108 },
 ];
-const DOTS_LABEL_Y = 160;
-const DOTS_Y = 182;
-const HEIGHT = 200;
+// Sous la ligne des expériences, la place des libellés posés dessous.
+const HEIGHT = 160;
 
 const barSpring = { type: "spring", stiffness: 170, damping: 26, mass: 0.9 };
 
-function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
+function TimelineChart({ parcours, cadres, filtre, onToggleCadre }) {
   const scrollReference = useRef(null);
   const inView = useInView(scrollReference, { once: true, amount: 0.3 });
   const measured = useElementWidth(scrollReference);
@@ -84,20 +81,6 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
     return { ...item, x, w, months, short, showLabel, below };
   });
 
-  // Points projets : empilés quand plusieurs commencent le même mois.
-  const stacks = new Map();
-  const dots = projets.map((projet) => {
-    const index = monthIndex(projet.start);
-    const level = stacks.get(index) ?? 0;
-    stacks.set(index, level + 1);
-    return {
-      ...projet,
-      cx: xOf(index) + monthW / 2,
-      cy: DOTS_Y - level * 11,
-    };
-  });
-
-  const active = isActive(filtre);
   const todayX = xOf(today) + monthW / 2;
   const years = [];
   for (let year = 2024; year <= 2027; year += 1) years.push(year);
@@ -117,10 +100,7 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
         {/* Libellés de ligne hors du conteneur défilant : toujours visibles,
             même quand la frise est calée sur « aujourd'hui » (mobile). */}
         <div className="tl-lanes" aria-hidden="true">
-          {[
-            ...LANES,
-            { type: "projets", label: "Projets", labelY: DOTS_LABEL_Y },
-          ].map((lane) => (
+          {LANES.map((lane) => (
             <span key={lane.type} style={{ "--lane-y": `${lane.labelY}px` }}>
               {lane.label}
             </span>
@@ -244,31 +224,6 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
                 </g>
               );
             })}
-
-            {/* Projets à leur date */}
-            <g aria-hidden="true">
-              {dots.map((dot, index) => {
-                const state = active
-                  ? matches(dot, filtre)
-                    ? "is-match"
-                    : "is-dimmed"
-                  : "";
-                return (
-                  <motion.circle
-                    key={dot.id}
-                    className={`tl-dot ${state}`.trim()}
-                    cx={dot.cx}
-                    cy={dot.cy}
-                    r={5.5}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: inView ? 1 : 0 }}
-                    transition={{ ...barSpring, delay: 0.4 + 0.03 * index }}
-                  >
-                    <title>{dot.title}</title>
-                  </motion.circle>
-                );
-              })}
-            </g>
           </svg>
         </div>
       </div>
