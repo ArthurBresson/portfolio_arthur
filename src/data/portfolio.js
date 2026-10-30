@@ -15,7 +15,7 @@ export const profil = {
   localisation: "Saint-Léonard (51)",
   email: "arthur.bresson17@gmail.com",
   photo: "/arthur-photo.webp",
-  // Choisie par Arthur. Les mots entre astérisques s'affichent en dégradé or.
+  // Choisie par Arthur. Les mots entre astérisques s'affichent en couleur de signature.
   accroche: "Alternant la journée, *triathlète et auto-entrepreneur* le soir.",
   // Citations écartées : Thomas Edison (« Notre plus grande faiblesse, c'est
   // d'abandonner… ») et Bill Gates (« C'est bien de célébrer le succès… »).
@@ -23,6 +23,16 @@ export const profil = {
     texte: "Aux âmes bien nées, la valeur n'attend point le nombre des années.",
     auteur: "Corneille, Le Cid",
   },
+  // Présentation en quelques phrases (section « À propos »). Écrite
+  // uniquement avec des faits déjà présents sur le site.
+  presentation: [
+    "Je suis en 3e année de BUT Informatique, parcours bases de données, à l'IUT de Reims-Châlons-Charleville. Avant, j'ai fait deux ans de prépa intégrée à l'UTT.",
+    "La journée, je suis data analyst en alternance chez Hager : tableaux de bord Power BI et qualité des données. Le soir, je fais tourner BressoDup, l'agence web que j'ai cofondée avec Nathan, et je m'entraîne pour le triathlon.",
+    "Après le BUT, je cherche une alternance en Master ou en école d'ingénieur, en IA / ML engineering.",
+  ],
+  // CV en PDF à déposer dans public/ (ex. "/cv-arthur-bresson.pdf") : le
+  // bouton « Télécharger mon CV » n'apparaît que si ce chemin est rempli.
+  cv: undefined,
   preuves: [
     { value: "18 j", label: "pour livrer un site vitrine BressoDup" },
     { value: "33'37", label: "au 10 km, le chrono dont je suis le plus fier" },
@@ -391,9 +401,41 @@ export const lifestyle = [
   },
 ];
 
+// Savoir-être : trois qualités, chacune avec sa preuve tirée du parcours.
+export const savoirEtre = [
+  {
+    id: "communication",
+    titre: "Communication",
+    preuve:
+      "Responsable communication au conseil de l'UTT : j'ai organisé le concours d'éloquence 2025 et dirigé le pôle communication.",
+  },
+  {
+    id: "organisation",
+    titre: "Organisation",
+    preuve:
+      "Alternance chez Hager, BUT, BressoDup et entraînements de triathlon dans la même semaine. Je planifie chaque créneau, et j'ai quand même gagné 15 minutes entre mes deux triathlons M.",
+  },
+  {
+    id: "equipe",
+    titre: "Travail en équipe",
+    preuve:
+      "Animateur en colonie, d'abord seul avec un groupe, puis en équipe. Côté code, CoLive à cinq et Running Data à quatre.",
+  },
+];
+
+// Mentions légales (LCEN). Le SIRET s'ajoute ici s'il doit être affiché.
+export const mentions = {
+  editeur: "Arthur Bresson, auto-entrepreneur",
+  hebergeur:
+    "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis (vercel.com)",
+  donnees:
+    "Le site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience. Il garde seulement, dans ton navigateur, le fait que tu as déjà vu l'introduction et l'astuce.",
+};
+
 export const hobbies = ["7 Wonders", "Skull King", "Voyage"];
 
 export const langues = [
+  { name: "Français", level: "Natif" },
   { name: "Anglais", level: "C1+ (Linguaskill)" },
   { name: "Espagnol", level: "B2 (SIELE)" },
 ];

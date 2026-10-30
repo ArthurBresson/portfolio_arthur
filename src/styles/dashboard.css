@@ -253,7 +253,7 @@
     calc(8px + 8px * var(--weight, 0.5));
   border-radius: var(--radius-pill);
   background: transparent;
-  box-shadow: inset 0 0 0 1px var(--color-line);
+  border: 1.5px solid var(--color-ink);
   font-size: calc(11px + 4px * var(--weight, 0.5));
   font-weight: 600;
   line-height: 1.2;
@@ -547,6 +547,15 @@
   fill: var(--color-ink-soft);
 }
 
+/* Sur mobile, le SVG de la pente est réduit (~0,84) : les libellés
+   montent pour rester à 12 px rendus. */
+@media (max-width: 600px) {
+  .slope-time,
+  .slope-place {
+    font-size: 15px;
+  }
+}
+
 .slope-gain {
   position: absolute;
   top: 0;
@@ -646,6 +655,9 @@
   /* Sécurité des petits écrans : le texte défile (avec fondu) plutôt
      que d'être coupé par la case. */
   overflow-y: auto;
+  /* Les glyphes de Kalam dépassent leur ligne d'un pixel : sans cette
+     marge, la case se croit à défiler et estompe le bas (fondu). */
+  padding-bottom: 4px;
 }
 
 .home-quote {
@@ -659,9 +671,11 @@
 
 .home-quote blockquote {
   font-family: var(--font-display);
-  font-size: clamp(1.1rem, min(5cqw, 8.5cqh), 2.2rem);
+  /* Kalam a de grandes hampes : la citation reste assez petite et serrée
+     pour tenir dans sa case sans défiler, mobile compris. */
+  font-size: clamp(1rem, min(4.2cqw, 7cqh), 1.9rem);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.12;
   color: var(--color-ink);
   text-wrap: balance;
 }
@@ -684,12 +698,18 @@
   color: var(--color-gold-deep);
 }
 
+/* Mon nom, en titre centré au-dessus de la citation. */
 .home-name {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, min(6cqw, 9.5cqh), 2.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
   color: var(--color-gold-deep);
+}
+
+.home-about-link {
+  align-self: flex-start;
 }
 
 .home-photo {
@@ -697,12 +717,15 @@
   width: min(27cqw, 62cqh, 230px);
 }
 
+/* Photo posée de travers, cerclée d'un trait. */
 .home-photo img {
   width: 100%;
   height: auto;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: var(--radius-xs);
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-md);
+  transform: rotate(-1.5deg);
 }
 
 /* Case étroite ou basse : la photo rétrécit et se cale en haut, elle ne
@@ -981,7 +1004,7 @@
 .contact-main {
   display: grid;
   justify-items: start;
-  gap: var(--space-3);
+  gap: 6px;
 }
 
 .dash .contact-email {
@@ -1000,7 +1023,7 @@
 
 /* ---------- Tuto ----------
    Encadré dans l'accueil, à la place de la ligne d'aide : il ne recouvre
-   jamais le nom ni la citation. La case des thèmes pulse en doré. */
+   jamais le nom ni la citation. La case des thèmes pulse en bleu. */
 .tuto {
   display: flex;
   align-items: center;
@@ -1044,12 +1067,12 @@
   0% {
     box-shadow:
       var(--shadow-raised),
-      0 0 0 0 rgba(184, 145, 63, 0.55);
+      0 0 0 0 rgba(44, 90, 160, 0.5);
   }
   100% {
     box-shadow:
       var(--shadow-raised),
-      0 0 0 14px rgba(184, 145, 63, 0);
+      0 0 0 14px rgba(44, 90, 160, 0);
   }
 }
 
@@ -1103,10 +1126,6 @@
     align-items: flex-start;
   }
 
-  .home-quote blockquote {
-    font-size: clamp(1.3rem, 6vw, 1.9rem);
-  }
-
   .home-photo {
     display: block;
     width: 120px;
@@ -1128,4 +1147,58 @@
     margin: var(--space-6) auto
       max(var(--space-6), env(safe-area-inset-bottom, 0px));
   }
+}
+
+/* ---------- Vues « Qui je suis » et contact : retour et titre (ou onglets)
+   sur une même ligne ---------- */
+.detail-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+
+.about-tabs {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.about-tab {
+  padding: 2px 12px;
+  border: 1.5px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.about-tab:hover {
+  color: var(--color-accent);
+}
+
+.about-tab[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* ---------- Vue contact : langues serrées, pied sur une ligne ---------- */
+.dash .lang-list {
+  gap: 2px;
+}
+
+.dash .lang dt {
+  font-size: var(--text-sm);
+}
+
+.detail-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-4);
+}
+
+.detail-foot .legal[open] {
+  flex-basis: 100%;
 }

@@ -22,7 +22,7 @@
   letter-spacing: -0.01em;
 }
 
-/* Repère doré devant chaque titre de carte, sauf quand une icône animée
+/* Repère bleu devant chaque titre de carte, sauf quand une icône animée
    le remplace. */
 .chart-title::before {
   content: "";

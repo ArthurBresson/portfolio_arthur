@@ -14,7 +14,9 @@ import {
 const R = 38;
 const C = 2 * Math.PI * R;
 const GAP = 3;
-const TONES = [1, 0.72, 0.48]; // intensité de l'accent doux par segment
+// Intensité de l'encre par segment : la plus claire garde 3:1 sur le
+// papier (WCAG 1.4.11).
+const TONES = [1, 0.82, 0.66];
 
 const arcSpring = { type: "spring", stiffness: 160, damping: 24, mass: 0.9 };
 

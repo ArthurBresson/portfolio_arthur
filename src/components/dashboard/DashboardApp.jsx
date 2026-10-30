@@ -37,6 +37,8 @@ import {
   lifestyle,
   hobbies,
   langues,
+  savoirEtre,
+  mentions,
 } from "../../data/portfolio.js";
 
 const projetsReels = realProjets(projets);
@@ -126,6 +128,9 @@ function DashboardApp() {
           lifestyle={lifestyle}
           langues={langues}
           hobbies={hobbies}
+          savoirEtre={savoirEtre}
+          mentions={mentions}
+          onOpenAbout={() => openDetail("about")}
           onRemoveAxis={removeAxis}
           onClear={clear}
           onBack={() => setDetail()}

@@ -3,7 +3,7 @@ import AnimatedIcon from "../ui/AnimatedIcon.jsx";
 import Block from "../ui/Block.jsx";
 
 // Case du dashboard : titre, ligne d'aide facultative, puis le graphique qui prend
-// toute la hauteur restante. `icon` remplace le point doré du titre par
+// toute la hauteur restante. `icon` remplace le point bleu du titre par
 // une icône Lordicon qui s'anime au survol de la case.
 function ChartCard({ title, hint, icon, className = "", children, ...rest }) {
   return (

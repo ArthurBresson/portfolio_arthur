@@ -9,7 +9,10 @@
   box-sizing: border-box;
 }
 
+/* Les polices manuscrites ont un petit œil : tout le texte (tailles en
+   rem) monte d'un cran. Les espacements, en px, ne bougent pas. */
 html {
+  font-size: 112.5%;
   background-color: var(--color-page);
   scroll-behavior: smooth;
   scroll-padding-top: 96px;

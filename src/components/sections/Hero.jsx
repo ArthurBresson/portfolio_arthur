@@ -3,10 +3,10 @@ import { motion } from "motion/react";
 import Button from "../ui/Button.jsx";
 import Block from "../ui/Block.jsx";
 import Stat from "../ui/Stat.jsx";
-import { MailIcon, PinIcon, SocialIcon } from "../ui/Icons.jsx";
+import { DownloadIcon, MailIcon, PinIcon, SocialIcon } from "../ui/Icons.jsx";
 import { springReveal } from "../ui/motionPresets.js";
 
-// Mots entre astérisques dans `profil.accroche` => dégradé or.
+// Mots entre astérisques dans `profil.accroche` => couleur de signature (encre bleue).
 // Ex. : "Je code vite, *je finis ce que je commence.*"
 // Sans astérisque, le titre s'affiche simplement.
 function renderHighlight(text) {
@@ -71,6 +71,16 @@ function Hero({ profil, charts }) {
               <Button href="#projets" variant="soft">
                 Voir les projets
               </Button>
+              {profil.cv && (
+                <Button
+                  href={profil.cv}
+                  download
+                  variant="soft"
+                  icon={<DownloadIcon />}
+                >
+                  Télécharger mon CV
+                </Button>
+              )}
             </div>
 
             <div className="hero-meta">

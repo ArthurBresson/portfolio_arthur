@@ -2,7 +2,14 @@
 import { useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Button from "../ui/Button.jsx";
-import { CheckIcon, CopyIcon, MailIcon, SocialIcon } from "../ui/Icons.jsx";
+import {
+  CheckIcon,
+  CopyIcon,
+  DownloadIcon,
+  MailIcon,
+  SocialIcon,
+} from "../ui/Icons.jsx";
+import LegalNotice from "../ui/LegalNotice.jsx";
 import { springPress } from "../ui/motionPresets.js";
 import { useCopy } from "../../hooks/useCopy.js";
 import BackButton from "./BackButton.jsx";
@@ -13,8 +20,16 @@ const swap = {
   exit: { opacity: 0, y: -6, filter: "blur(2px)" },
 };
 
-// Vue contact de la case centrale : email copiable, liens, échecs, langues.
-function ContactView({ profil, lifestyle, langues, hobbies, onBack }) {
+// Vue contact de la case centrale : email copiable, liens, CV, échecs,
+// langues et mentions légales.
+function ContactView({
+  profil,
+  lifestyle,
+  langues,
+  hobbies,
+  mentions,
+  onBack,
+}) {
   const { email, socials = [] } = profil;
   const emailReference = useRef(null);
   const [copied, copy] = useCopy(emailReference);
@@ -23,9 +38,11 @@ function ContactView({ profil, lifestyle, langues, hobbies, onBack }) {
   return (
     <div className="center-view detail-view">
       <h1 className="visually-hidden">Contacter Arthur Bresson</h1>
-      <BackButton onBack={onBack} />
-      <section className="contact-main">
+      <div className="detail-head">
         <h2 className="detail-title detail-title--big">Écris-moi</h2>
+        <BackButton onBack={onBack} />
+      </div>
+      <section className="contact-main" aria-label="Me contacter">
         <div className="contact-email">
           <span ref={emailReference} className="contact-email-text">
             {email}
@@ -70,6 +87,17 @@ function ContactView({ profil, lifestyle, langues, hobbies, onBack }) {
               {social.label}
             </Button>
           ))}
+          {profil.cv && (
+            <Button
+              href={profil.cv}
+              download
+              variant="soft"
+              size="sm"
+              icon={<DownloadIcon />}
+            >
+              Mon CV
+            </Button>
+          )}
         </div>
       </section>
       <div className="detail-grid">
@@ -92,12 +120,17 @@ function ContactView({ profil, lifestyle, langues, hobbies, onBack }) {
           <p className="detail-note">{hobbies.join(" · ")}</p>
         </section>
       </div>
-      <p className="detail-note detail-credit">
-        Icônes animées :{" "}
-        <a href="https://lordicon.com/" target="_blank" rel="noreferrer">
-          Lordicon
-        </a>
-      </p>
+      {/* Crédit et mentions légales sur une ligne : la vue tient dans sa
+          case sans défiler tant que les mentions sont repliées. */}
+      <div className="detail-foot">
+        <p className="detail-note detail-credit">
+          Icônes animées :{" "}
+          <a href="https://lordicon.com/" target="_blank" rel="noreferrer">
+            Lordicon
+          </a>
+        </p>
+        <LegalNotice mentions={mentions} email={profil.email} />
+      </div>
     </div>
   );
 }
