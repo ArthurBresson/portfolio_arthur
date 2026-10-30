@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
 import { motion } from "motion/react";
 import Button from "../ui/Button.jsx";
-import ClayCard from "../ui/ClayCard.jsx";
+import Block from "../ui/Block.jsx";
 import Stat from "../ui/Stat.jsx";
 import { MailIcon, PinIcon, SocialIcon } from "../ui/Icons.jsx";
 import { springReveal } from "../ui/motionPresets.js";
@@ -43,7 +43,7 @@ function Hero({ profil, charts }) {
   return (
     <section id="accueil" className="hero" aria-labelledby="hero-title">
       <div className="container hero-inner">
-        <ClayCard
+        <Block
           as="div"
           gold
           className="hero-card"
@@ -127,7 +127,7 @@ function Hero({ profil, charts }) {
               ))}
             </dl>
           )}
-        </ClayCard>
+        </Block>
 
         {/* Frise et thèmes : côte à côte sur desktop, empilés sur mobile. */}
         <div className="hero-charts">{charts}</div>

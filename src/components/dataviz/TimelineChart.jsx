@@ -23,7 +23,6 @@ import {
 
 // Libellés courts dessinés dans ou près des barres.
 const SHORT = {
-  bac: "Bac",
   utt: "UTT",
   iut: "BUT Info",
   spie: "SPIE",
@@ -33,7 +32,7 @@ const SHORT = {
   hager: "Hager",
 };
 
-const DOMAIN_START = monthIndex("2020-07");
+const DOMAIN_START = monthIndex("2023-07");
 const DOMAIN_END = monthIndex("2028-01"); // exclu : on voit toute l'année 2027
 const MIN_WIDTH = 280; // en dessous, la frise défile dans son conteneur
 const PAD_X = 4;
@@ -113,7 +112,7 @@ function TimelineChart({
   const active = isActive(filtre);
   const todayX = xOf(today) + monthW / 2;
   const years = [];
-  for (let year = 2021; year <= 2027; year += 1) years.push(year);
+  for (let year = 2024; year <= 2027; year += 1) years.push(year);
 
   const focusedItem = periods.find((period) => period.id === focused);
   const hint = focusedItem
@@ -121,7 +120,7 @@ function TimelineChart({
     : "Clique une barre colorée pour filtrer. Pointillé : aujourd'hui.";
 
   return (
-    <ChartCard title="Mon parcours" hint={hint} {...rest}>
+    <ChartCard title="Mon parcours" hint={hint} icon="book" {...rest}>
       <div className="timeline-scroll" ref={scrollReference}>
         <svg
           className="timeline-svg"
@@ -129,7 +128,7 @@ function TimelineChart({
           height={height}
           viewBox={`0 0 ${width} ${height}`}
           role="group"
-          aria-label="Frise du parcours, de 2020 à 2027"
+          aria-label="Frise du parcours, de 2023 à 2027"
         >
           <g aria-hidden="true">
             {years.map((year) => {
@@ -144,6 +143,17 @@ function TimelineChart({
               );
             })}
           </g>
+
+          {/* Aujourd'hui, derrière les barres pour ne pas couper leurs
+              libellés. */}
+          <line
+            className="tl-today"
+            x1={todayX}
+            x2={todayX}
+            y1={13}
+            y2={height}
+            aria-hidden="true"
+          />
 
           {periods.map((period, index) => {
             const lane = LANES[period.type];
@@ -183,7 +193,7 @@ function TimelineChart({
               <g
                 key={period.id}
                 className={classes}
-                tabIndex={0}
+                tabIndex={clickable ? 0 : undefined}
                 onPointerEnter={() => setFocused(period.id)}
                 onPointerLeave={(event) => {
                   // Au toucher, pointerleave suit le tap : on garde le relevé.
@@ -231,7 +241,7 @@ function TimelineChart({
                   className={`tl-dot ${state}`.trim()}
                   cx={dot.cx}
                   cy={dot.cy}
-                  r={3.5}
+                  r={4.5}
                   initial={{ scale: 0 }}
                   animate={{ scale: ready ? 1 : 0 }}
                   transition={{ ...barSpring, delay: 0.4 + 0.03 * index }}
@@ -241,15 +251,6 @@ function TimelineChart({
               );
             })}
           </g>
-
-          <line
-            className="tl-today"
-            x1={todayX}
-            x2={todayX}
-            y1={13}
-            y2={height}
-            aria-hidden="true"
-          />
         </svg>
       </div>
     </ChartCard>

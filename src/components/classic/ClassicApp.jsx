@@ -21,6 +21,7 @@ import {
   visibleProjets,
 } from "../../lib/filters.js";
 import { shouldPlayIntro } from "../../lib/intro.js";
+import { byStartDesc } from "../../lib/dates.js";
 import {
   profil,
   cadres,
@@ -73,7 +74,6 @@ function ClassicApp() {
       <ThemeChart
         projets={projetsReels}
         themes={themes}
-        cadres={cadres}
         filtre={filtre}
         onToggleTheme={toggleTheme}
       />
@@ -108,7 +108,7 @@ function ClassicApp() {
       <main id="contenu">
         <Hero profil={profil} charts={charts} />
         <Projects
-          projets={visibleProjets(projets, filtre)}
+          projets={visibleProjets(projets, filtre).toSorted(byStartDesc)}
           cadres={cadres}
           competences={competences}
           filters={filters}

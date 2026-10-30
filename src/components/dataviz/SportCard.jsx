@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
 import { motion, useReducedMotion } from "motion/react";
-import ClayCard from "../ui/ClayCard.jsx";
+import AnimatedIcon from "../ui/AnimatedIcon.jsx";
+import Block from "../ui/Block.jsx";
 import Badge from "../ui/Badge.jsx";
 import { toMinutes } from "../../lib/dates.js";
 
@@ -36,7 +37,7 @@ function SportCard({
   const y2 = H - PAD - 6;
 
   return (
-    <ClayCard
+    <Block
       as="button"
       type="button"
       interactive
@@ -47,7 +48,10 @@ function SportCard({
       {...rest}
     >
       <header className="chart-head">
-        <h2 className="chart-title">Sport</h2>
+        <h2 className="chart-title chart-title--icon">
+          <AnimatedIcon name="cup" size={20} target=".sport-card" />
+          Sport
+        </h2>
         <p className="chart-hint">
           Triathlon M, deux courses. Clique pour le détail.
         </p>
@@ -122,7 +126,7 @@ function SportCard({
           ))}
         </dl>
       </div>
-    </ClayCard>
+    </Block>
   );
 }
 

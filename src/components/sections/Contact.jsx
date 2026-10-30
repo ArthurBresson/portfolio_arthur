@@ -1,39 +1,13 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Button from "../ui/Button.jsx";
-import ClayCard from "../ui/ClayCard.jsx";
+import AnimatedIcon from "../ui/AnimatedIcon.jsx";
+import Block from "../ui/Block.jsx";
 import Reveal from "../ui/Reveal.jsx";
 import { CheckIcon, CopyIcon, MailIcon, SocialIcon } from "../ui/Icons.jsx";
 import { springPress } from "../ui/motionPresets.js";
-
-// Copie l'email ; si l'API presse-papier est indisponible, on sélectionne
-// le texte pour que Ctrl+C suffise.
-function useCopy(textReference) {
-  const [copied, setCopied] = useState(false);
-  const timer = useRef();
-
-  useEffect(() => () => clearTimeout(timer.current), []);
-
-  const copy = async (value) => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      clearTimeout(timer.current);
-      timer.current = setTimeout(() => setCopied(false), 1800);
-    } catch {
-      const node = textReference.current;
-      if (!node) return;
-      const range = document.createRange();
-      range.selectNodeContents(node);
-      const selection = globalThis.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-    }
-  };
-
-  return [copied, copy];
-}
+import { useCopy } from "../../hooks/useCopy.js";
 
 const swap = {
   initial: { opacity: 0, y: 6, filter: "blur(2px)" },
@@ -54,8 +28,11 @@ function Contact({ profil }) {
     >
       <div className="container">
         <Reveal>
-          <ClayCard className="contact-card">
-            <p className="section-kicker">Contact</p>
+          <Block className="contact-card">
+            <p className="section-kicker">
+              <AnimatedIcon name="mail" size={20} trigger="in" />
+              Contact
+            </p>
             <h2 id="contact-title" className="section-title">
               Écris-moi
             </h2>
@@ -120,11 +97,14 @@ function Contact({ profil }) {
                 </Button>
               ))}
             </div>
-          </ClayCard>
+          </Block>
         </Reveal>
 
         <p className="footer-note">
-          © {new Date().getFullYear()} {nom}
+          © {new Date().getFullYear()} {nom} · Icônes animées :{" "}
+          <a href="https://lordicon.com/" target="_blank" rel="noreferrer">
+            Lordicon
+          </a>
         </p>
       </div>
     </footer>

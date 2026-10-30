@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
-import ClayCard from "../ui/ClayCard.jsx";
+import Block from "../ui/Block.jsx";
 import { useElementWidth } from "../../hooks/useElementWidth.js";
 import { formatPeriod } from "../../lib/dates.js";
 import {
@@ -18,7 +18,6 @@ import {
 
 // Libellés courts dessinés dans les barres (le détail est dans le relevé).
 const SHORT = {
-  bac: "Bac",
   utt: "Prépa UTT",
   iut: "BUT Info",
   spie: "SPIE",
@@ -28,9 +27,9 @@ const SHORT = {
   hager: "Hager",
 };
 
-const DOMAIN_START = monthIndex("2020-07");
+const DOMAIN_START = monthIndex("2023-07");
 const DOMAIN_END = monthIndex("2028-01"); // exclu : on voit toute l'année 2027
-const MIN_WIDTH = 440; // en dessous, la frise défile dans son conteneur
+const MIN_WIDTH = 320; // en dessous, la frise défile dans son conteneur
 const PAD_X = 8;
 const BAR_H = 30;
 const LANES = [
@@ -65,7 +64,8 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
   const cadreLabel = (id) => cadres.find((cadre) => cadre.id === id)?.label;
 
   // Barres trop courtes pour leur nom : libellé hors de la barre, en
-  // alternant dessus / dessous dans chaque ligne pour éviter les collisions.
+  // alternant dessous / dessus dans chaque ligne pour éviter les collisions
+  // (dessous d'abord : au-dessus, le libellé de ligne prend la place).
   const outsideCount = new Map();
   const periods = parcours.map((item) => {
     const start = monthIndex(item.start);
@@ -79,7 +79,7 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
     if (!showLabel) {
       const count = outsideCount.get(item.type) ?? 0;
       outsideCount.set(item.type, count + 1);
-      below = count % 2 === 1;
+      below = count % 2 === 0;
     }
     return { ...item, x, w, months, short, showLabel, below };
   });
@@ -100,12 +100,12 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
   const active = isActive(filtre);
   const todayX = xOf(today) + monthW / 2;
   const years = [];
-  for (let year = 2021; year <= 2027; year += 1) years.push(year);
+  for (let year = 2024; year <= 2027; year += 1) years.push(year);
 
   const focusedItem = periods.find((period) => period.id === focused);
 
   return (
-    <ClayCard className="chart-card">
+    <Block className="chart-card">
       <header className="chart-head">
         <h2 className="chart-title">Mon parcours dans le temps</h2>
         <p className="chart-hint">
@@ -133,7 +133,7 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
             height={HEIGHT}
             viewBox={`0 0 ${width} ${HEIGHT}`}
             role="group"
-            aria-label="Frise du parcours, de 2020 à 2027"
+            aria-label="Frise du parcours, de 2023 à 2027"
           >
             {/* Graduations annuelles */}
             <g aria-hidden="true">
@@ -154,6 +154,15 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
                   </g>
                 );
               })}
+            </g>
+
+            {/* Repère « aujourd'hui », derrière les barres pour ne pas
+                couper leurs libellés. */}
+            <g className="tl-today" aria-hidden="true">
+              <line x1={todayX} x2={todayX} y1={22} y2={HEIGHT - 4} />
+              <text x={todayX - 4} y={30} textAnchor="end">
+                aujourd&apos;hui
+              </text>
             </g>
 
             {/* Périodes */}
@@ -190,7 +199,7 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
                 <g
                   key={period.id}
                   className={classes}
-                  tabIndex={0}
+                  tabIndex={clickable ? 0 : undefined}
                   onPointerEnter={() => setFocused(period.id)}
                   onPointerLeave={(event) => {
                     // Au toucher, pointerleave suit le tap : on garde le relevé.
@@ -250,7 +259,7 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
                     className={`tl-dot ${state}`.trim()}
                     cx={dot.cx}
                     cy={dot.cy}
-                    r={4.5}
+                    r={5.5}
                     initial={{ scale: 0 }}
                     animate={{ scale: inView ? 1 : 0 }}
                     transition={{ ...barSpring, delay: 0.4 + 0.03 * index }}
@@ -259,14 +268,6 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
                   </motion.circle>
                 );
               })}
-            </g>
-
-            {/* Repère « aujourd'hui » */}
-            <g className="tl-today" aria-hidden="true">
-              <line x1={todayX} x2={todayX} y1={22} y2={HEIGHT - 4} />
-              <text x={todayX - 4} y={30} textAnchor="end">
-                aujourd&apos;hui
-              </text>
             </g>
           </svg>
         </div>
@@ -292,7 +293,7 @@ function TimelineChart({ parcours, projets, cadres, filtre, onToggleCadre }) {
           </span>
         )}
       </p>
-    </ClayCard>
+    </Block>
   );
 }
 

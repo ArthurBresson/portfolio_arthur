@@ -1,5 +1,6 @@
 /* ==================== SECTIONS ====================
-   Navigation, hero, projets, parcours, bento, contact. */
+   Navigation, hero, projets, parcours, hors code, contact. Mise en page
+   éditoriale : des filets et de l'espace, aucune carte. */
 
 /* ==================== NAVIGATION ==================== */
 .site-header {
@@ -27,10 +28,8 @@
 }
 
 .site-header.is-scrolled .site-nav {
-  background: rgba(247, 243, 241, 0.86);
-  box-shadow:
-    var(--shadow-clay-sm),
-    inset 1px 1px 0 var(--color-light);
+  background: rgba(239, 233, 230, 0.88);
+  box-shadow: inset 0 0 0 1px var(--color-line);
   backdrop-filter: blur(12px) saturate(140%);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
 }
@@ -52,10 +51,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--color-surface);
-  box-shadow:
-    var(--shadow-clay-sm),
-    inset 1px 1px 0 var(--color-light);
+  box-shadow: inset 0 0 0 1px var(--color-line-strong);
   font-size: var(--text-sm);
   color: var(--color-accent);
 }
@@ -68,6 +64,7 @@
 .site-link {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   min-height: 36px;
   padding: 0 var(--space-3);
   border-radius: var(--radius-pill);
@@ -84,24 +81,23 @@
   background: rgba(43, 34, 32, 0.05);
 }
 
-@media (max-width: 720px) {
-  .site-brand-name {
-    display: none;
-  }
-}
-
-@media (max-width: 440px) {
-  .site-brand {
-    display: none;
-  }
-
+/* Sur mobile, le nom reste visible : c'est le seul endroit du premier
+   écran où il apparaît. Les liens passent sur une seconde ligne. */
+@media (max-width: 600px) {
   .site-nav {
-    justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
+  .site-links {
+    flex: 1 0 100%;
+    justify-content: space-between;
   }
 
   .site-link {
-    padding: 0 10px;
+    padding: 0 6px;
     font-size: 0.8125rem;
+    white-space: nowrap;
   }
 }
 
@@ -122,8 +118,7 @@
     "text photo"
     "proofs proofs";
   gap: var(--space-10) var(--space-12);
-  padding: clamp(var(--space-6), 4vw, var(--space-16));
-  border-radius: var(--radius-xl);
+  padding-top: clamp(var(--space-6), 3vw, var(--space-10));
 }
 
 .hero-text {
@@ -193,10 +188,6 @@
   grid-area: photo;
   align-self: start;
   width: clamp(200px, 24vw, 300px);
-  padding: 10px;
-  border-radius: calc(var(--radius-xl) + 4px);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-clay);
 }
 
 .hero-photo img {
@@ -204,7 +195,7 @@
   height: auto;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-xs);
 }
 
 .hero-proofs {
@@ -213,16 +204,28 @@
   border-top: 1px solid var(--color-line);
 }
 
-/* Frise et thèmes : côte à côte (desktop), empilés (mobile). */
+/* Frise et thèmes : côte à côte (desktop), empilés (mobile), séparés par
+   un filet vertical. Pas de boîte autour : les graphiques sont dans le
+   flux de la page. */
 .hero-charts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-6);
+  border-top: var(--rule);
 }
 
 .hero-charts > * {
   min-width: 0;
   min-height: 300px;
+}
+
+.hero-charts > .chart-card {
+  padding: var(--space-6) var(--space-6) var(--space-6) 0;
+}
+
+.hero-charts > .chart-card + .chart-card {
+  padding-left: var(--space-6);
+  padding-right: 0;
+  border-left: var(--rule);
 }
 
 @media (max-width: 820px) {
@@ -237,15 +240,20 @@
 
   .hero-photo {
     width: 132px;
-    padding: 6px;
-  }
-
-  .hero-photo img {
-    border-radius: var(--radius-lg);
   }
 
   .hero-charts {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-charts > .chart-card,
+  .hero-charts > .chart-card + .chart-card {
+    padding: var(--space-6) 0;
+    border-left: 0;
+  }
+
+  .hero-charts > .chart-card + .chart-card {
+    border-top: var(--rule);
   }
 
   .hero-charts > * {
@@ -265,10 +273,12 @@
   margin-bottom: var(--space-8);
 }
 
+/* Un index plutôt qu'une grille de cartes : chaque projet commence par un
+   filet, le titre porte la hiérarchie. */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-  gap: var(--space-6);
+  gap: var(--space-10) var(--space-8);
 }
 
 .project-grid-item {
@@ -287,21 +297,37 @@
   flex-direction: column;
   gap: var(--space-4);
   width: 100%;
-  padding: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: var(--rule-strong);
 }
 
-.project-head {
-  display: grid;
-  gap: var(--space-3);
+.project-card:hover {
+  border-top-color: var(--color-accent);
 }
 
+.project-card:hover .project-title {
+  color: var(--color-accent);
+}
+
+/* Ligne de repères : cadre, dates, (équipe), puis les compétences du BUT. */
 .project-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2) var(--space-3);
+  gap: 6px var(--space-3);
 }
 
+/* Les puces de compétences s'enchaînent avec le cadre et les dates comme
+   les mots d'une phrase : la ligne se remplit, seul le surplus passe
+   dessous. Le <ul> garde son rôle de liste (role posé dans le composant,
+   que `display: contents` ne retire plus aux navigateurs actuels). */
+.project-meta .project-competences {
+  display: contents;
+}
+
+.project-competences li {
+  white-space: nowrap;
+}
 .project-period {
   font-size: var(--text-xs);
   color: var(--color-ink-soft);
@@ -310,6 +336,7 @@
 .project-title {
   font-size: var(--text-lg);
   line-height: var(--leading-snug);
+  transition: color var(--duration-base) var(--ease-out);
 }
 
 .project-pitch {
@@ -355,17 +382,15 @@
 .project-competences li {
   padding: 2px 10px;
   border-radius: var(--radius-pill);
-  background: var(--color-page);
-  box-shadow: var(--shadow-clay-inset);
+  box-shadow: inset 0 0 0 1px var(--color-line);
   font-size: var(--text-xs);
   font-weight: 600;
   color: var(--color-ink-soft);
 }
 
 .project-competences li.is-parcours {
-  background: var(--gradient-gold-badge);
-  box-shadow: var(--shadow-badge-gold);
-  color: var(--color-gold-ink);
+  box-shadow: inset 0 0 0 1px var(--color-gold);
+  color: var(--color-gold-deep);
 }
 
 .project-team {
@@ -388,6 +413,7 @@
   align-items: center;
   justify-content: center;
   min-height: 220px;
+  border-top: 0;
   text-align: center;
   gap: var(--space-2);
 }
@@ -397,7 +423,7 @@
   height: 36px;
   margin-bottom: var(--space-2);
   border-radius: 50%;
-  box-shadow: var(--shadow-clay-inset);
+  box-shadow: var(--shadow-inset);
 }
 
 .project-empty-title {
@@ -416,12 +442,13 @@
 .parcours-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-6);
+  gap: var(--space-10) var(--space-12);
 }
 
 .parcours-card {
   height: 100%;
-  padding: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--rule-strong);
 }
 
 .parcours-group {
@@ -475,21 +502,23 @@
 }
 
 @media (max-width: 480px) {
-  .parcours-card {
-    padding: var(--space-6);
-  }
-
   .parcours-item {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
   }
 }
 
-/* ==================== BENTO HORS CODE ==================== */
+/* ==================== HORS CODE ====================
+   Trois colonnes de texte séparées par des filets verticaux. */
 .bento {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-6);
+  gap: var(--space-10) 0;
+  border-top: var(--rule-strong);
+}
+
+.bento-cell + .bento-cell {
+  border-left: var(--rule);
 }
 
 .bento-cell {
@@ -506,16 +535,33 @@
   flex-direction: column;
   gap: var(--space-5);
   width: 100%;
-  padding: var(--space-6) var(--space-8) var(--space-8);
+  padding: var(--space-6) var(--space-8) 0;
+}
+
+/* Première colonne de chaque rangée : ni filet ni retrait à gauche. */
+.bento-cell.bento-cell--triathlon,
+.bento-cell.bento-cell--echecs {
+  border-left: 0;
+}
+
+.bento-cell--triathlon .bento-card,
+.bento-cell--echecs .bento-card {
+  padding-left: 0;
 }
 
 .bento-card--small {
   gap: var(--space-4);
-  padding: var(--space-6);
 }
 
 .bento-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   font-size: var(--text-lg);
+}
+
+.bento-title .anim-icon {
+  color: var(--color-gold-deep);
 }
 
 .bento-card--small .bento-title {
@@ -540,11 +586,8 @@
   grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  box-shadow:
-    inset 2px 2px 5px var(--color-shadow),
-    inset -2px -2px 5px var(--color-light);
+  padding: var(--space-3) 0;
+  border-bottom: var(--rule);
 }
 
 .race-place {
@@ -597,21 +640,24 @@
 
 @media (max-width: 900px) {
   .bento {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 600px) {
-  .bento {
     grid-template-columns: minmax(0, 1fr);
+    border-top: 0;
   }
 
   .bento-cell--triathlon {
     grid-column: auto;
   }
 
-  .bento-card {
-    padding: var(--space-6);
+  .bento-cell,
+  .bento-cell + .bento-cell {
+    border-left: 0;
+    border-top: var(--rule-strong);
+  }
+
+  .bento-card,
+  .bento-cell--triathlon .bento-card,
+  .bento-cell--echecs .bento-card {
+    padding: var(--space-6) 0 0;
   }
 }
 
@@ -624,9 +670,9 @@
   display: grid;
   justify-items: center;
   gap: var(--space-4);
-  padding: clamp(var(--space-8), 6vw, var(--space-20)) var(--space-6);
+  padding: clamp(var(--space-8), 6vw, var(--space-20)) 0;
   text-align: center;
-  border-radius: var(--radius-xl);
+  border-top: var(--rule-strong);
 }
 
 .contact-email {
@@ -676,6 +722,13 @@
   color: var(--color-ink-soft);
 }
 
+.footer-note a,
+.detail-credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* ==================== RETOUR EN HAUT ==================== */
 .scroll-to-top {
   position: fixed;
@@ -687,13 +740,37 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--color-surface);
+  background: var(--color-page);
   color: var(--color-ink);
-  box-shadow:
-    var(--shadow-clay-sm),
-    inset 1px 1px 0 var(--color-light);
+  box-shadow: inset 0 0 0 1px var(--color-line-strong);
 }
 
 .scroll-to-top:hover {
   color: var(--color-accent);
+}
+
+/* Sur téléphone, le bouton flottant cachait du texte pendant la lecture ;
+   le geste natif (toucher la barre d'état, glisser) suffit. */
+@media (max-width: 600px) {
+  .scroll-to-top {
+    display: none;
+  }
+}
+
+/* Icônes de navigation en couleur de texte pleine : en gris, leur trait
+   fin disparaissait à cette taille. */
+.site-link .anim-icon {
+  color: var(--color-ink);
+}
+
+.site-link:hover .anim-icon {
+  color: var(--color-accent);
+}
+
+/* Sur téléphone, les liens restent du texte seul : quatre icônes en plus
+   ne tiendraient pas sur la ligne. */
+@media (max-width: 600px) {
+  .site-link .anim-icon {
+    display: none;
+  }
 }

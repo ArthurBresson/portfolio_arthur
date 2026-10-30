@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
 import Badge from "../ui/Badge.jsx";
 import Button from "../ui/Button.jsx";
-import ClayCard from "../ui/ClayCard.jsx";
+import Block from "../ui/Block.jsx";
 import { ExternalIcon, UsersIcon } from "../ui/Icons.jsx";
 import { formatPeriod } from "../../lib/dates.js";
 import ProjectCompetences from "../ui/ProjectCompetences.jsx";
@@ -13,17 +13,17 @@ function ProjectCard({ projet, cadreLabel, competences }) {
   const period = formatPeriod(start, end);
 
   return (
-    <ClayCard as="article" interactive className="project-card">
-      <header className="project-head">
-        <div className="project-meta">
-          {cadreLabel && <Badge tone="neutral">{cadreLabel}</Badge>}
-          {period && <span className="project-period tabular">{period}</span>}
-        </div>
-        <h3 className="project-title">{title}</h3>
-      </header>
-
+    <Block as="article" interactive className="project-card">
+      <h3 className="project-title">{title}</h3>
       {pitch && <p className="project-pitch">{pitch}</p>}
-      <ProjectCompetences ids={projet.competences} options={competences} />
+
+      {/* Cadre, dates et compétences : des repères du même ordre, sur une
+          seule ligne. */}
+      <div className="project-meta">
+        {cadreLabel && <Badge tone="neutral">{cadreLabel}</Badge>}
+        {period && <span className="project-period tabular">{period}</span>}
+        <ProjectCompetences ids={projet.competences} options={competences} />
+      </div>
 
       <footer className="project-foot">
         {(stack.length > 0 || team > 1) && (
@@ -64,14 +64,14 @@ function ProjectCard({ projet, cadreLabel, competences }) {
           </div>
         )}
       </footer>
-    </ClayCard>
+    </Block>
   );
 }
 
 // Emplacement d'un projet pas encore publié : carte creuse en pointillé.
 export function ProjectPlaceholder({ cadreLabel }) {
   return (
-    <ClayCard
+    <Block
       as="article"
       variant="hollow"
       className="project-card project-card--empty"
@@ -79,7 +79,7 @@ export function ProjectPlaceholder({ cadreLabel }) {
       <span className="project-empty-mark" aria-hidden="true" />
       <p className="project-empty-title">Bientôt en ligne</p>
       {cadreLabel && <p className="project-empty-sub">Projet {cadreLabel}</p>}
-    </ClayCard>
+    </Block>
   );
 }
 

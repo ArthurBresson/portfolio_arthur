@@ -154,6 +154,9 @@ function ProjectsView({ projets, filtre, dimensions, onRemoveAxis, onClear }) {
             exit="exit"
             transition={reduce ? { duration: 0 } : slideSpring}
           >
+            <h2 className="project-title">{current.title}</h2>
+            {current.pitch && <p className="project-pitch">{current.pitch}</p>}
+            {/* Cadre, dates, équipe et compétences sur une seule ligne. */}
             <div className="project-meta">
               {cadreLabel && <Badge tone="neutral">{cadreLabel}</Badge>}
               {period && (
@@ -166,13 +169,11 @@ function ProjectsView({ projets, filtre, dimensions, onRemoveAxis, onClear }) {
                   <span className="visually-hidden">personnes</span>
                 </span>
               )}
+              <ProjectCompetences
+                ids={current.competences}
+                options={dimensions.competence}
+              />
             </div>
-            <h2 className="project-title">{current.title}</h2>
-            {current.pitch && <p className="project-pitch">{current.pitch}</p>}
-            <ProjectCompetences
-              ids={current.competences}
-              options={dimensions.competence}
-            />
             <div className="project-foot-row">
               {current.stack?.length > 0 && (
                 <ul className="project-stack" aria-label="Technologies">

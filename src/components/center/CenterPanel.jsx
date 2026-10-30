@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import ClayCard from "../ui/ClayCard.jsx";
+import Block from "../ui/Block.jsx";
 import HomeView from "./HomeView.jsx";
 import ProjectsView from "./ProjectsView.jsx";
 import SportView from "./SportView.jsx";
@@ -74,7 +74,7 @@ function CenterPanel({
   }
 
   return (
-    <ClayCard gold className={`center-card ${className}`.trim()} {...rest}>
+    <Block gold className={`center-card ${className}`.trim()} {...rest}>
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={view}
@@ -85,7 +85,7 @@ function CenterPanel({
           {content}
         </motion.div>
       </AnimatePresence>
-    </ClayCard>
+    </Block>
   );
 }
 

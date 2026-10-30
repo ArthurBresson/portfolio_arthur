@@ -2,8 +2,8 @@
 import { motion } from "motion/react";
 import { springHover, springPress } from "./motionPresets.js";
 
-// Bouton clay. Rend un <a> si `href` est fourni, sinon un <button>.
-// - variant : "primary" (accent rouge) ou "soft" (surface en relief)
+// Bouton. Rend un <a> si `href` est fourni, sinon un <button>.
+// - variant : "primary" (aplat d'accent) ou "soft" (contour fin)
 // - size : "md" ou "sm"
 // - icon : élément placé avant le libellé
 function Button({

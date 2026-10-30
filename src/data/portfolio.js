@@ -2,8 +2,8 @@
 // sont tous calculés à partir de ces tableaux : ajouter un projet ici suffit
 // pour qu'il apparaisse partout.
 //
-// Dates au format "AAAA-MM". `end: null` = en cours. Un projet dure au
-// moins 3 mois : un mois avant et un mois après le mois de référence.
+// Dates au format "AAAA-MM". `end: null` = en cours. `start === end` pour
+// un projet tenu dans le mois (GameJam : une semaine, mi-janvier 2026).
 // Les textes sont rédigés et validés pour la mise en ligne. Règle pour toute
 // modification : première personne, phrases courtes, une preuve (chiffre,
 // résultat, chose livrée) plutôt qu'un adjectif. Ne rien affirmer qui ne soit
@@ -24,7 +24,6 @@ export const profil = {
     auteur: "Corneille, Le Cid",
   },
   preuves: [
-    { value: "13", label: "projets menés en trois ans, de l'école au client" },
     { value: "18 j", label: "pour livrer un site vitrine BressoDup" },
     { value: "33'37", label: "au 10 km, le chrono dont je suis le plus fier" },
   ],
@@ -96,16 +95,6 @@ export const themes = [
 // Graphique 1 : frise du temps. `cadre` relie une période aux projets.
 export const parcours = [
   {
-    id: "bac",
-    type: "formation",
-    title: "Bac général, mention Bien",
-    place: "Lycée Marc Chagall",
-    start: "2020-09",
-    end: "2023-07",
-    detail:
-      "Spécialités Maths, Physique-Chimie et Maths expertes. Section euro anglais.",
-  },
-  {
     id: "utt",
     type: "formation",
     cadre: "utt",
@@ -135,7 +124,7 @@ export const parcours = [
     start: "2024-07",
     end: "2024-08",
     detail:
-      "Diagnostic et réparation d'équipements mécaniques, maintenance préventive et curative.",
+      "J'ai diagnostiqué et réparé des équipements mécaniques, en maintenance préventive et curative.",
   },
   {
     id: "conseil-utt",
@@ -175,8 +164,7 @@ export const parcours = [
     place: "Hager, Obernai",
     start: "2026-09",
     end: "2027-08",
-    detail:
-      "Data analyst en alternance : tableaux de bord Power BI et qualité des données.",
+    detail: "Tableaux de bord Power BI et contrôle de la qualité des données.",
   },
 ];
 
@@ -202,7 +190,7 @@ export const projets = [
     pitch:
       "Le planning des soutenances de fin d'année, pour étudiants et enseignants. Un créneau n'est validé que si le binôme d'enseignants est complet, et c'est l'application qui le vérifie.",
     start: "2025-05",
-    end: "2025-07",
+    end: "2025-06",
     cadre: "utt",
     competences: ["realiser", "gerer", "collaborer"],
     themes: ["web", "bdd"],
@@ -270,8 +258,8 @@ export const projets = [
     id: "gamejam",
     title: "GameJam",
     pitch: "Un jeu Python codé à deux, dans le temps imposé d'une game jam.",
-    start: "2025-12",
-    end: "2026-02",
+    start: "2026-01",
+    end: "2026-01",
     cadre: "iut",
     competences: ["realiser", "collaborer"],
     themes: ["jeu"],

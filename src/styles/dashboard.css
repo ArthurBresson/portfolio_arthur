@@ -9,25 +9,37 @@
   z-index: 60;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
+  gap: 4px;
+  padding: 4px;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  box-shadow:
-    var(--shadow-clay-sm),
-    inset 1px 1px 0 var(--color-light),
-    var(--shadow-gold-rim);
+  background: var(--color-page);
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+
+.version-switch-option {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
   color: var(--color-ink-soft);
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
 }
 
-.version-switch .is-current {
-  color: var(--color-accent);
-}
-
-.version-switch-arrow {
+.version-switch-option:hover {
   color: var(--color-ink);
+}
+
+.version-switch-option[aria-pressed="true"] {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: var(--shadow-chip-active);
 }
 
 .app--dashboard .version-switch {
@@ -46,6 +58,8 @@
 }
 
 /* ---------- Grille ---------- */
+/* Une grille de journal : pas de cases en relief, des filets fins entre
+   les cellules et de l'air à l'intérieur. */
 .dash {
   --dash-gap: clamp(10px, 1.1vw, 16px);
   display: grid;
@@ -55,7 +69,7 @@
     "frise themes tech"
     "competences center equipe"
     "statut sport contact";
-  gap: var(--dash-gap);
+  gap: 0;
   height: 100vh;
   height: 100dvh;
   max-width: 1680px;
@@ -70,6 +84,26 @@
 .dash-cell {
   min-width: 0;
   min-height: 0;
+  border-right: var(--rule);
+  border-bottom: var(--rule);
+}
+
+.dash-cell--tech,
+.dash-cell--equipe,
+.dash-cell--contact {
+  border-right: 0;
+}
+
+.dash-cell--statut,
+.dash-cell--sport,
+.dash-cell--contact {
+  border-bottom: 0;
+}
+
+/* La cellule des thèmes enveloppe son graphique : c'est elle qui porte
+   les filets, pas le graphique. */
+.dash-cell--themes > .chart-card {
+  border: 0;
 }
 
 .dash-cell--frise {
@@ -106,7 +140,7 @@
   flex-direction: column;
   gap: var(--space-2);
   height: 100%;
-  padding: var(--space-3) var(--space-4);
+  padding: clamp(12px, 1.6vh, 20px) clamp(14px, 1.4vw, 24px);
   overflow: hidden;
 }
 
@@ -140,8 +174,10 @@
   color: var(--color-ink-soft);
 }
 
+/* Option vide sous le filtre actif : atténuée, mais encore lisible
+   (au moins 3:1). */
 .dash .is-empty {
-  opacity: 0.45;
+  opacity: 0.65;
 }
 
 /* ---------- 1. Frise ---------- */
@@ -216,8 +252,8 @@
   padding: calc(3px + 5px * var(--weight, 0.5))
     calc(8px + 8px * var(--weight, 0.5));
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-clay-sm);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--color-line);
   font-size: calc(11px + 4px * var(--weight, 0.5));
   font-weight: 600;
   line-height: 1.2;
@@ -238,7 +274,7 @@
 }
 
 .tech-count {
-  font-size: 0.8em;
+  font-size: max(12px, 0.8em);
   color: var(--color-ink-soft);
 }
 
@@ -341,7 +377,7 @@
 
 .legend-row[aria-pressed="true"] {
   background: var(--color-page);
-  box-shadow: var(--shadow-clay-inset);
+  box-shadow: var(--shadow-inset);
   color: var(--color-accent);
   font-weight: 600;
 }
@@ -381,16 +417,18 @@
 .status-tile {
   display: grid;
   gap: 2px;
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-clay-sm);
+  padding: var(--space-2) 0;
+  border-top: 2px solid var(--color-line);
   text-align: left;
-  transition: box-shadow var(--duration-base) var(--ease-out);
+  transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.status-tile:hover {
+  border-top-color: var(--color-line-strong);
 }
 
 .status-tile[aria-pressed="true"] {
-  box-shadow: var(--shadow-clay-inset);
+  border-top-color: var(--color-accent);
 }
 
 .status-value {
@@ -421,7 +459,7 @@
   height: 10px;
   padding: 2px;
   border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-clay-inset);
+  box-shadow: var(--shadow-inset);
 }
 
 .status-part {
@@ -451,7 +489,7 @@
 
 .sport-card[aria-pressed="true"] {
   box-shadow:
-    var(--shadow-clay),
+    var(--shadow-raised),
     inset 0 0 0 2px var(--color-accent-soft);
 }
 
@@ -657,10 +695,6 @@
 .home-photo {
   flex-shrink: 0;
   width: min(27cqw, 62cqh, 230px);
-  padding: 8px;
-  border-radius: calc(var(--radius-xl) + 4px);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-clay);
 }
 
 .home-photo img {
@@ -668,7 +702,7 @@
   height: auto;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-xs);
 }
 
 /* Case étroite ou basse : la photo rétrécit et se cale en haut, elle ne
@@ -680,14 +714,12 @@
 
   .home-photo {
     width: min(26cqw, 110px);
-    padding: 5px;
   }
 }
 
 @container center (max-height: 200px) {
   .home-photo {
     width: min(26cqw, 70cqh);
-    padding: 4px;
   }
 }
 
@@ -763,7 +795,7 @@
   gap: 2px;
   padding: 3px;
   border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-clay-inset);
+  box-shadow: var(--shadow-inset);
 }
 
 .project-tab {
@@ -968,15 +1000,13 @@
 
 /* ---------- Tuto ----------
    Encadré dans l'accueil, à la place de la ligne d'aide : il ne recouvre
-   jamais le nom ni l'accroche. La case des thèmes pulse en doré. */
+   jamais le nom ni la citation. La case des thèmes pulse en doré. */
 .tuto {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 4px 4px 4px 6px;
-  border-radius: var(--radius-md);
-  background: var(--color-page);
-  box-shadow: var(--shadow-clay-inset), var(--shadow-gold-rim);
+  padding: 4px 4px 4px 10px;
+  border-left: 2px solid var(--color-gold);
 }
 
 .tuto-text {
@@ -1013,12 +1043,12 @@
 @keyframes tuto-pulse {
   0% {
     box-shadow:
-      var(--shadow-clay),
+      var(--shadow-raised),
       0 0 0 0 rgba(184, 145, 63, 0.55);
   }
   100% {
     box-shadow:
-      var(--shadow-clay),
+      var(--shadow-raised),
       0 0 0 14px rgba(184, 145, 63, 0);
   }
 }
@@ -1047,6 +1077,16 @@
   .dash .chart-card {
     height: auto;
     min-height: 190px;
+  }
+
+  /* Une seule colonne : un filet sous chaque cellule, jamais à droite. */
+  .dash-cell {
+    border-right: 0;
+    border-bottom: var(--rule);
+  }
+
+  .dash-cell--contact {
+    border-bottom: 0;
   }
 
   .dash .theme-bars {

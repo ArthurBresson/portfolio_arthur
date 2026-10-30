@@ -3,7 +3,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpIcon } from "./ui/Icons.jsx";
 import { springHover, springPress } from "./ui/motionPresets.js";
 
-// Bouton clay « retour en haut », visible après un écran de scroll.
+// Bouton « retour en haut », visible après un écran de scroll (masqué sur
+// téléphone, voir layout.css).
 function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
 

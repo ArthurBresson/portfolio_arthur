@@ -92,6 +92,12 @@ function ContactView({ profil, lifestyle, langues, hobbies, onBack }) {
           <p className="detail-note">{hobbies.join(" · ")}</p>
         </section>
       </div>
+      <p className="detail-note detail-credit">
+        Icônes animées :{" "}
+        <a href="https://lordicon.com/" target="_blank" rel="noreferrer">
+          Lordicon
+        </a>
+      </p>
     </div>
   );
 }

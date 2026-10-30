@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
 import Chip from "../ui/Chip.jsx";
-import { countMatching, isActive } from "../../lib/filters.js";
+import { NO_FILTER, countMatching, isActive } from "../../lib/filters.js";
 
 // Chips du filtre croisé, au-dessus de la grille. Chaque compteur tient
 // compte de l'autre axe (ex. : « Web 2 » quand IUT est actif). Une chip
@@ -16,7 +16,16 @@ function ProjectFilters({
   const groups = [
     { axis: "cadre", title: "Cadre", items: cadres },
     { axis: "theme", title: "Thème", items: themes },
-    { axis: "competence", title: "Compétence", items: competences },
+    // Une compétence sans projet n'a rien à filtrer ; une puce grisée à 0
+    // la ferait passer pour non acquise.
+    {
+      axis: "competence",
+      title: "Compétence",
+      items: competences.filter(
+        (item) =>
+          countMatching(projets, { ...NO_FILTER, competence: item.id }) > 0,
+      ),
+    },
   ];
 
   return (

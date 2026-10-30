@@ -1,5 +1,7 @@
 /* ==================== TOKENS : « Tartan + or » ====================
-   Identité claymorphism, mode clair uniquement.
+   Mise en page éditoriale : pas de cartes ni d'ombres. Les blocs se
+   séparent par des filets fins et par l'espace, la typographie fait la
+   hiérarchie.
    - Rouge piste (accent) : la seule couleur d'action (boutons, chips actives, liens).
    - Or : la signature. Records, mots clés du hero, liseré de la carte hero,
      repère des titres de cartes, surtitres, compétences du parcours.
@@ -11,7 +13,7 @@
   --color-page: #efe9e6;
   --color-surface: #f7f3f1;
   --color-ink: #2b2220;
-  --color-ink-soft: #7c6c66;
+  --color-ink-soft: #6f605a; /* 4,6:1 sur la page */
   --color-accent: #d9482b;
   --color-accent-hover: #c73f24;
   --color-accent-soft: #f2b8a6;
@@ -21,10 +23,16 @@
      version foncée pour le survol et la sélection. */
   --color-data: #db5f43;
   --color-data-strong: #a8341b;
+  /* Barres de la frise qui portent leur libellé : fond assez foncé pour un
+     texte blanc de 12 px (6,6:1). */
+  --color-bar: var(--color-data-strong);
+  --color-bar-hover: #8a2a15;
+  --color-on-bar: #ffffff;
   --color-on-accent: #ffffff;
   --color-shadow: #d3c6c0;
   --color-light: #ffffff;
-  --color-line: rgba(43, 34, 32, 0.1);
+  --color-line: rgba(43, 34, 32, 0.12);
+  --color-line-strong: rgba(43, 34, 32, 0.32);
   --color-gold: #b8913f;
   --color-gold-text: #9a7530;
   --color-gold-light: #e9d29a;
@@ -43,28 +51,21 @@
     var(--color-gold)
   );
 
-  /* --- Ombres clay --- */
-  --shadow-clay:
-    8px 8px 18px var(--color-shadow), -6px -6px 14px var(--color-light),
-    inset 1px 1px 0 var(--color-light);
-  --shadow-clay-hover:
-    12px 14px 26px var(--color-shadow), -8px -8px 18px var(--color-light),
-    inset 1px 1px 0 var(--color-light);
-  --shadow-clay-sm:
-    3px 3px 8px var(--color-shadow), -3px -3px 7px var(--color-light);
-  --shadow-clay-inset:
-    inset 4px 4px 10px var(--color-shadow),
-    inset -4px -4px 10px var(--color-light);
-  --shadow-gold-rim: inset 0 0 0 1px var(--color-gold-light);
-  --shadow-chip-active:
-    inset 2px 2px 5px rgba(0, 0, 0, 0.18), 2px 2px 6px var(--color-shadow);
-  --shadow-button:
-    5px 5px 12px var(--color-shadow), inset 0 2px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -3px 0 rgba(0, 0, 0, 0.15);
-  --shadow-button-press:
-    2px 2px 5px var(--color-shadow), inset 0 2px 4px rgba(0, 0, 0, 0.2);
-  --shadow-badge-gold:
-    inset 0 1px 0 rgba(255, 255, 255, 0.6), 1px 2px 4px rgba(120, 90, 30, 0.3);
+  /* --- Filets et reliefs ---
+     Aucune ombre portée. `--shadow-inset` dessine un filet intérieur
+     (pistes des barres, état appuyé) ; les autres restent à `none` pour
+     que les composants qui les lisent n'aient rien à changer. */
+  --rule: 1px solid var(--color-line);
+  --rule-strong: 1px solid var(--color-line-strong);
+  --shadow-raised: none;
+  --shadow-raised-hover: none;
+  --shadow-raised-sm: none;
+  --shadow-inset: inset 0 0 0 1px var(--color-line);
+  --shadow-gold-rim: none;
+  --shadow-chip-active: none;
+  --shadow-button: none;
+  --shadow-button-press: none;
+  --shadow-badge-gold: none;
 
   /* --- Rayons --- */
   --radius-xs: 8px;
@@ -120,15 +121,79 @@
   --duration-reveal: 500ms;
 }
 
-/* Ombres plus courtes sur petit écran : le relief reste lisible sans
-   déborder du gutter de 16px. */
-@media (max-width: 600px) {
-  :root {
-    --shadow-clay:
-      6px 6px 14px var(--color-shadow), -4px -4px 10px var(--color-light),
-      inset 1px 1px 0 var(--color-light);
-    --shadow-clay-hover:
-      8px 10px 18px var(--color-shadow), -5px -5px 12px var(--color-light),
-      inset 1px 1px 0 var(--color-light);
-  }
+/* ==================== THÈME : « Crépuscule quantique » ====================
+   Versions 3 et 4 : mêmes composants, couleurs cyberpunk.
+   - Bleu marine (#0B132B) : la base.
+   - Turquoise (#5BC0BE) : marques des graphiques, liens, progression.
+   - Jaune (#FDE74C) : l'action principale, à la place du rouge.
+   - Violet (#9B5DE5) et rose (#F15BB5) : la signature, à la place de
+     l'or. Dégradés limités à ces deux couleurs.
+   Mêmes filets que le thème clair, en turquoise. */
+:root[data-theme="cyber"] {
+  color-scheme: dark;
+
+  --color-page: #0b132b;
+  --color-surface: #111c3a;
+  --color-ink: #e6ebf7;
+  --color-ink-soft: #9ba7c6;
+  --color-accent: #fde74c;
+  --color-accent-hover: #fff07f;
+  --color-accent-soft: rgba(253, 231, 76, 0.28);
+  --color-accent-ink: #fde74c;
+  --color-data: #5bc0be;
+  --color-data-strong: #8fe0de;
+  --color-bar: var(--color-data);
+  --color-bar-hover: var(--color-data-strong);
+  --color-on-bar: #0b132b; /* 8,5:1 sur le turquoise */
+  --color-on-accent: #0b132b;
+  --color-shadow: #050a19;
+  --color-light: #1d2b54;
+  --color-line: rgba(91, 192, 190, 0.2);
+  --color-line-strong: rgba(91, 192, 190, 0.5);
+  --color-gold: #9b5de5;
+  --color-gold-text: #b98cf0;
+  --color-gold-light: rgba(155, 93, 229, 0.55);
+  --color-gold-deep: #f15bb5; /* 6:1 sur la page */
+  --color-gold-ink: #0b132b;
+
+  --gradient-gold-text: linear-gradient(90deg, #9b5de5, #f15bb5);
+  --gradient-gold-badge: linear-gradient(160deg, #9b5de5, #f15bb5);
+
+  --shadow-inset: inset 0 0 0 1px var(--color-line);
 }
+
+/* Fond : un ciel de crépuscule, violet en haut, rose en bas, très atténués
+   pour garder le texte lisible. */
+:root[data-theme="cyber"] body {
+  background:
+    radial-gradient(
+      ellipse 80% 50% at 15% -10%,
+      rgba(155, 93, 229, 0.18),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 70% 45% at 95% 110%,
+      rgba(241, 91, 181, 0.12),
+      transparent 70%
+    ),
+    var(--color-page);
+  background-attachment: fixed;
+}
+
+/* Couleurs écrites en dur pour le thème clair. */
+:root[data-theme="cyber"] .site-header.is-scrolled .site-nav {
+  background: rgba(11, 19, 43, 0.88);
+}
+
+:root[data-theme="cyber"] .site-link:hover {
+  background: rgba(91, 192, 190, 0.08);
+}
+
+:root[data-theme="cyber"] .project-empty-sub {
+  color: rgba(155, 167, 198, 0.75);
+}
+
+:root[data-theme="cyber"] .block--hollow {
+  outline-color: rgba(91, 192, 190, 0.3);
+}
+

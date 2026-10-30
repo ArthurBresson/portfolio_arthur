@@ -4,29 +4,69 @@ import ClassicApp from "./components/classic/ClassicApp.jsx";
 import DashboardApp from "./components/dashboard/DashboardApp.jsx";
 import { springHover, springPress } from "./components/ui/motionPresets.js";
 
-// Deux versions du portfolio, à comparer en direct :
-// - « Dashboard » (défaut) : grille 3×3 sans scroll ;
-// - « Classique » : la page qui défile (commit 7f1ef96).
-// Le choix vit dans l'URL (?v=classique) pour recharger ou partager. Pas
-// de hash : la version classique s'en sert déjà pour ses ancres.
+// Quatre versions du portfolio, à comparer en direct : deux mises en page
+// (dashboard 3×3 sans scroll, page classique qui défile) et deux thèmes
+// (« Tartan + or » en clair, « Crépuscule quantique » en cyberpunk).
+// Le choix vit dans l'URL (?v=2) pour recharger ou partager. Pas de hash :
+// la version classique s'en sert déjà pour ses ancres.
 const PARAM = "v";
+const VERSIONS = [
+  { id: "1", layout: "dashboard", theme: "tartan", label: "Dashboard" },
+  { id: "2", layout: "classique", theme: "tartan", label: "Classique" },
+  {
+    id: "3",
+    layout: "dashboard",
+    theme: "cyber",
+    label: "Dashboard cyberpunk",
+  },
+  {
+    id: "4",
+    layout: "classique",
+    theme: "cyber",
+    label: "Classique cyberpunk",
+  },
+];
+const DEFAULT = VERSIONS[0];
 
 function readVersion() {
   try {
-    return new URLSearchParams(globalThis.location.search).get(PARAM) ===
-      "classique"
-      ? "classique"
-      : "dashboard";
+    const value = new URLSearchParams(globalThis.location.search).get(PARAM);
+    // Anciens liens partagés avant la numérotation.
+    if (value === "classique") return VERSIONS[1];
+    return VERSIONS.find((version) => version.id === value) ?? DEFAULT;
   } catch {
-    return "dashboard";
+    return DEFAULT;
   }
 }
+
+// Pose le thème sur <html> (le fond de page suit) et met à jour les
+// métadonnées que le navigateur lit pour ses propres couleurs.
+const THEME_META = {
+  tartan: { scheme: "light", color: "#efe9e6" },
+  cyber: { scheme: "dark", color: "#0b132b" },
+};
+
+function applyTheme(theme) {
+  const root = document.documentElement;
+  if (theme === "cyber") root.dataset.theme = "cyber";
+  else delete root.dataset.theme;
+  const meta = THEME_META[theme];
+  document
+    .querySelector('meta[name="color-scheme"]')
+    ?.setAttribute("content", meta.scheme);
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", meta.color);
+}
+
+// Avant le premier rendu : pas de flash clair en ouvrant ?v=3 ou ?v=4.
+applyTheme(readVersion().theme);
 
 function writeVersion(version) {
   try {
     const url = new URL(globalThis.location.href);
-    if (version === "classique") url.searchParams.set(PARAM, "classique");
-    else url.searchParams.delete(PARAM);
+    if (version === DEFAULT) url.searchParams.delete(PARAM);
+    else url.searchParams.set(PARAM, version.id);
     url.hash = "";
     globalThis.history.pushState({}, "", url);
   } catch {
@@ -44,34 +84,35 @@ function App() {
     return () => globalThis.removeEventListener("popstate", onPop);
   }, []);
 
-  const other = version === "dashboard" ? "classique" : "dashboard";
-  const switchVersion = () => {
-    writeVersion(other);
-    setVersion(other);
-    globalThis.scrollTo(0, 0);
+  useEffect(() => applyTheme(version.theme), [version.theme]);
+
+  const choose = (next) => {
+    if (next === version) return;
+    writeVersion(next);
+    setVersion(next);
+    if (next.layout !== version.layout) globalThis.scrollTo(0, 0);
   };
 
   return (
-    <div className={`app app--${version}`}>
-      {version === "dashboard" ? <DashboardApp /> : <ClassicApp />}
-      <motion.button
-        type="button"
-        className="version-switch"
-        onClick={switchVersion}
-        whileHover={{ y: -2, transition: springHover }}
-        whileTap={{ scale: 0.96, transition: springPress }}
-        aria-label={`Passer à la version ${other}`}
-      >
-        <span className={version === "dashboard" ? "is-current" : ""}>
-          Dashboard
-        </span>
-        <span className="version-switch-arrow" aria-hidden="true">
-          ⇄
-        </span>
-        <span className={version === "classique" ? "is-current" : ""}>
-          Classique
-        </span>
-      </motion.button>
+    <div className={`app app--${version.layout}`}>
+      {version.layout === "dashboard" ? <DashboardApp /> : <ClassicApp />}
+      <nav className="version-switch" aria-label="Versions du site">
+        {VERSIONS.map((item) => (
+          <motion.button
+            key={item.id}
+            type="button"
+            className="version-switch-option"
+            aria-pressed={item === version}
+            aria-label={`Version ${item.id} : ${item.label}`}
+            title={item.label}
+            onClick={() => choose(item)}
+            whileHover={{ y: -2, transition: springHover }}
+            whileTap={{ scale: 0.92, transition: springPress }}
+          >
+            {item.id}
+          </motion.button>
+        ))}
+      </nav>
     </div>
   );
 }

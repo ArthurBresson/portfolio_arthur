@@ -1,37 +1,41 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import ClayCard from "../ui/ClayCard.jsx";
-import { countMatching, pluralProjets } from "../../lib/filters.js";
+import Block from "../ui/Block.jsx";
+import {
+  optionCounts,
+  othersActive,
+  pluralProjets,
+} from "../../lib/filters.js";
 
 // Graphique 2 : nombre de projets par thème (barres horizontales, plus
 // lisibles que des colonnes avec des libellés comme « AI Engineering »).
-// Chaque barre est un bouton : clic = filtre thème. Quand un cadre est
-// actif, la barre ne compte que ce cadre et le total reste en fantôme.
+// Chaque barre est un bouton : clic = filtre thème. Quand un autre filtre
+// est actif (cadre ou compétence), la barre ne compte que les projets qui
+// le respectent et le total reste en fantôme.
 
 const barSpring = { type: "spring", stiffness: 190, damping: 26, mass: 0.8 };
 
-function ThemeChart({ projets, themes, cadres, filtre, onToggleTheme }) {
+function ThemeChart({ projets, themes, filtre, onToggleTheme }) {
   const listReference = useRef(null);
   const inView = useInView(listReference, { once: true, amount: 0.3 });
   const reduce = useReducedMotion();
 
-  const cadreLabel = cadres.find((cadre) => cadre.id === filtre.cadre)?.label;
+  const ghost = othersActive(filtre, "theme");
   const rows = themes.map((theme) => ({
     ...theme,
-    total: countMatching(projets, { cadre: undefined, theme: theme.id }),
-    value: countMatching(projets, { cadre: filtre.cadre, theme: theme.id }),
+    ...optionCounts(projets, filtre, "theme", theme.id),
   }));
   const max = Math.max(1, ...rows.map((row) => row.total));
   const percent = (value) => `${(value / max) * 100}%`;
 
   return (
-    <ClayCard className="chart-card">
+    <Block className="chart-card">
       <header className="chart-head">
         <h2 className="chart-title">Projets par thème</h2>
         <p className="chart-hint">
-          {cadreLabel
-            ? `Projets ${cadreLabel}, le total reste en pointillé.`
+          {ghost
+            ? "Pointillé : le total sans les autres filtres."
             : "Clique un thème pour filtrer."}
         </p>
       </header>
@@ -39,10 +43,10 @@ function ThemeChart({ projets, themes, cadres, filtre, onToggleTheme }) {
       <ul className="theme-bars" ref={listReference}>
         {rows.map((row, index) => {
           const pressed = filtre.theme === row.id;
-          const label = cadreLabel
-            ? `${row.label} : ${pluralProjets(row.value)} ${cadreLabel} sur ${row.total}.`
+          const label = ghost
+            ? `${row.label} : ${pluralProjets(row.value)} avec les filtres actifs, ${row.total} en tout.`
             : `${row.label} : ${pluralProjets(row.total)}.`;
-          const delay = inView && !filtre.cadre ? 0.06 * index : 0;
+          const delay = inView && !ghost ? 0.06 * index : 0;
           return (
             <li key={row.id}>
               <button
@@ -59,7 +63,7 @@ function ThemeChart({ projets, themes, cadres, filtre, onToggleTheme }) {
                     initial={false}
                     animate={{
                       width: inView ? percent(row.total) : "0%",
-                      opacity: filtre.cadre ? 1 : 0,
+                      opacity: ghost ? 1 : 0,
                     }}
                     transition={reduce ? { duration: 0 } : barSpring}
                   />
@@ -74,7 +78,7 @@ function ThemeChart({ projets, themes, cadres, filtre, onToggleTheme }) {
                 </span>
                 <span className="theme-row-value tabular" aria-hidden="true">
                   {row.value}
-                  {filtre.cadre && (
+                  {ghost && (
                     <span className="theme-row-total">/{row.total}</span>
                   )}
                 </span>
@@ -83,7 +87,7 @@ function ThemeChart({ projets, themes, cadres, filtre, onToggleTheme }) {
           );
         })}
       </ul>
-    </ClayCard>
+    </Block>
   );
 }
 

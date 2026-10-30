@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
+import AnimatedIcon from "../ui/AnimatedIcon.jsx";
 import Badge from "../ui/Badge.jsx";
-import ClayCard from "../ui/ClayCard.jsx";
+import Block from "../ui/Block.jsx";
 import Reveal from "../ui/Reveal.jsx";
 import Section from "../ui/Section.jsx";
 import Stat from "../ui/Stat.jsx";
 
 // Disciplines dont les stats sont des chronos : valeurs en or (perfs).
 const PERF_IDS = new Set(["cap"]);
+// Icône Lordicon de chaque activité, jouée au survol du bloc.
+const ICONS = { triathlon: "cup", cap: "clock", echecs: "target" };
 
 // Une activité du bento : stats, courses (temps en badge or), apport.
 function ActivityCard({ activite }) {
@@ -14,12 +17,13 @@ function ActivityCard({ activite }) {
   const isPerf = PERF_IDS.has(id);
 
   return (
-    <ClayCard
-      as="article"
-      interactive
-      className={`bento-card bento-card--${id}`}
-    >
-      <h3 className="bento-title">{title}</h3>
+    <Block as="article" interactive className={`bento-card bento-card--${id}`}>
+      <h3 className="bento-title">
+        {ICONS[id] && (
+          <AnimatedIcon name={ICONS[id]} size={24} target=".bento-card" />
+        )}
+        {title}
+      </h3>
 
       {stats.length > 0 && (
         <dl className="stat-list bento-stats">
@@ -47,7 +51,7 @@ function ActivityCard({ activite }) {
       )}
 
       {apport && <p className="bento-apport">{apport}</p>}
-    </ClayCard>
+    </Block>
   );
 }
 
@@ -72,7 +76,7 @@ function Lifestyle({ lifestyle = [], hobbies = [], langues = [] }) {
 
         {hobbies.length > 0 && (
           <Reveal delay={0.1} className="bento-cell bento-cell--hobbies">
-            <ClayCard
+            <Block
               as="article"
               interactive
               className="bento-card bento-card--small"
@@ -85,18 +89,21 @@ function Lifestyle({ lifestyle = [], hobbies = [], langues = [] }) {
                   </li>
                 ))}
               </ul>
-            </ClayCard>
+            </Block>
           </Reveal>
         )}
 
         {langues.length > 0 && (
           <Reveal delay={0.15} className="bento-cell bento-cell--langues">
-            <ClayCard
+            <Block
               as="article"
               interactive
               className="bento-card bento-card--small"
             >
-              <h3 className="bento-title">Langues</h3>
+              <h3 className="bento-title">
+                <AnimatedIcon name="globe" size={24} target=".bento-card" />
+                Langues
+              </h3>
               <dl className="lang-list">
                 {langues.map((langue) => (
                   <div key={langue.name} className="lang">
@@ -105,7 +112,7 @@ function Lifestyle({ lifestyle = [], hobbies = [], langues = [] }) {
                   </div>
                 ))}
               </dl>
-            </ClayCard>
+            </Block>
           </Reveal>
         )}
       </div>

@@ -18,8 +18,8 @@ function Tutorial({ onDismiss }) {
       transition={{ type: "spring", stiffness: 380, damping: 26, mass: 0.7 }}
     >
       <p id="tuto-text" className="tuto-text">
-        <Badge className="tuto-badge">Astuce</Badge> Chaque graphique autour est
-        un filtre. Clique pour voir mes projets.
+        <Badge className="tuto-badge">Astuce</Badge> Chaque graphique est un
+        filtre. Clique pour voir mes projets.
       </p>
       <button type="button" className="tuto-ok" onClick={onDismiss}>
         OK

@@ -17,6 +17,7 @@ function ContactCard({
   return (
     <ChartCard
       title="Langues et contact"
+      icon="mail"
       className={`contact-cell ${className}`.trim()}
       {...rest}
     >

@@ -3,6 +3,7 @@ import { AnimatePresence, MotionConfig } from "motion/react";
 import TimelineChart from "../dataviz/TimelineChart.jsx";
 import ThemeChart from "../dataviz/ThemeChart.jsx";
 import TechChart from "../dataviz/TechChart.jsx";
+import CompetenceChart from "../dataviz/CompetenceChart.jsx";
 import TeamChart from "../dataviz/TeamChart.jsx";
 import StatusChart from "../dataviz/StatusChart.jsx";
 import SportCard from "../dataviz/SportCard.jsx";
@@ -20,6 +21,7 @@ import {
   toggleFrom,
 } from "../../lib/filters.js";
 import { buildDimensions } from "../../lib/dimensions.js";
+import { byStartDesc } from "../../lib/dates.js";
 import {
   markTutoSeen,
   shouldPlayIntro,
@@ -74,7 +76,10 @@ function DashboardApp() {
 
   const active = isActive(filtre);
   const view = detail ?? (active ? "projects" : "home");
-  const matching = projetsReels.filter((projet) => matches(projet, filtre));
+  // Du plus récent au plus ancien : les projets IA et l'alternance d'abord.
+  const matching = projetsReels
+    .filter((projet) => matches(projet, filtre))
+    .toSorted(byStartDesc);
   const filterKey = AXES.map((axis) => filtre[axis] ?? "").join("|");
 
   const chartProperties = {
@@ -103,13 +108,12 @@ function DashboardApp() {
           options={dimensions.techno}
           {...chartProperties}
         />
-        <ThemeChart
+        <CompetenceChart
           className="dash-cell dash-cell--competences"
-          axis="competence"
-          title="Compétences du BUT"
-          hint="Point doré : cœur de mon parcours data."
           options={dimensions.competence}
-          {...chartProperties}
+          projets={projetsReels}
+          filtre={filtre}
+          onToggle={toggle}
         />
         <CenterPanel
           className="dash-cell dash-cell--center"

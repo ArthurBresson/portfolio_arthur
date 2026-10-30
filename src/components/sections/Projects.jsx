@@ -9,7 +9,12 @@ import Section from "../ui/Section.jsx";
 // - filters : ReactNode optionnel rendu au-dessus de la grille (chips)
 function Projects({ projets, cadres, competences, filters }) {
   return (
-    <Section id="projets" kicker="Projets" title="Ce que j'ai construit">
+    <Section
+      id="projets"
+      kicker="Projets"
+      icon="code"
+      title="Ce que j'ai construit"
+    >
       <div data-slot="filters" className="project-filters">
         {filters}
       </div>

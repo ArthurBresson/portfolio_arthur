@@ -76,7 +76,8 @@ function FilterSummary({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
           >
-            Les deux graphiques filtrent les projets ci-dessous.
+            La frise, les thèmes et les compétences filtrent les projets
+            ci-dessous.
           </motion.p>
         )}
       </AnimatePresence>

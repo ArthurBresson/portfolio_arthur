@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
-import ClayCard from "../ui/ClayCard.jsx";
+import Block from "../ui/Block.jsx";
 import Reveal from "../ui/Reveal.jsx";
 import Section from "../ui/Section.jsx";
 import { byStartDesc, formatPeriod } from "../../lib/dates.js";
@@ -12,7 +12,12 @@ const GROUPS = [
 // Version lisible du parcours : deux colonnes, du plus récent au plus ancien.
 function Parcours({ parcours = [] }) {
   return (
-    <Section id="parcours" kicker="Parcours" title="Formation et expériences">
+    <Section
+      id="parcours"
+      kicker="Parcours"
+      icon="suitcase"
+      title="Formation et expériences"
+    >
       <div className="parcours-grid">
         {GROUPS.map((group, index) => {
           const entries = parcours
@@ -21,7 +26,7 @@ function Parcours({ parcours = [] }) {
           if (entries.length === 0) return;
           return (
             <Reveal key={group.type} delay={index * 0.06}>
-              <ClayCard className="parcours-card">
+              <Block className="parcours-card">
                 <h3 className="parcours-group">{group.title}</h3>
                 <ol className="parcours-list">
                   {entries.map((entry) => (
@@ -41,7 +46,7 @@ function Parcours({ parcours = [] }) {
                     </li>
                   ))}
                 </ol>
-              </ClayCard>
+              </Block>
             </Reveal>
           );
         })}

@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-null -- convention du projet : null = aucun filtre */
-// Filtre croisé partagé par les 8 cases du dashboard. Chaque axe vaut un
+// Filtre croisé partagé par les graphiques des deux mises en page. Chaque axe vaut un
 // identifiant ou null ; les axes actifs se combinent en ET.
 
 export const AXES = [
