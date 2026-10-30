@@ -327,7 +327,7 @@ export const projets = [
     end: null,
     cadre: "entreprise",
     competences: ["conduire", "realiser", "collaborer"],
-    themes: ["web"],
+    themes: ["web", "agents"],
     stack: ["React", "TypeScript"],
     team: 2,
     links: [{ label: "bressodup.fr", url: "https://bressodup.fr" }],
