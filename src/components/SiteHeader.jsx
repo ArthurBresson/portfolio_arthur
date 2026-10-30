@@ -4,6 +4,7 @@ import AnimatedIcon from "./ui/AnimatedIcon.jsx";
 
 const LINKS = [
   { href: "#projets", label: "Projets", icon: "code" },
+  { href: "#a-propos", label: "À propos", icon: "book" },
   { href: "#parcours", label: "Parcours", icon: "suitcase" },
   { href: "#hors-code", label: "Hors code", icon: "cup" },
   { href: "#contact", label: "Contact", icon: "mail" },

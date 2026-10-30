@@ -7,7 +7,7 @@ import { countMatching, pluralProjets } from "../../lib/filters.js";
 // barre. Une barre courte se lisait comme une compétence faible alors
 // qu'elle comptait seulement les projets. Le nombre de projets reste à
 // droite, en preuve, et la ligne filtre au clic. Une option
-// `parcours: true` reçoit un point doré.
+// `parcours: true` reçoit un point bleu.
 
 function CompetenceChart({
   projets,

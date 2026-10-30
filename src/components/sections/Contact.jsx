@@ -5,6 +5,7 @@ import Button from "../ui/Button.jsx";
 import AnimatedIcon from "../ui/AnimatedIcon.jsx";
 import Block from "../ui/Block.jsx";
 import Reveal from "../ui/Reveal.jsx";
+import LegalNotice from "../ui/LegalNotice.jsx";
 import { CheckIcon, CopyIcon, MailIcon, SocialIcon } from "../ui/Icons.jsx";
 import { springPress } from "../ui/motionPresets.js";
 import { useCopy } from "../../hooks/useCopy.js";
@@ -15,7 +16,7 @@ const swap = {
   exit: { opacity: 0, y: -6, filter: "blur(2px)" },
 };
 
-function Contact({ profil }) {
+function Contact({ profil, mentions }) {
   const { nom, email, socials = [] } = profil;
   const emailReference = useRef(null);
   const [copied, copy] = useCopy(emailReference);
@@ -106,6 +107,11 @@ function Contact({ profil }) {
             Lordicon
           </a>
         </p>
+        <LegalNotice
+          mentions={mentions}
+          email={email}
+          className="footer-legal"
+        />
       </div>
     </footer>
   );

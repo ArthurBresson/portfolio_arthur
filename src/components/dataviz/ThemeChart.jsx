@@ -12,7 +12,7 @@ import {
 // horizontales lisibles avec des libellés longs. Chaque barre est un
 // bouton : clic = filtre. Quand un autre axe filtre, la barre ne compte
 // que ce qui reste et le total reste en pointillé derrière. Une option
-// `parcours: true` reçoit un point doré.
+// `parcours: true` reçoit un point bleu.
 
 function ThemeChart({
   projets,

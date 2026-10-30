@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 // de fond ni d'ombre, la mise en page le sépare par l'espace et des filets.
 // - variant : "plain" (défaut) ou "hollow" (pointillé : emplacement vide)
 // - interactive : le titre réagit au survol (CSS), le bloc ne bouge pas
-// - gold : filet or en tête (réservé à l'accueil)
+// - gold : filet de signature en tête (réservé à l'accueil)
 function Block({
   as = "div",
   variant = "plain",

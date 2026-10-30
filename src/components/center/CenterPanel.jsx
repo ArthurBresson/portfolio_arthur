@@ -5,9 +5,11 @@ import HomeView from "./HomeView.jsx";
 import ProjectsView from "./ProjectsView.jsx";
 import SportView from "./SportView.jsx";
 import ContactView from "./ContactView.jsx";
+import AboutView from "./AboutView.jsx";
 
 // Case centrale du dashboard. Une vue à la fois :
-// accueil (aucun filtre), projets (filtre actif), sport ou contact.
+// accueil (aucun filtre), projets (filtre actif), sport, contact ou « qui
+// je suis ».
 const fade = {
   initial: { opacity: 0, scale: 0.985, y: 8 },
   animate: { opacity: 1, scale: 1, y: 0 },
@@ -25,6 +27,9 @@ function CenterPanel({
   lifestyle,
   langues,
   hobbies,
+  savoirEtre,
+  mentions,
+  onOpenAbout,
   onRemoveAxis,
   onClear,
   onBack,
@@ -48,6 +53,17 @@ function CenterPanel({
           lifestyle={lifestyle}
           langues={langues}
           hobbies={hobbies}
+          mentions={mentions}
+          onBack={onBack}
+        />
+      );
+      break;
+    }
+    case "about": {
+      content = (
+        <AboutView
+          presentation={profil.presentation}
+          savoirEtre={savoirEtre}
           onBack={onBack}
         />
       );
@@ -68,7 +84,12 @@ function CenterPanel({
     }
     default: {
       content = (
-        <HomeView profil={profil} tuto={tuto} onDismissTuto={onDismissTuto} />
+        <HomeView
+          profil={profil}
+          tuto={tuto}
+          onDismissTuto={onDismissTuto}
+          onOpenAbout={onOpenAbout}
+        />
       );
     }
   }

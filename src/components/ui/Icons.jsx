@@ -44,6 +44,14 @@ export const MailIcon = ({ className }) => (
   </Svg>
 );
 
+export const DownloadIcon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M12 4v11" />
+    <path d="m7 10 5 5 5-5" />
+    <path d="M5 20h14" />
+  </Svg>
+);
+
 export const PinIcon = ({ className }) => (
   <Svg className={className}>
     <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" />

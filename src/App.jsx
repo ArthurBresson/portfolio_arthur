@@ -4,78 +4,30 @@ import ClassicApp from "./components/classic/ClassicApp.jsx";
 import DashboardApp from "./components/dashboard/DashboardApp.jsx";
 import { springHover, springPress } from "./components/ui/motionPresets.js";
 
-// Quatre versions du portfolio, à comparer en direct : deux mises en page
-// (dashboard 3×3 sans scroll, page classique qui défile) et deux thèmes
-// (« Tartan + or », « Dessiné » : papier, encre et feutre, à main levée).
-// Le choix vit dans l'URL (?v=2) pour recharger ou partager. Pas de hash :
-// la version classique s'en sert déjà pour ses ancres.
+// Deux versions du portfolio, dans le thème dessiné à la main : le
+// dashboard 3×3 sans scroll et la page classique qui défile. Le choix vit
+// dans l'URL (?v=2) pour recharger ou partager. Pas de hash : la version
+// classique s'en sert déjà pour ses ancres.
 const PARAM = "v";
 const VERSIONS = [
-  { id: "1", layout: "dashboard", theme: "tartan", label: "Dashboard" },
-  { id: "2", layout: "classique", theme: "tartan", label: "Classique" },
-  {
-    id: "3",
-    layout: "dashboard",
-    theme: "sketch",
-    label: "Dashboard dessiné",
-  },
-  {
-    id: "4",
-    layout: "classique",
-    theme: "sketch",
-    label: "Classique dessiné",
-  },
+  { id: "1", layout: "dashboard", label: "Dashboard" },
+  { id: "2", layout: "classique", label: "Classique" },
 ];
 const DEFAULT = VERSIONS[0];
+
+// Anciens liens partagés : les versions 3 et 4 (dessinées) sont devenues
+// 1 et 2, et « classique » date d'avant la numérotation.
+const ALIASES = { 3: "1", 4: "2", classique: "2" };
 
 function readVersion() {
   try {
     const value = new URLSearchParams(globalThis.location.search).get(PARAM);
-    // Anciens liens partagés avant la numérotation.
-    if (value === "classique") return VERSIONS[1];
-    return VERSIONS.find((version) => version.id === value) ?? DEFAULT;
+    const id = ALIASES[value] ?? value;
+    return VERSIONS.find((version) => version.id === id) ?? DEFAULT;
   } catch {
     return DEFAULT;
   }
 }
-
-// Les polices manuscrites du thème « Dessiné » ne sont chargées que si on
-// l'affiche.
-const SKETCH_FONTS =
-  "https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap";
-
-function loadSketchFonts() {
-  if (document.querySelector(`link[href="${SKETCH_FONTS}"]`)) return;
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = SKETCH_FONTS;
-  document.head.append(link);
-}
-
-// Pose le thème sur <html> (le fond de page suit) et met à jour les
-// métadonnées que le navigateur lit pour ses propres couleurs.
-const THEME_META = {
-  tartan: { scheme: "light", color: "#efe9e6" },
-  sketch: { scheme: "light", color: "#faf7f0" },
-};
-
-function applyTheme(theme) {
-  const root = document.documentElement;
-  if (theme === "sketch") {
-    root.dataset.theme = "sketch";
-    loadSketchFonts();
-  } else delete root.dataset.theme;
-  const meta = THEME_META[theme];
-  document
-    .querySelector('meta[name="color-scheme"]')
-    ?.setAttribute("content", meta.scheme);
-  document
-    .querySelector('meta[name="theme-color"]')
-    ?.setAttribute("content", meta.color);
-}
-
-// Avant le premier rendu : pas de flash clair en ouvrant ?v=3 ou ?v=4.
-applyTheme(readVersion().theme);
 
 function writeVersion(version) {
   try {
@@ -98,8 +50,6 @@ function App() {
     globalThis.addEventListener("popstate", onPop);
     return () => globalThis.removeEventListener("popstate", onPop);
   }, []);
-
-  useEffect(() => applyTheme(version.theme), [version.theme]);
 
   const choose = (next) => {
     if (next === version) return;

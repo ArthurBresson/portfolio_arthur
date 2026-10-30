@@ -5,6 +5,7 @@ import ScrollToTop from "../ScrollToTop.jsx";
 import Hero from "../sections/Hero.jsx";
 import Projects from "../sections/Projects.jsx";
 import Parcours from "../sections/Parcours.jsx";
+import About from "../sections/About.jsx";
 import Lifestyle from "../sections/Lifestyle.jsx";
 import Contact from "../sections/Contact.jsx";
 import TimelineChart from "./ClassicTimeline.jsx";
@@ -32,6 +33,8 @@ import {
   lifestyle,
   hobbies,
   langues,
+  savoirEtre,
+  mentions,
 } from "../../data/portfolio.js";
 
 // Projets comptés par les graphiques et les filtres (sans cartes vides).
@@ -113,10 +116,11 @@ function ClassicApp() {
           competences={competences}
           filters={filters}
         />
+        <About presentation={profil.presentation} savoirEtre={savoirEtre} />
         <Parcours parcours={parcours} />
         <Lifestyle lifestyle={lifestyle} hobbies={hobbies} langues={langues} />
       </main>
-      <Contact profil={profil} />
+      <Contact profil={profil} mentions={mentions} />
       <ScrollToTop />
       <AnimatePresence>
         {introVisible && (

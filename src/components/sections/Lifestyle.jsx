@@ -6,7 +6,7 @@ import Reveal from "../ui/Reveal.jsx";
 import Section from "../ui/Section.jsx";
 import Stat from "../ui/Stat.jsx";
 
-// Disciplines dont les stats sont des chronos : valeurs en or (perfs).
+// Disciplines dont les stats sont des chronos : valeurs en couleur de signature (perfs).
 const PERF_IDS = new Set(["cap"]);
 // Icône Lordicon de chaque activité, jouée au survol du bloc.
 const ICONS = { triathlon: "cup", cap: "clock", echecs: "target" };
