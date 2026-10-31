@@ -51,6 +51,7 @@ src/
 ├── hooks/                 useCopy, useElementWidth
 └── styles/                tokens, global, ui, layout, dataviz, dashboard
 .claude/agents/            agent portfolio-review (jury Professeur / RH / Data Engineer)
+.claude/skills/            skill-inspector (NVIDIA SkillSpector, Apache 2.0) : audit d'un skill avant installation
 ```
 
 ## Modifier le contenu

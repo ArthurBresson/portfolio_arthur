@@ -13,3 +13,4 @@ dist-ssr
 # Claude Code
 .claude/*
 !.claude/agents/
+!.claude/skills/
