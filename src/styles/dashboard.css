@@ -63,8 +63,10 @@
 .dash {
   --dash-gap: clamp(10px, 1.1vw, 16px);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr);
+  /* La case centrale prend le double des autres dans les deux sens :
+     c'est elle qu'on regarde en premier. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
   grid-template-areas:
     "frise themes tech"
     "competences center equipe"
@@ -79,6 +81,29 @@
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   overflow: hidden;
+}
+
+/* Écran bas ou étroit : les cases autour n'ont plus la place de leurs
+   graphiques (frise, technos) si le centre prend le double. */
+@media (max-height: 760px) {
+  .dash {
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1.65fr) minmax(0, 1fr);
+  }
+
+  /* Cadre plus serré : la hauteur gagnée revient au contenu. */
+  .dash-cell--center {
+    --center-inset: 4px;
+  }
+
+  .dash .center-card {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .dash {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr);
+  }
 }
 
 .dash-cell {
@@ -617,11 +642,28 @@
 }
 
 /* ---------- Case centrale ---------- */
+/* Case centrale mise en avant : un cadre tracé à l'encre, détaché des
+   filets de la grille, un papier un peu plus clair et un second trait
+   d'encre bleue décalé, comme repassé au feutre. */
 .center-card {
-  height: 100%;
+  height: calc(100% - 2 * var(--center-inset));
+  margin: var(--center-inset);
   padding: clamp(16px, 2vw, 28px);
   overflow: hidden;
   container: center / size;
+  border: 2.5px solid var(--color-ink);
+  /* Tremblé discret : les rayons du thème déforment un aussi grand cadre. */
+  border-radius: 18px 26px 20px 24px / 24px 18px 26px 20px;
+  background: #fffdf8;
+  box-shadow: 6px 6px 0 -1px var(--color-data);
+}
+
+.dash-cell--center {
+  --center-inset: clamp(8px, 1vw, 14px);
+  position: relative;
+  z-index: 1;
+  border-right: 0;
+  border-bottom: 0;
 }
 
 .center-frame {
@@ -671,7 +713,7 @@
   font-family: var(--font-display);
   /* Kalam a de grandes hampes : la citation reste assez petite et serrée
      pour tenir dans sa case sans défiler, mobile compris. */
-  font-size: clamp(1rem, min(4.2cqw, 7cqh), 1.9rem);
+  font-size: clamp(1rem, min(5cqw, 8.6cqh), 2.6rem);
   font-weight: 700;
   line-height: 1.12;
   color: var(--color-ink);
@@ -699,7 +741,7 @@
 /* Mon nom, en titre centré au-dessus de la citation. */
 .home-name {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, min(6cqw, 9.5cqh), 2.8rem);
+  font-size: clamp(1.5rem, min(8cqw, 13cqh), 3.8rem);
   font-weight: 700;
   line-height: 1.1;
   text-align: center;
@@ -712,7 +754,7 @@
 
 .home-photo {
   flex-shrink: 0;
-  width: min(27cqw, 62cqh, 230px);
+  width: min(32cqw, 74cqh, 340px);
 }
 
 /* Photo posée de travers, cerclée d'un trait. */

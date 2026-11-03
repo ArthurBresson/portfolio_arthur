@@ -4,7 +4,7 @@ Portfolio personnel d'Arthur Bresson, étudiant en 3e année de BUT Informatique
 
 Le site existe en deux versions, à comparer en direct avec les boutons 1 et 2, toutes deux dans un thème dessiné à la main (papier crème, encre bleue, feutre rouge, polices manuscrites Kalam et Patrick Hand, contours tremblés) :
 
-- **1 — Dashboard** (par défaut) : une grille 3×3 sans scroll sur desktop, séparée par des traits fins. Six cases sont des graphiques qui filtrent les projets (frise du parcours, thèmes, compétences du BUT, technos, taille d'équipe, statut) ; les filtres se combinent. Les cases Sport et Contact ouvrent leur détail. La case centrale affiche l'accueil (la citation en grand, et un lien « Qui je suis » vers la présentation et le savoir-être), les projets filtrés, le sport ou le contact.
+- **1 — Dashboard** (par défaut) : une grille 3×3 sans scroll sur desktop, séparée par des traits fins. Six cases sont des graphiques qui filtrent les projets (frise du parcours, thèmes, compétences du BUT, technos, taille d'équipe, statut) ; les filtres se combinent. Les cases Sport et Contact ouvrent leur détail. La case centrale, deux fois plus grande que les autres et encadrée d'un trait d'encre, affiche l'accueil (la citation en grand, et un lien « Qui je suis » vers la présentation et le savoir-être), les projets filtrés, le sport ou le contact.
 - **2 — Classique** (`?v=2`) : une page qui défile, avec le hero (frise et graphique des thèmes compris), l'index des projets filtrable, « À propos » (présentation et savoir-être), le parcours, le sport, puis le contact et les mentions légales.
 
 Les anciens liens restent valides : `?v=3` mène à la version 1, `?v=4` et `?v=classique` à la version 2.
