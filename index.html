@@ -6,10 +6,10 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <title>Portfolio - Arthur Bresson</title>
+    <title>Arthur Bresson · Data analyst, portfolio data et IA</title>
     <meta
       name="description"
-      content="Arthur Bresson, BUT Informatique parcours données, data analyst en alternance chez Hager. Je cherche une alternance en Master ou en école d'ingénieur, en IA / ML engineering."
+      content="Arthur Bresson, data analyst en alternance chez Hager et étudiant en BUT Informatique. Projets data, web et IA. Je cherche une alternance en IA / ML engineering."
     />
     <link rel="canonical" href="https://www.arthurbresson.com/" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
@@ -21,7 +21,10 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.arthurbresson.com/" />
     <meta property="og:site_name" content="Arthur Bresson" />
-    <meta property="og:title" content="Portfolio - Arthur Bresson" />
+    <meta
+      property="og:title"
+      content="Arthur Bresson · Data analyst, portfolio data et IA"
+    />
     <meta
       property="og:description"
       content="Les projets d'Arthur Bresson en data, web et IA, et l'alternance IA / ML qu'il cherche."
@@ -30,35 +33,95 @@
       property="og:image"
       content="https://www.arthurbresson.com/arthur-photo.webp"
     />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="Portrait d'Arthur Bresson" />
     <meta property="og:locale" content="fr_FR" />
     <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Arthur Bresson · Data analyst, portfolio data et IA"
+    />
+    <meta
+      name="twitter:description"
+      content="Les projets d'Arthur Bresson en data, web et IA, et l'alternance IA / ML qu'il cherche."
+    />
 
     <!-- Données structurées : Google relie le site à la personne et à ses profils. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Arthur Bresson",
-        "url": "https://www.arthurbresson.com/",
-        "image": "https://www.arthurbresson.com/arthur-photo.webp",
-        "jobTitle": "Data analyst en alternance",
-        "worksFor": { "@type": "Organization", "name": "Hager" },
-        "alumniOf": [
+        "@graph": [
           {
-            "@type": "CollegeOrUniversity",
-            "name": "IUT de Reims-Châlons-Charleville"
+            "@type": "WebSite",
+            "@id": "https://www.arthurbresson.com/#site",
+            "url": "https://www.arthurbresson.com/",
+            "name": "Arthur Bresson",
+            "inLanguage": "fr-FR"
           },
           {
-            "@type": "CollegeOrUniversity",
-            "name": "Université de Technologie de Troyes"
+            "@type": "ProfilePage",
+            "@id": "https://www.arthurbresson.com/#page",
+            "url": "https://www.arthurbresson.com/",
+            "name": "Arthur Bresson · Data analyst, portfolio data et IA",
+            "isPartOf": { "@id": "https://www.arthurbresson.com/#site" },
+            "mainEntity": { "@id": "https://www.arthurbresson.com/#arthur" },
+            "inLanguage": "fr-FR"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://www.arthurbresson.com/#arthur",
+            "name": "Arthur Bresson",
+            "url": "https://www.arthurbresson.com/",
+            "image": "https://www.arthurbresson.com/arthur-photo.webp",
+            "jobTitle": "Data analyst en alternance",
+            "worksFor": { "@type": "Organization", "name": "Hager" },
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Saint-Léonard",
+              "addressCountry": "FR"
+            },
+            "alumniOf": [
+              {
+                "@type": "CollegeOrUniversity",
+                "name": "IUT de Reims-Châlons-Charleville"
+              },
+              {
+                "@type": "CollegeOrUniversity",
+                "name": "Université de Technologie de Troyes"
+              }
+            ],
+            "knowsAbout": [
+              "Analyse de données",
+              "Power BI",
+              "Bases de données",
+              "Développement web",
+              "Intelligence artificielle"
+            ],
+            "sameAs": [
+              "https://github.com/ArthurBresson",
+              "https://www.linkedin.com/in/arthur-bresson-1476772b5/"
+            ]
           }
-        ],
-        "sameAs": [
-          "https://github.com/ArthurBresson",
-          "https://www.linkedin.com/in/arthur-bresson-1476772b5/"
         ]
       }
     </script>
+
+    <!-- Contenu lisible sans JavaScript (injecté au build), remplacé par React. -->
+    <style>
+      .seo-static {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        font-family: system-ui, sans-serif;
+        line-height: 1.5;
+        color: #1f2a44;
+        background: #faf7f0;
+      }
+      .seo-static ul {
+        padding-left: 1.2rem;
+      }
+    </style>
 
     <!-- Bricolage Grotesque (titres), Geist (texte) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
