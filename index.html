@@ -11,10 +11,16 @@
       name="description"
       content="Arthur Bresson, BUT Informatique parcours données, data analyst en alternance chez Hager. Je cherche une alternance en Master ou en école d'ingénieur, en IA / ML engineering."
     />
+    <link rel="canonical" href="https://www.arthurbresson.com/" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <meta name="author" content="Arthur Bresson" />
+    <meta name="robots" content="index, follow" />
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content="#faf7f0" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.arthurbresson.com/" />
+    <meta property="og:site_name" content="Arthur Bresson" />
     <meta property="og:title" content="Portfolio - Arthur Bresson" />
     <meta
       property="og:description"
@@ -22,10 +28,37 @@
     />
     <meta
       property="og:image"
-      content="https://portfolio-arthur-tan.vercel.app/arthur-photo.webp"
+      content="https://www.arthurbresson.com/arthur-photo.webp"
     />
     <meta property="og:locale" content="fr_FR" />
     <meta name="twitter:card" content="summary" />
+
+    <!-- Données structurées : Google relie le site à la personne et à ses profils. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Arthur Bresson",
+        "url": "https://www.arthurbresson.com/",
+        "image": "https://www.arthurbresson.com/arthur-photo.webp",
+        "jobTitle": "Data analyst en alternance",
+        "worksFor": { "@type": "Organization", "name": "Hager" },
+        "alumniOf": [
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "IUT de Reims-Châlons-Charleville"
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Université de Technologie de Troyes"
+          }
+        ],
+        "sameAs": [
+          "https://github.com/ArthurBresson",
+          "https://www.linkedin.com/in/arthur-bresson-1476772b5/"
+        ]
+      }
+    </script>
 
     <!-- Bricolage Grotesque (titres), Geist (texte) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
