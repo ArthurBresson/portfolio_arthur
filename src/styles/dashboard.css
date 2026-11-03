@@ -104,6 +104,16 @@
   .dash {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr);
   }
+
+  /* Colonne étroite : les bulles des technos se serrent pour tenir. */
+  .dash .tech-cloud {
+    gap: 4px;
+  }
+
+  .dash .tech-bubble {
+    padding: calc(2px + 4px * var(--weight, 0.5))
+      calc(6px + 6px * var(--weight, 0.5));
+  }
 }
 
 .dash-cell {
@@ -456,6 +466,7 @@
 
 .status-value {
   font-family: var(--font-display);
+  font-size-adjust: none;
   font-size: clamp(1.4rem, 2.2vw, 2rem);
   font-weight: 700;
   line-height: 1.1;
@@ -604,6 +615,7 @@
 
 .sport-chronos dd {
   font-family: var(--font-display);
+  font-size-adjust: none;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -630,6 +642,7 @@
 
 .contact-fact dd {
   font-family: var(--font-display);
+  font-size-adjust: none;
   font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.2;
@@ -711,6 +724,7 @@
 
 .home-quote blockquote {
   font-family: var(--font-display);
+  font-size-adjust: none;
   /* Kalam a de grandes hampes : la citation reste assez petite et serrée
      pour tenir dans sa case sans défiler, mobile compris. */
   font-size: clamp(1rem, min(5cqw, 8.6cqh), 2.6rem);
@@ -741,6 +755,7 @@
 /* Mon nom, en titre centré au-dessus de la citation. */
 .home-name {
   font-family: var(--font-display);
+  font-size-adjust: none;
   font-size: clamp(1.5rem, min(8cqw, 13cqh), 3.8rem);
   font-weight: 700;
   line-height: 1.1;
@@ -1037,6 +1052,7 @@
 
 .chrono-list dd {
   font-family: var(--font-display);
+  font-size-adjust: none;
   font-size: clamp(1.1rem, 5cqh, 1.6rem);
   font-weight: 700;
 }

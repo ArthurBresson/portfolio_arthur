@@ -6,8 +6,8 @@
      feutre rouge pour l'action (boutons, chips actives, liens).
    - Les variables `--color-gold*` portent la signature : elles gardent ce
      nom, mais valent l'encre bleue.
-   - Polices manuscrites : Kalam pour les titres, Patrick Hand pour le
-     texte (chargées dans index.html).
+   - Polices : Kalam, manuscrite, pour les titres ; Nunito, arrondie et
+     plus lisible, pour le texte (chargées dans index.html).
    - Contours tremblés : chaque arrondi est un peu irrégulier, comme un
      trait de crayon. */
 :root {
@@ -71,7 +71,7 @@
 
   /* --- Typographie --- */
   --font-display: "Kalam", "Comic Sans MS", cursive;
-  --font-body: "Patrick Hand", "Comic Sans MS", cursive;
+  --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
 
   --text-xs: 0.75rem; /* 12px */
   --text-sm: 0.875rem; /* 14px */
