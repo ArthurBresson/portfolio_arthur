@@ -5,9 +5,15 @@ import Section from "../ui/Section.jsx";
 
 // Section « À propos » : la présentation en quelques phrases, puis le
 // savoir-être (trois qualités, chacune avec sa preuve).
-function About({ presentation = [], savoirEtre = [] }) {
+function About({ presentation = [], savoirEtre = [], number }) {
   return (
-    <Section id="a-propos" kicker="À propos" icon="book" title="Qui je suis">
+    <Section
+      id="a-propos"
+      number={number}
+      kicker="À propos"
+      icon="book"
+      title="Qui je suis"
+    >
       <div className="about-grid">
         {presentation.length > 0 && (
           <Reveal>

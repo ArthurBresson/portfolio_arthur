@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
 import { AnimatePresence, motion } from "motion/react";
-import ProjectCard, { ProjectPlaceholder } from "./ProjectCard.jsx";
+import ProjectCard from "./ProjectCard.jsx";
 import { springHover } from "../ui/motionPresets.js";
 
-// Grille de projets. Reçoit une liste déjà filtrée : les cartes qui entrent
-// ou sortent sont animées (layout + présence), prêtes pour le filtre croisé.
+// Liste des projets. Reçoit une liste déjà filtrée, sans cartes vides : les
+// projets qui entrent ou sortent au changement de filtre sont animés.
 function ProjectGrid({ projets, cadres = [], competences = [] }) {
   const labelOf = (id) => cadres.find((cadre) => cadre.id === id)?.label;
 
@@ -15,7 +15,7 @@ function ProjectGrid({ projets, cadres = [], competences = [] }) {
   return (
     <motion.ul className="project-grid" layout>
       <AnimatePresence initial={false} mode="popLayout">
-        {projets.map((projet) => (
+        {projets.map((projet, index) => (
           <motion.li
             key={projet.id}
             layout
@@ -25,15 +25,12 @@ function ProjectGrid({ projets, cadres = [], competences = [] }) {
             transition={springHover}
             className="project-grid-item"
           >
-            {projet.placeholder ? (
-              <ProjectPlaceholder cadreLabel={labelOf(projet.cadre)} />
-            ) : (
-              <ProjectCard
-                projet={projet}
-                cadreLabel={labelOf(projet.cadre)}
-                competences={competences}
-              />
-            )}
+            <ProjectCard
+              projet={projet}
+              cadreLabel={labelOf(projet.cadre)}
+              competences={competences}
+              index={index}
+            />
           </motion.li>
         ))}
       </AnimatePresence>

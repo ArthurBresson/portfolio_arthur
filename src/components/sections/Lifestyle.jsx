@@ -56,10 +56,11 @@ function ActivityCard({ activite }) {
 }
 
 // Section « hors code » en bento : activités, puis jeux et langues.
-function Lifestyle({ lifestyle = [], hobbies = [], langues = [] }) {
+function Lifestyle({ lifestyle = [], hobbies = [], langues = [], number }) {
   return (
     <Section
       id="hors-code"
+      number={number}
       kicker="Hors code"
       title="Sport, échecs et le reste"
     >

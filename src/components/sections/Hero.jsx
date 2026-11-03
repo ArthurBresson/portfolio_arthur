@@ -28,7 +28,7 @@ const intro = {
   animate: { opacity: 1, y: 0 },
 };
 
-function Hero({ profil, charts }) {
+function Hero({ profil }) {
   const {
     nom,
     localisation,
@@ -138,9 +138,6 @@ function Hero({ profil, charts }) {
             </dl>
           )}
         </Block>
-
-        {/* Frise et thèmes : côte à côte sur desktop, empilés sur mobile. */}
-        <div className="hero-charts">{charts}</div>
       </div>
     </section>
   );

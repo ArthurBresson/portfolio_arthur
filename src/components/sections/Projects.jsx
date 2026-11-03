@@ -7,10 +7,13 @@ import Section from "../ui/Section.jsx";
 // - cadres : référentiel id -> libellé
 // - competences : compétences du BUT, affichées sur chaque carte
 // - filters : ReactNode optionnel rendu au-dessus de la grille (chips)
-function Projects({ projets, cadres, competences, filters }) {
+// - number : numéro de section (« 02 »)
+// - more : ReactNode optionnel sous la grille (bouton « afficher la suite »)
+function Projects({ projets, cadres, competences, filters, more, number }) {
   return (
     <Section
       id="projets"
+      number={number}
       kicker="Projets"
       icon="code"
       title="Ce que j'ai construit"
@@ -23,6 +26,7 @@ function Projects({ projets, cadres, competences, filters }) {
         cadres={cadres}
         competences={competences}
       />
+      {more}
     </Section>
   );
 }

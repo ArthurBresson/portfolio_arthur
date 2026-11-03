@@ -2,12 +2,12 @@
 
 Portfolio personnel d'Arthur Bresson, étudiant en 3e année de BUT Informatique (parcours bases de données) et data analyst en alternance chez Hager : projets, compétences du BUT, parcours, sport et contact.
 
-Le site existe en deux versions, à comparer en direct avec les boutons 1 et 2, toutes deux dans un thème dessiné à la main (papier crème, encre bleue, feutre rouge, polices droites Bricolage Grotesque pour les titres et Geist pour le texte, contours tremblés) :
+Le site s'adapte à l'écran, dans un thème dessiné à la main (papier crème, encre bleue, feutre rouge, polices droites Bricolage Grotesque pour les titres et Geist pour le texte, contours tremblés) :
 
-- **1 — Dashboard** (par défaut) : une grille 3×3 sans scroll sur desktop, séparée par des traits fins. Six cases sont des graphiques qui filtrent les projets (frise du parcours, thèmes, compétences du BUT, technos, taille d'équipe, statut) ; les filtres se combinent. Les cases Sport et Contact ouvrent leur détail. La case centrale, deux fois plus grande que les autres et encadrée d'un trait d'encre, affiche l'accueil (la citation en grand, et un lien « Qui je suis » vers la présentation et le savoir-être), les projets filtrés, le sport ou le contact.
-- **2 — Classique** (`?v=2`) : une page qui défile, avec le hero (frise et graphique des thèmes compris), l'index des projets filtrable, « À propos » (présentation et savoir-être), le parcours, le sport, puis le contact et les mentions légales.
+- **Ordinateur (900 px et plus) : le dashboard.** Une grille 3×3 sans scroll, séparée par des traits fins. Six cases sont des graphiques qui filtrent les projets (frise du parcours, thèmes, compétences du BUT, technos, taille d'équipe, statut) ; les filtres se combinent. Les cases Sport et Contact ouvrent leur détail. La case centrale, deux fois plus grande que les autres et encadrée d'un trait d'encre, affiche l'accueil (la citation en grand, et un lien « Qui je suis » vers la présentation et le savoir-être), les projets filtrés, le sport ou le contact.
+- **Téléphone et petite tablette : une page qui défile.** Une barre en haut avec un menu burger (sections numérotées, email, réseaux), puis l'accueil et cinq sections numérotées : 01 À propos (présentation et savoir-être), 02 Projets (un filtre par thème sur une rangée, les 6 plus récents puis « Afficher les autres »), 03 Parcours, 04 Hors code, 05 Contact et mentions légales. Pas de graphiques : ils sont réservés au dashboard.
 
-Les anciens liens restent valides : `?v=3` mène à la version 1, `?v=4` et `?v=classique` à la version 2.
+Les anciens liens `?v=…` ouvrent simplement la version adaptée à l'écran.
 
 ## Stack
 
@@ -33,7 +33,7 @@ npm run lint      # ESLint
 ```
 public/                    favicon, apple-touch-icon, photo, robots.txt
 src/
-├── App.jsx                choix de la version (paramètre ?v=1 ou 2) et boutons de bascule
+├── App.jsx                choix de la version selon la largeur d'écran (dashboard ou mobile)
 ├── assets/lordicon/       animations Lordicon (JSON)
 ├── data/portfolio.js      tout le contenu : profil, parcours, projets, sport, langues
 ├── lib/
@@ -45,11 +45,11 @@ src/
 │   ├── dashboard/         grille de la version Dashboard
 │   ├── dataviz/           graphiques du Dashboard, intro, tutoriel
 │   ├── center/            vues de la case centrale (accueil, projets, sport, contact, « Qui je suis »)
-│   ├── classic/           version Classique : app, frise, thèmes, filtres
-│   ├── sections/          sections de la version Classique
+│   ├── mobile/            version mobile : app, barre du haut et menu burger, filtre par thème
+│   ├── sections/          sections de la version mobile (hero, projets, à propos, parcours…)
 │   └── ui/                Block, Button, Badge, Chip, icônes (dont AnimatedIcon), presets d'animation
-├── hooks/                 useCopy, useElementWidth
-└── styles/                tokens, global, ui, layout, dataviz, dashboard
+├── hooks/                 useCopy, useElementWidth, useMediaQuery
+└── styles/                tokens, global, ui, layout (version mobile), dataviz, dashboard
 .claude/agents/            agent portfolio-review (jury Professeur / RH / Data Engineer)
 .claude/skills/            skill-inspector (NVIDIA SkillSpector, Apache 2.0) : audit d'un skill avant installation
 ```
@@ -62,7 +62,7 @@ Tout le contenu se trouve dans `src/data/portfolio.js`. Il n'y a aucun composant
 - Un projet a un `cadre` (UTT, IUT, Stage & alternance, Entreprise, Perso), un ou plusieurs `themes`, les `competences` du BUT qu'il prouve, une `stack`, et `team` s'il a été fait à plusieurs.
 - `competences` liste les 6 compétences du BUT Informatique ; `parcours: true` marque celles du cœur du parcours data en 3e année (point bleu).
 - Une période du `parcours` qui porte un `cadre` devient cliquable dans la frise et filtre les projets de ce cadre.
-- `placeholder: true` crée une carte « Bientôt en ligne » dans la version Classique, ignorée par les graphiques.
+- `placeholder: true` réserve la place d'un projet pas encore publié : il est ignoré partout (graphiques, filtres, liste mobile).
 
 ## Relecture
 

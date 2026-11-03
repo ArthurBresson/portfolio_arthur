@@ -75,15 +75,6 @@ export function toggleFrom(projets, filtre, axis, id) {
 
 export const clearAxis = (filtre, axis) => ({ ...filtre, [axis]: null });
 
-export const setAxis = (filtre, axis, id) => ({ ...filtre, [axis]: id });
-
-// Version classique : la grille montre tout (cartes vides comprises) sans
-// filtre, sinon uniquement les vrais projets qui correspondent.
-export const visibleProjets = (projets, filtre) =>
-  isActive(filtre)
-    ? projets.filter((projet) => matches(projet, filtre))
-    : projets;
-
 // "AAAA-MM" -> index de mois absolu (pour les échelles de temps).
 export function monthIndex(value) {
   const [year, month] = value.split("-").map(Number);

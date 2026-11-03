@@ -1,39 +1,229 @@
-/* ==================== SECTIONS ====================
-   Navigation, hero, projets, parcours, hors code, contact. Mise en page
+/* ==================== VERSION MOBILE ====================
+   Page qui défile (téléphone et petite tablette, moins de 900 px) : barre
+   du haut avec burger, hero, sections numérotées, contact. Mise en page
    éditoriale : des filets et de l'espace, aucune carte. */
 
-/* ==================== NAVIGATION ==================== */
-.site-header {
+/* ==================== BARRE DU HAUT ET MENU ==================== */
+.m-header {
   position: sticky;
   top: 0;
   z-index: 50;
-  padding: var(--space-3) var(--gutter) 0;
-  pointer-events: none;
+  background: var(--color-page);
+  transition: box-shadow var(--duration-slow) var(--ease-out);
 }
 
-.site-nav {
-  pointer-events: auto;
+.m-header.is-scrolled {
+  box-shadow: 0 1px 0 var(--color-line);
+}
+
+.m-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
   max-width: var(--container);
+  min-height: 60px;
   margin-inline: auto;
-  padding: var(--space-2);
-  border-radius: var(--radius-pill);
-  background: transparent;
+  padding: max(6px, env(safe-area-inset-top, 0px)) var(--gutter) 6px;
+}
+
+/* Fil de lecture : avance de gauche à droite avec la page. */
+.m-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-gold);
+  transform-origin: 0 50%;
+}
+
+/* Burger : trois traits qui se croisent en ✕ à l'ouverture. Cible de
+   44 px au pouce. */
+.m-burger {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -8px;
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.m-burger-lines,
+.m-burger-lines::before,
+.m-burger-lines::after {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
   transition:
-    background-color var(--duration-slow) var(--ease-out),
-    box-shadow var(--duration-slow) var(--ease-out);
+    transform var(--duration-slow) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
 }
 
-.site-header.is-scrolled .site-nav {
-  background: rgba(250, 247, 240, 0.92);
-  box-shadow: inset 0 0 0 1px var(--color-line);
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
+.m-burger-lines {
+  position: relative;
 }
 
+.m-burger-lines::before,
+.m-burger-lines::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.m-burger-lines::before {
+  transform: translateY(-7px);
+}
+
+.m-burger-lines::after {
+  transform: translateY(7px);
+}
+
+.m-burger[aria-expanded="true"] .m-burger-lines {
+  background: transparent;
+}
+
+.m-burger[aria-expanded="true"] .m-burger-lines::before {
+  background: var(--color-ink);
+  transform: rotate(45deg);
+}
+
+.m-burger[aria-expanded="true"] .m-burger-lines::after {
+  background: var(--color-ink);
+  transform: rotate(-45deg);
+}
+
+/* Menu plein écran sous la barre : grands liens numérotés, puis l'email
+   et les réseaux en pied. */
+.m-menu {
+  position: fixed;
+  top: 60px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-8);
+  padding: var(--space-6) var(--gutter)
+    max(var(--space-8), env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  background: var(--color-page);
+  border-top: var(--rule);
+}
+
+.m-menu-list {
+  display: grid;
+  list-style: none;
+}
+
+.m-menu-link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: var(--rule);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+}
+
+.m-menu-link:hover,
+.m-menu-link:focus-visible {
+  color: var(--color-accent);
+}
+
+.m-menu-number {
+  min-width: 2ch;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-gold-deep);
+}
+
+.m-menu-foot {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.m-menu-email {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-soft);
+  text-underline-offset: 4px;
+}
+
+.m-menu-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Numéro de section devant le surtitre : « 02 · Projets ». */
+.section-number {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+}
+
+.section-number::after {
+  content: "·";
+  margin-left: var(--space-2);
+  color: var(--color-ink-soft);
+}
+
+/* Filtre des projets : une rangée de puces qui défile au pouce, qui
+   déborde jusqu'au bord de l'écran. */
+.m-filter {
+  display: flex;
+  gap: var(--space-2);
+  margin-inline: calc(var(--gutter) * -1);
+  padding: 2px var(--gutter) var(--space-2);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.m-filter::-webkit-scrollbar {
+  display: none;
+}
+
+.project-filters > .m-filter {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+.m-filter .chip {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+/* « Afficher les N autres projets » : pleine largeur sous la liste. */
+.m-more {
+  width: 100%;
+  margin-top: var(--space-8);
+}
+
+/* Numéro du projet devant son titre. */
+.project-index {
+  margin-right: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-gold-deep);
+  vertical-align: 0.2em;
+}
+
+/* ==================== MARQUE ==================== */
 .site-brand {
   display: inline-flex;
   align-items: center;
@@ -54,50 +244,6 @@
   box-shadow: inset 0 0 0 1px var(--color-line-strong);
   font-size: var(--text-sm);
   color: var(--color-accent);
-}
-
-.site-links {
-  display: flex;
-  gap: 2px;
-}
-
-.site-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 36px;
-  padding: 0 var(--space-3);
-  border-radius: var(--radius-pill);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--color-ink-soft);
-  transition:
-    color var(--duration-base) var(--ease-out),
-    background-color var(--duration-base) var(--ease-out);
-}
-
-.site-link:hover {
-  color: var(--color-accent);
-}
-
-/* Sur mobile, le nom reste visible : c'est le seul endroit du premier
-   écran où il apparaît. Les liens passent sur une seconde ligne. */
-@media (max-width: 600px) {
-  .site-nav {
-    flex-wrap: wrap;
-    row-gap: 0;
-  }
-
-  .site-links {
-    flex: 1 0 100%;
-    justify-content: space-between;
-  }
-
-  .site-link {
-    padding: 0 6px;
-    font-size: 0.8125rem;
-    white-space: nowrap;
-  }
 }
 
 /* ==================== HERO ==================== */
@@ -206,30 +352,6 @@
   border-top: 1px solid var(--color-line);
 }
 
-/* Frise et thèmes : côte à côte (desktop), empilés (mobile), séparés par
-   un filet vertical. Pas de boîte autour : les graphiques sont dans le
-   flux de la page. */
-.hero-charts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-top: var(--rule);
-}
-
-.hero-charts > * {
-  min-width: 0;
-  min-height: 300px;
-}
-
-.hero-charts > .chart-card {
-  padding: var(--space-6) var(--space-6) var(--space-6) 0;
-}
-
-.hero-charts > .chart-card + .chart-card {
-  padding-left: var(--space-6);
-  padding-right: 0;
-  border-left: var(--rule);
-}
-
 @media (max-width: 820px) {
   .hero-card {
     grid-template-columns: minmax(0, 1fr);
@@ -242,24 +364,6 @@
 
   .hero-photo {
     width: 132px;
-  }
-
-  .hero-charts {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .hero-charts > .chart-card,
-  .hero-charts > .chart-card + .chart-card {
-    padding: var(--space-6) 0;
-    border-left: 0;
-  }
-
-  .hero-charts > .chart-card + .chart-card {
-    border-top: var(--rule);
-  }
-
-  .hero-charts > * {
-    min-height: 260px;
   }
 }
 
@@ -409,35 +513,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
-}
-
-.project-card--empty {
-  align-items: center;
-  justify-content: center;
-  min-height: 220px;
-  border-top: 0;
-  text-align: center;
-  gap: var(--space-2);
-}
-
-.project-empty-mark {
-  width: 36px;
-  height: 36px;
-  margin-bottom: var(--space-2);
-  border-radius: 50%;
-  box-shadow: var(--shadow-inset);
-}
-
-.project-empty-title {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: var(--text-md);
-  color: var(--color-ink-soft);
-}
-
-.project-empty-sub {
-  font-size: var(--text-xs);
-  color: var(--color-ink-soft);
 }
 
 /* ==================== PARCOURS ==================== */
@@ -729,52 +804,6 @@
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 2px;
-}
-
-/* ==================== RETOUR EN HAUT ==================== */
-.scroll-to-top {
-  position: fixed;
-  right: max(20px, env(safe-area-inset-right, 0px));
-  bottom: max(20px, env(safe-area-inset-bottom, 0px));
-  z-index: 40;
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--color-page);
-  color: var(--color-ink);
-  box-shadow: inset 0 0 0 1px var(--color-line-strong);
-}
-
-.scroll-to-top:hover {
-  color: var(--color-accent);
-}
-
-/* Sur téléphone, le bouton flottant cachait du texte pendant la lecture ;
-   le geste natif (toucher la barre d'état, glisser) suffit. */
-@media (max-width: 600px) {
-  .scroll-to-top {
-    display: none;
-  }
-}
-
-/* Icônes de navigation en couleur de texte pleine : en gris, leur trait
-   fin disparaissait à cette taille. */
-.site-link .anim-icon {
-  color: var(--color-ink);
-}
-
-.site-link:hover .anim-icon {
-  color: var(--color-accent);
-}
-
-/* Sur téléphone, les liens restent du texte seul : quatre icônes en plus
-   ne tiendraient pas sur la ligne. */
-@media (max-width: 600px) {
-  .site-link .anim-icon {
-    display: none;
-  }
 }
 
 /* ==================== À PROPOS ==================== */

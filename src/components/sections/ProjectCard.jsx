@@ -7,14 +7,22 @@ import { formatPeriod } from "../../lib/dates.js";
 import ProjectCompetences from "../ui/ProjectCompetences.jsx";
 
 // Carte d'un projet. `cadreLabel` est résolu par la grille (id -> libellé),
-// `competences` est la liste des compétences du BUT (id -> libellé).
-function ProjectCard({ projet, cadreLabel, competences }) {
+// `competences` est la liste des compétences du BUT (id -> libellé),
+// `index` la position dans la liste, affichée « 01 », « 02 »… devant le titre.
+function ProjectCard({ projet, cadreLabel, competences, index }) {
   const { title, pitch, stack = [], team, links = [], start, end } = projet;
   const period = formatPeriod(start, end);
 
   return (
     <Block as="article" interactive className="project-card">
-      <h3 className="project-title">{title}</h3>
+      <h3 className="project-title">
+        {index !== undefined && (
+          <span className="project-index tabular" aria-hidden="true">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        )}
+        {title}
+      </h3>
       {pitch && <p className="project-pitch">{pitch}</p>}
 
       {/* Cadre, dates et compétences : des repères du même ordre, sur une
@@ -64,21 +72,6 @@ function ProjectCard({ projet, cadreLabel, competences }) {
           </div>
         )}
       </footer>
-    </Block>
-  );
-}
-
-// Emplacement d'un projet pas encore publié : carte creuse en pointillé.
-export function ProjectPlaceholder({ cadreLabel }) {
-  return (
-    <Block
-      as="article"
-      variant="hollow"
-      className="project-card project-card--empty"
-    >
-      <span className="project-empty-mark" aria-hidden="true" />
-      <p className="project-empty-title">Bientôt en ligne</p>
-      {cadreLabel && <p className="project-empty-sub">Projet {cadreLabel}</p>}
     </Block>
   );
 }

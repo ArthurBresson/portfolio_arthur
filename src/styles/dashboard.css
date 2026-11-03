@@ -1,61 +1,7 @@
-/* ==================== VERSION DASHBOARD ====================
-   Grille 3×3 sans scroll (desktop) : 8 graphiques-filtres autour d'une
-   case centrale. Tout est scopé sous .dash pour ne pas toucher la version
-   classique (layout.css / dataviz.css), qui garde son scroll. */
-
-/* ---------- Bascule entre les deux versions ---------- */
-.version-switch {
-  position: fixed;
-  z-index: 60;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px;
-  border-radius: var(--radius-pill);
-  background: var(--color-page);
-  box-shadow: inset 0 0 0 1px var(--color-line);
-}
-
-.version-switch-option {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: var(--text-sm);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: var(--color-ink-soft);
-  -webkit-tap-highlight-color: transparent;
-  transition:
-    background-color var(--duration-base) var(--ease-out),
-    color var(--duration-base) var(--ease-out);
-}
-
-.version-switch-option:hover {
-  color: var(--color-ink);
-}
-
-.version-switch-option[aria-pressed="true"] {
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-  box-shadow: var(--shadow-chip-active);
-}
-
-.app--dashboard .version-switch {
-  top: max(10px, env(safe-area-inset-top, 0px));
-  right: max(16px, env(safe-area-inset-right, 0px));
-}
-
-/* Classique : en bas de page, dans le flux, pour ne jamais masquer de
-   contenu pendant le défilement. */
-.app--classique .version-switch {
-  position: static;
-  display: flex;
-  width: fit-content;
-  margin: var(--space-8) auto
-    max(var(--space-8), env(safe-area-inset-bottom, 0px));
-}
+/* ==================== VERSION DASHBOARD (ordinateur) ====================
+   Grille 3×3 sans scroll : 8 cases (graphiques-filtres, sport, contact)
+   autour d'une case centrale. Tout est scopé sous .dash pour ne pas
+   toucher la version mobile (layout.css), qui défile. */
 
 /* ---------- Grille ---------- */
 /* Une grille de journal : pas de cases en relief, des filets fins entre
@@ -76,7 +22,7 @@
   height: 100dvh;
   max-width: 1680px;
   margin-inline: auto;
-  padding-top: max(56px, env(safe-area-inset-top, 0px));
+  padding-top: max(var(--dash-gap), env(safe-area-inset-top, 0px));
   padding-bottom: max(var(--dash-gap), env(safe-area-inset-bottom, 0px));
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
@@ -1152,8 +1098,8 @@
       "sport"
       "contact";
     height: auto;
-    padding-top: max(64px, env(safe-area-inset-top, 0px));
-    padding-bottom: max(88px, env(safe-area-inset-bottom, 0px));
+    padding-top: max(16px, env(safe-area-inset-top, 0px));
+    padding-bottom: max(24px, env(safe-area-inset-bottom, 0px));
     overflow: visible;
   }
 
@@ -1198,14 +1144,6 @@
 
   .project-stage {
     overflow: visible;
-  }
-
-  .app--dashboard .version-switch {
-    position: static;
-    display: flex;
-    width: fit-content;
-    margin: var(--space-6) auto
-      max(var(--space-6), env(safe-area-inset-bottom, 0px));
   }
 }
 

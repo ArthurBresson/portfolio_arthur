@@ -10,10 +10,11 @@ const GROUPS = [
 ];
 
 // Version lisible du parcours : deux colonnes, du plus récent au plus ancien.
-function Parcours({ parcours = [] }) {
+function Parcours({ parcours = [], number }) {
   return (
     <Section
       id="parcours"
+      number={number}
       kicker="Parcours"
       icon="suitcase"
       title="Formation et expériences"

@@ -16,7 +16,7 @@ const swap = {
   exit: { opacity: 0, y: -6, filter: "blur(2px)" },
 };
 
-function Contact({ profil, mentions }) {
+function Contact({ profil, mentions, number }) {
   const { nom, email, socials = [] } = profil;
   const emailReference = useRef(null);
   const [copied, copy] = useCopy(emailReference);
@@ -31,6 +31,7 @@ function Contact({ profil, mentions }) {
         <Reveal>
           <Block className="contact-card">
             <p className="section-kicker">
+              {number && <span className="section-number">{number}</span>}
               <AnimatedIcon name="mail" size={20} trigger="in" />
               Contact
             </p>

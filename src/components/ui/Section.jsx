@@ -4,7 +4,17 @@ import Reveal from "./Reveal.jsx";
 
 // Enveloppe commune des sections : ancre, en-tête (kicker + titre + intro).
 // `icon` : icône Lordicon devant le kicker, jouée une fois à l'arrivée.
-function Section({ id, kicker, icon, title, lead, className = "", children }) {
+// `number` : numéro de section (« 02 »), repris du menu.
+function Section({
+  id,
+  kicker,
+  icon,
+  number,
+  title,
+  lead,
+  className = "",
+  children,
+}) {
   const titleId = `${id}-title`;
   return (
     <section
@@ -16,6 +26,7 @@ function Section({ id, kicker, icon, title, lead, className = "", children }) {
         <Reveal as="header" className="section-head">
           {kicker && (
             <p className="section-kicker">
+              {number && <span className="section-number">{number}</span>}
               {icon && <AnimatedIcon name={icon} size={20} trigger="in" />}
               {kicker}
             </p>
