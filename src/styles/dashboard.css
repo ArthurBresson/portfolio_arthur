@@ -98,6 +98,15 @@
   .dash .center-card {
     padding: 12px 16px;
   }
+
+  .dash .tech-cloud {
+    gap: 3px;
+  }
+
+  .dash .tech-bubble {
+    padding: calc(2px + 4px * var(--weight, 0.5))
+      calc(6px + 6px * var(--weight, 0.5));
+  }
 }
 
 @media (max-width: 1200px) {
@@ -105,9 +114,10 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr);
   }
 
-  /* Colonne étroite : les bulles des technos se serrent pour tenir. */
+  /* Colonne étroite (et écran bas, plus haut) : les bulles des technos
+     se serrent pour tenir. */
   .dash .tech-cloud {
-    gap: 4px;
+    gap: 3px;
   }
 
   .dash .tech-bubble {
@@ -466,7 +476,6 @@
 
 .status-value {
   font-family: var(--font-display);
-  font-size-adjust: none;
   font-size: clamp(1.4rem, 2.2vw, 2rem);
   font-weight: 700;
   line-height: 1.1;
@@ -615,7 +624,6 @@
 
 .sport-chronos dd {
   font-family: var(--font-display);
-  font-size-adjust: none;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -642,7 +650,6 @@
 
 .contact-fact dd {
   font-family: var(--font-display);
-  font-size-adjust: none;
   font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.2;
@@ -708,8 +715,8 @@
   /* Sécurité des petits écrans : le texte défile (avec fondu) plutôt
      que d'être coupé par la case. */
   overflow-y: auto;
-  /* Les glyphes de Kalam dépassent leur ligne d'un pixel : sans cette
-     marge, la case se croit à défiler et estompe le bas (fondu). */
+  /* Marge de sécurité sous les dernières lignes : sans elle, un jambage
+     qui dépasse d'un pixel fait croire à la case qu'elle défile. */
   padding-bottom: 4px;
 }
 
@@ -724,9 +731,8 @@
 
 .home-quote blockquote {
   font-family: var(--font-display);
-  font-size-adjust: none;
-  /* Kalam a de grandes hampes : la citation reste assez petite et serrée
-     pour tenir dans sa case sans défiler, mobile compris. */
+  /* La citation grandit avec la case, en restant serrée pour tenir sans
+     défiler, mobile compris. */
   font-size: clamp(1rem, min(5cqw, 8.6cqh), 2.6rem);
   font-weight: 700;
   line-height: 1.12;
@@ -755,7 +761,6 @@
 /* Mon nom, en titre centré au-dessus de la citation. */
 .home-name {
   font-family: var(--font-display);
-  font-size-adjust: none;
   font-size: clamp(1.5rem, min(8cqw, 13cqh), 3.8rem);
   font-weight: 700;
   line-height: 1.1;
@@ -1052,7 +1057,6 @@
 
 .chrono-list dd {
   font-family: var(--font-display);
-  font-size-adjust: none;
   font-size: clamp(1.1rem, 5cqh, 1.6rem);
   font-weight: 700;
 }

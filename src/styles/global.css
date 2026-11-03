@@ -9,10 +9,7 @@
   box-sizing: border-box;
 }
 
-/* Kalam (titres) a un petit œil : tout le texte (tailles en rem) monte
-   d'un cran. Les espacements, en px, ne bougent pas. */
 html {
-  font-size: 112.5%;
   background-color: var(--color-page);
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
@@ -25,10 +22,6 @@ body {
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--text-base);
-  /* Nunito est bien plus large que la police manuscrite qu'elle remplace :
-     on la ramène à une hauteur d'x de 0,43 em (≈ −15 %) pour que le texte
-     garde sa place. Les règles en Kalam (titres) remettent `none`. */
-  font-size-adjust: 0.43;
   line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -61,7 +54,6 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-size-adjust: none;
   font-weight: 700;
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-snug);

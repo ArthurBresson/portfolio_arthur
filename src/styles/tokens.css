@@ -6,8 +6,9 @@
      feutre rouge pour l'action (boutons, chips actives, liens).
    - Les variables `--color-gold*` portent la signature : elles gardent ce
      nom, mais valent l'encre bleue.
-   - Polices : Kalam, manuscrite, pour les titres ; Nunito, arrondie et
-     plus lisible, pour le texte (chargées dans index.html).
+   - Polices droites pour trancher avec le trait dessiné : Bricolage
+     Grotesque, grotesque expressive, pour les titres ; Geist, nette et
+     sobre, pour le texte (chargées dans index.html).
    - Contours tremblés : chaque arrondi est un peu irrégulier, comme un
      trait de crayon. */
 :root {
@@ -70,8 +71,8 @@
   --radius-pill: 255px 15px 225px 15px / 15px 225px 15px 255px;
 
   /* --- Typographie --- */
-  --font-display: "Kalam", "Comic Sans MS", cursive;
-  --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --font-body: "Geist", "Segoe UI", system-ui, sans-serif;
 
   --text-xs: 0.75rem; /* 12px */
   --text-sm: 0.875rem; /* 14px */
@@ -85,7 +86,7 @@
   --leading-tight: 1.08;
   --leading-snug: 1.25;
   --leading-body: 1.6;
-  --tracking-display: 0;
+  --tracking-display: -0.025em;
   --tracking-label: 0.04em;
 
   /* --- Espacements (base 4px) --- */
