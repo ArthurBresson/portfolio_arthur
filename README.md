@@ -31,7 +31,7 @@ npm run lint      # ESLint
 ## Structure
 
 ```
-public/                    favicon, apple-touch-icon, photo, robots.txt, sitemap.xml
+public/                    favicons (svg, ico, png 96/192/512, manifest), apple-touch-icon, photo, robots.txt, sitemap.xml
 seo/staticContent.js       plugin Vite : écrit le contenu en HTML dans index.html au build, pour les robots sans JavaScript
 src/
 ├── App.jsx                choix de la version selon la largeur d'écran (dashboard ou mobile)
