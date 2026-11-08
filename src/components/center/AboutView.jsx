@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types -- pas de dépendance prop-types dans le projet */
 import { useState } from "react";
 import BackButton from "./BackButton.jsx";
+import QualityList from "../ui/QualityList.jsx";
 
 const TABS = [
   { id: "presentation", label: "Qui je suis" },
@@ -10,7 +11,12 @@ const TABS = [
 // Vue « Qui je suis » de la case centrale. Deux onglets sur toute la
 // largeur (présentation, savoir-être) : les deux côte à côte ne tiennent
 // pas dans la case sans défiler.
-function AboutView({ presentation = [], savoirEtre = [], onBack }) {
+function AboutView({
+  presentation = [],
+  savoirEtre = [],
+  parcours = [],
+  onBack,
+}) {
   const [tab, setTab] = useState(TABS[0].id);
 
   return (
@@ -44,14 +50,7 @@ function AboutView({ presentation = [], savoirEtre = [], onBack }) {
       ) : (
         <section className="detail-block">
           <h2 className="visually-hidden">Savoir-être</h2>
-          <ul className="quality-list quality-list--compact">
-            {savoirEtre.map((qualite) => (
-              <li key={qualite.id} className="quality">
-                <h3 className="quality-title">{qualite.titre}</h3>
-                <p className="quality-proof">{qualite.preuve}</p>
-              </li>
-            ))}
-          </ul>
+          <QualityList savoirEtre={savoirEtre} parcours={parcours} compact />
         </section>
       )}
     </div>

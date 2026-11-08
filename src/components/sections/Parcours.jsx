@@ -31,7 +31,11 @@ function Parcours({ parcours = [], number }) {
                 <h3 className="parcours-group">{group.title}</h3>
                 <ol className="parcours-list">
                   {entries.map((entry) => (
-                    <li key={entry.id} className="parcours-item">
+                    <li
+                      key={entry.id}
+                      id={`parcours-${entry.id}`}
+                      className="parcours-item"
+                    >
                       <p className="parcours-period tabular">
                         {formatPeriod(entry.start, entry.end)}
                       </p>

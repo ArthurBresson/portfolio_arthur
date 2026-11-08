@@ -73,7 +73,16 @@ function render() {
           <section>
             <h2>Savoir-être</h2>
             <ul>
-              ${savoirEtre.map((item) => `<li><strong>${escape(item.titre)}</strong> : ${escape(item.preuve)}</li>`).join("\n              ")}
+              ${savoirEtre
+                .map((item) => {
+                  const lieux = (item.experiences ?? [])
+                    .map((id) => etapes.find((etape) => etape.id === id))
+                    .filter(Boolean)
+                    .map((etape) => escape(etape.place))
+                    .join(", ");
+                  return `<li><strong>${escape(item.titre)}</strong> : ${escape(item.phrase)}${lieux ? ` Voir : ${lieux}.` : ""}</li>`;
+                })
+                .join("\n              ")}
             </ul>
           </section>
         </main>

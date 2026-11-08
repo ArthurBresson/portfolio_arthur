@@ -131,6 +131,7 @@ function DashboardApp() {
           langues={langues}
           hobbies={hobbies}
           savoirEtre={savoirEtre}
+          parcours={parcours}
           mentions={mentions}
           onOpenAbout={() => openDetail("about")}
           onRemoveAxis={removeAxis}

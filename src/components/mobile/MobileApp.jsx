@@ -68,6 +68,7 @@ function MobileApp() {
           number={numberOf("a-propos")}
           presentation={profil.presentation}
           savoirEtre={savoirEtre}
+          parcours={parcours}
         />
         <Projects
           number={numberOf("projets")}

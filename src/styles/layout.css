@@ -826,7 +826,7 @@
   border-top: var(--rule-strong);
 }
 
-/* Savoir-être : une qualité, sa preuve. Aussi dans la vue « Qui je
+/* Savoir-être : une qualité, une phrase, les expériences en lien. Aussi dans la vue « Qui je
    suis » du dashboard (version compacte). */
 .quality-list {
   display: grid;
@@ -845,6 +845,36 @@
 
 .quality-proof {
   font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+}
+
+.quality-refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-ink-soft);
+}
+
+.quality-ref {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-gold-deep);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.quality-ref[aria-expanded="true"] {
+  text-decoration-thickness: 2px;
+}
+
+.quality-ref-detail {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
   color: var(--color-ink-soft);
 }
 

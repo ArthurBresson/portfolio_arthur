@@ -28,6 +28,7 @@ function CenterPanel({
   langues,
   hobbies,
   savoirEtre,
+  parcours,
   mentions,
   onOpenAbout,
   onRemoveAxis,
@@ -64,6 +65,7 @@ function CenterPanel({
         <AboutView
           presentation={profil.presentation}
           savoirEtre={savoirEtre}
+          parcours={parcours}
           onBack={onBack}
         />
       );

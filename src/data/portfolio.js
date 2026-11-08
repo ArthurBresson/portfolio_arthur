@@ -140,20 +140,21 @@ export const parcours = [
     id: "conseil-utt",
     type: "experience",
     title: "Responsable communication",
-    place: "Conseil UTT",
+    place: "Junior Conseil UTT",
     start: "2024-09",
     end: "2025-06",
     detail:
-      "J'ai organisé le concours d'éloquence 2025 et dirigé le pôle communication.",
+      "J'ai dirigé le pôle communication et participé à l'organisation du concours d'éloquence 2025, avec la Fondation UTT, des directeurs de lycée, la préfecture et le rectorat.",
   },
   {
     id: "evad",
     type: "experience",
-    title: "Animateur en colonie",
+    title: "Animateur en stage vacances",
     place: "Evad'Assoc",
     start: "2025-07",
     end: "2025-08",
-    detail: "Deux colonies animées, la première seul, la seconde en équipe.",
+    detail:
+      "Deux stages vacances animés, le premier seul, le second en équipe.",
   },
   {
     id: "crna",
@@ -401,25 +402,29 @@ export const lifestyle = [
   },
 ];
 
-// Savoir-être : trois qualités, chacune avec sa preuve tirée du parcours.
+// Savoir-être : une phrase par qualité. La preuve est dans le parcours :
+// `experiences` liste les étapes (ids de `parcours`) à ouvrir en lien.
 export const savoirEtre = [
   {
     id: "communication",
     titre: "Communication",
-    preuve:
-      "Responsable communication au conseil de l'UTT : j'ai organisé le concours d'éloquence 2025 et dirigé le pôle communication.",
+    phrase:
+      "J'adapte ma façon de parler à mon interlocuteur, qu'il soit étudiant, chef d'établissement ou représentant de l'État.",
+    experiences: ["conseil-utt"],
   },
   {
     id: "organisation",
     titre: "Organisation",
-    preuve:
-      "Alternance chez Hager, BUT, BressoDup et entraînements de triathlon dans la même semaine. Je planifie chaque créneau, et j'ai quand même gagné 15 minutes entre mes deux triathlons M.",
+    phrase:
+      "Je planifie ma semaine créneau par créneau pour mener plusieurs engagements de front sans en lâcher un.",
+    experiences: ["hager", "iut"],
   },
   {
     id: "equipe",
     titre: "Travail en équipe",
-    preuve:
-      "Animateur en colonie, d'abord seul avec un groupe, puis en équipe. Côté code, CoLive à cinq et Running Data à quatre.",
+    phrase:
+      "Je trouve ma place dans un groupe, que je le mène ou que j'y tienne un rôle parmi d'autres.",
+    experiences: ["evad", "crna"],
   },
 ];
 

@@ -21,8 +21,8 @@ const SHORT = {
   utt: "UTT",
   iut: "BUT Info",
   spie: "SPIE",
-  "conseil-utt": "Conseil UTT",
-  evad: "Colo",
+  "conseil-utt": "Junior Conseil",
+  evad: "Animation",
   crna: "CRNA",
   hager: "Hager",
 };

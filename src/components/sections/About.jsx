@@ -2,10 +2,11 @@
 import Block from "../ui/Block.jsx";
 import Reveal from "../ui/Reveal.jsx";
 import Section from "../ui/Section.jsx";
+import QualityList from "../ui/QualityList.jsx";
 
 // Section « À propos » : la présentation en quelques phrases, puis le
-// savoir-être (trois qualités, chacune avec sa preuve).
-function About({ presentation = [], savoirEtre = [], number }) {
+// savoir-être (une phrase par qualité, avec un lien vers les expériences).
+function About({ presentation = [], savoirEtre = [], parcours = [], number }) {
   return (
     <Section
       id="a-propos"
@@ -28,14 +29,12 @@ function About({ presentation = [], savoirEtre = [], number }) {
           <Reveal delay={0.06}>
             <Block className="about-qualities">
               <h3 className="parcours-group">Savoir-être</h3>
-              <ul className="quality-list">
-                {savoirEtre.map((qualite) => (
-                  <li key={qualite.id} className="quality">
-                    <h4 className="quality-title">{qualite.titre}</h4>
-                    <p className="quality-proof">{qualite.preuve}</p>
-                  </li>
-                ))}
-              </ul>
+              <QualityList
+                savoirEtre={savoirEtre}
+                parcours={parcours}
+                anchor
+                Heading="h4"
+              />
             </Block>
           </Reveal>
         )}
